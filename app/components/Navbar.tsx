@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
 import { Magnetic } from "./Magnetic";
 
@@ -13,18 +13,28 @@ const navItems = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // ── Fix: close the mobile menu whenever the viewport widens past md (768px)
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setIsOpen(false);
+    };
+
+    // Close immediately if we're already on desktop when this mounts
+    if (mq.matches) setIsOpen(false);
+
+    mq.addEventListener("change", handleChange);
+    return () => mq.removeEventListener("change", handleChange);
+  }, []);
+
   const scrollToTop = () => {
     setIsOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Variants for the Hamburger lines with explicit typing
   const lineVariants: Variants = {
-    closed: {
-      rotate: 0,
-      y: 0,
-      opacity: 1,
-    },
+    closed: { rotate: 0, y: 0, opacity: 1 },
     opened: (i: number) => {
       if (i === 0) return { rotate: 45, y: 8 };
       if (i === 1) return { opacity: 0 };
@@ -32,7 +42,6 @@ export function Navbar() {
     },
   };
 
-  // Variants for the staggered Nav Items with explicit typing
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: (i: number) => ({
@@ -105,9 +114,10 @@ export function Navbar() {
 
         {/* Burger Button (Mobile) */}
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen((prev) => !prev)}
           className="md:hidden flex flex-col gap-[6px] p-2 pointer-events-auto z-[110]"
           aria-label="Toggle Menu"
+          aria-expanded={isOpen}
         >
           {[0, 1, 2].map((i) => (
             <motion.span

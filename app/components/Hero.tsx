@@ -111,19 +111,19 @@ export function Hero() {
           >
             <motion.span
               variants={lineReveal}
-              className="text-5xl sm:text-7xl lg:text-[110px] leading-[1.05] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
               Building bridges
             </motion.span>
             <motion.span
               variants={lineReveal}
-              className="text-5xl sm:text-7xl lg:text-[110px] leading-[1.05] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
               between <span className="text-[#a87ffb]">developers</span>
             </motion.span>
             <motion.span
               variants={lineReveal}
-              className="text-5xl sm:text-7xl lg:text-[110px] leading-[1.05] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
               & technology
             </motion.span>

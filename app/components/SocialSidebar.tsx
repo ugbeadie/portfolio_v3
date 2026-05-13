@@ -72,7 +72,7 @@ export function SocialSidebar() {
               key={social.name}
               href={social.href}
               style={{ backgroundColor: social.hoverColor }}
-              className="group flex items-center justify-end h-16 cursor-pointer overflow-hidden"
+              className="group flex items-center justify-end h-12 cursor-pointer overflow-hidden"
               initial="initial"
               animate="animate"
               whileHover="hover"
@@ -118,7 +118,7 @@ export function SocialSidebar() {
               </motion.div>
 
               {/* Persistent Icon Block */}
-              <div className="w-16 h-16 flex items-center justify-center text-white shrink-0">
+              <div className="w-12 h-12 flex items-center justify-center text-white shrink-0">
                 <Icon className="w-6 h-6" />
               </div>
             </motion.a>
