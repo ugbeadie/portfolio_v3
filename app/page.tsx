@@ -9,6 +9,7 @@ import { motion, useScroll, useSpring } from "motion/react";
 import { ThemeProvider } from "next-themes";
 import { SocialSidebar } from "./components/SocialSidebar";
 import { Cursor } from "./components/Cursor";
+import { Navbar } from "./components/Navbar";
 
 export default function App() {
   const { scrollYProgress } = useScroll();
@@ -28,6 +29,7 @@ export default function App() {
       />
 
       <main className="relative z-10">
+        <Navbar />
         <Hero />
         <SocialSidebar />
         <About />
