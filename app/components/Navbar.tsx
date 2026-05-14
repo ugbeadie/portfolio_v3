@@ -12,8 +12,8 @@ const navItems = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // ── Fix: close the mobile menu whenever the viewport widens past md (768px)
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
 
@@ -21,12 +21,32 @@ export function Navbar() {
       if (e.matches) setIsOpen(false);
     };
 
-    // Close immediately if we're already on desktop when this mounts
     if (mq.matches) setIsOpen(false);
 
     mq.addEventListener("change", handleChange);
     return () => mq.removeEventListener("change", handleChange);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   const scrollToTop = () => {
     setIsOpen(false);
@@ -69,11 +89,32 @@ export function Navbar() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-12 py-6 flex items-center justify-between mix-blend-difference text-blend pointer-events-none"
+        className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-12 py-4 flex items-center justify-between pointer-events-none"
       >
+        {/* Animated background that appears on scroll */}
+        <motion.div
+          animate={{
+            backgroundColor: isScrolled
+              ? "rgba(255, 255, 255, 0.15)"
+              : "rgba(255, 255, 255, 0)",
+            backdropFilter: isScrolled ? "blur(16px)" : "blur(0px)",
+          }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 pointer-events-none dark:hidden"
+        />
+        <motion.div
+          animate={{
+            backgroundColor: isScrolled
+              ? "rgba(10, 10, 10, 0.15)"
+              : "rgba(10, 10, 10, 0)",
+            backdropFilter: isScrolled ? "blur(16px)" : "blur(0px)",
+          }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 pointer-events-none hidden dark:block"
+        />
         <div
           onClick={scrollToTop}
-          className="font-sans text-2xl font-bold tracking-tight pointer-events-auto cursor-pointer"
+          className="font-sans text-2xl font-bold tracking-tight pointer-events-auto cursor-pointer text-foreground relative z-10"
         >
           <a
             href="#hero"
@@ -87,12 +128,12 @@ export function Navbar() {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-12 font-sans text-sm font-medium tracking-wide pointer-events-auto">
+        <div className="hidden md:flex items-center gap-12 font-sans text-sm font-medium tracking-wide pointer-events-auto relative z-10">
           {navItems.map((item) => (
             <Magnetic key={item.name}>
               <a
                 href={item.href}
-                className="group relative block overflow-visible py-2"
+                className="group relative block overflow-visible py-2 text-foreground"
               >
                 <span className="invisible">{item.name}</span>
                 <span
@@ -115,7 +156,7 @@ export function Navbar() {
         {/* Burger Button (Mobile) */}
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="md:hidden flex flex-col gap-[6px] p-2 pointer-events-auto z-[110]"
+          className="md:hidden flex flex-col gap-[6px] p-2 pointer-events-auto z-[111] relative"
           aria-label="Toggle Menu"
           aria-expanded={isOpen}
         >
@@ -125,7 +166,7 @@ export function Navbar() {
               custom={i}
               variants={lineVariants}
               animate={isOpen ? "opened" : "closed"}
-              className="w-8 h-[2px] bg-white rounded-full"
+              className="w-8 h-[2px] bg-foreground rounded-full"
             />
           ))}
         </button>
@@ -152,7 +193,7 @@ export function Navbar() {
                   animate="show"
                   exit="exit"
                   onClick={() => setIsOpen(false)}
-                  className="group relative block text-4xl font-display font-bold text-text overflow-visible"
+                  className="group relative block text-4xl font-display font-bold text-foreground overflow-visible"
                 >
                   <span className="invisible">{item.name}</span>
                   <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-out group-active:-translate-y-[2px] [clip-path:inset(0_0_50%_0)]">
@@ -169,7 +210,7 @@ export function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               transition={{ delay: 0.8 }}
-              className="absolute bottom-12 text-sm font-sans tracking-widest uppercase"
+              className="absolute bottom-12 text-sm font-sans tracking-widest uppercase text-foreground"
             >
               Get in touch
             </motion.div>

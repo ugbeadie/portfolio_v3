@@ -58,7 +58,7 @@ export function Hero() {
       id="home"
       className="min-h-screen flex flex-col justify-center px-6 relative pt-20 lg:pt-0"
     >
-      <div className="max-w-6xl w-full mx-auto flex flex-col items-start relative z-10">
+      <div className="max-w-6xl w-full mx-auto flex flex-col items-center sm:items-start relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,23 +109,27 @@ export function Hero() {
             initial="hidden"
             animate="visible"
           >
+            {/* Engineering clean interfaces and scalable solutions. */}
+            {/* Engineering seamless experiences across web and mobile. */}
+            {/* "Software Engineer. Problem Solver. Creating clean, scalable code." */}
             <motion.span
               variants={lineReveal}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
-              Building bridges
+              Crafting scalable,
             </motion.span>
             <motion.span
               variants={lineReveal}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
-              between <span className="text-[#a87ffb]">developers</span>
+              <span className="text-[#a87ffb]">user-first </span>experiences
+              {/* between <span className="text-[#a87ffb]">developers</span> */}
             </motion.span>
             <motion.span
               variants={lineReveal}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
-              & technology
+              across web and mobile.
             </motion.span>
           </motion.h1>
 
@@ -173,10 +177,10 @@ export function Hero() {
 
             <Magnetic>
               <a
-                href="#about"
+                href="#projects"
                 className="px-8 py-3.5 rounded-[40px] border border-foreground/20 text-foreground font-medium hover:bg-foreground/5 transition-colors flex items-center justify-center"
               >
-                About Me
+                View Projects
               </a>
             </Magnetic>
           </motion.div>
