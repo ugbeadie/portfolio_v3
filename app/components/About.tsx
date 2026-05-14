@@ -1,95 +1,186 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
+
+const techStacks = {
+  languages: [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "TypeScript",
+    "Dart",
+    "Python",
+    "React.js",
+    "Vue.js",
+    "Next.js",
+    "Nuxt.js",
+    "React Native",
+    "Flutter",
+    "Expo",
+  ],
+
+  styling: [
+    "TailwindCSS",
+    "SASS",
+    "Material UI",
+    "Styled Components",
+    "Bootstrap",
+    "Framer Motion",
+  ],
+
+  database: ["PostgreSQL", "MongoDB", "Drizzle", "Prisma"],
+
+  hosting: ["Firebase", "Supabase", "Neon", "Vercel", "Netlify", "Git/GitHub"],
+};
 
 export function About() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [-100, 100]);
-
   return (
     <section
       id="about"
-      className="py-32 px-6 md:px-12 bg-white relative overflow-hidden"
-      ref={containerRef}
+      className="py-32 px-6 md:px-12 bg-background relative overflow-hidden transition-colors duration-300"
     >
-      <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-        <div className="md:col-span-5 relative h-[600px] w-full rounded-2xl overflow-hidden bg-zinc-100 group">
-          <motion.img
-            style={{ y: y1 }}
-            src="https://images.unsplash.com/photo-1752738372136-2602aaafdcb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMHlvdW5nJTIwcHJvZmVzc2lvbmFsJTIwdGVjaCUyMGRldmVsb3BlcnxlbnwxfHx8fDE3Nzg0MDU2MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Adie Ugbe"
-            className="absolute inset-0 w-full h-[120%] object-cover -top-[10%] grayscale group-hover:grayscale-0 transition-all duration-700"
-          />
-        </div>
-
-        <div className="md:col-span-6 md:col-start-7">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+        {/* LEFT SIDE */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="max-w-2xl w-full mx-auto"
+        >
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="font-['Playfair_Display'] text-5xl md:text-6xl text-zinc-900 mb-8 leading-tight"
+            transition={{ duration: 0.7 }}
+            className="font-display text-5xl md:text-6xl text-text mb-8 leading-tight"
           >
-            Empowering the next generation of{" "}
-            <span className="text-[#ab8bff] italic">creators</span>.
+            Building modern{" "}
+            <span className="text-primary italic">digital experiences</span>.
           </motion.h2>
 
-          <div className="font-['Inter'] text-lg text-zinc-600 space-y-6 leading-relaxed">
+          <div className="font-sans text-md text-text-secondary space-y-6 leading-relaxed">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: 0.1 }}
             >
-              My journey started with a simple fascination for code, but evolved
-              into a mission to democratize technical knowledge. I realized that
-              the best tools are useless if developers don't know how to wield
-              them.
+              My journey into software development started with curiosity and
+              quickly grew into a passion for building intuitive,
+              high-performance applications. I enjoy turning ideas into polished
+              digital experiences while constantly improving my problem-solving
+              and development skills.
             </motion.p>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: 0.2 }}
             >
-              Over the years, I've had the privilege of building a community of
-              over 400,000 developers. Through technical writing, video content,
-              and open-source contributions, I strive to make complex concepts
-              accessible and intuitive.
+              Beyond frontend development, I’ve been actively learning Python
+              for backend development, data science, and AI engineering. I’m
+              particularly interested in understanding how intelligent systems
+              are built, which has also pushed me to explore data-focused
+              workflows since data plays a major role in modern AI applications.
+              Alongside this, I continue refining my mobile development skills
+              and exploring new technologies that help me grow as a developer.
             </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="pt-6 grid grid-cols-2 gap-8 border-t border-zinc-200 mt-8"
+              className="pt-8 border-t border-border"
             >
-              <div>
-                <div className="text-4xl font-['Playfair_Display'] text-zinc-900 mb-2">
-                  400K+
-                </div>
-                <div className="text-sm font-medium uppercase tracking-widest text-zinc-400">
-                  Global Audience
-                </div>
-              </div>
-              <div>
-                <div className="text-4xl font-['Playfair_Display'] text-zinc-900 mb-2">
-                  50+
-                </div>
-                <div className="text-sm font-medium uppercase tracking-widest text-zinc-400">
-                  Tech Talks
-                </div>
+              <p className="text-sm uppercase tracking-[0.2em] text-text-secondary mb-4">
+                Currently Exploring
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                {[
+                  "Backend Systems",
+                  "Data Science",
+                  "AI Engineering",
+                  "Machine Learning",
+                ].map((item) => (
+                  <motion.span
+                    key={item}
+                    whileHover={{ y: -3 }}
+                    className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm border border-primary/20"
+                  >
+                    {item}
+                  </motion.span>
+                ))}
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
+
+        {/* RIGHT SIDE */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="w-full max-w-2xl mx-auto"
+        >
+          <div className="rounded-[2rem] border border-border bg-card p-8 md:p-10 transition-colors duration-300">
+            <p className="text-xs uppercase tracking-[0.3em] text-text-secondary mb-8">
+              Tech Stack
+            </p>
+
+            <div className="space-y-8">
+              {/* LANGUAGES */}
+              <StackSection
+                title="Languages & Frameworks"
+                items={techStacks.languages}
+              />
+
+              {/* STYLING */}
+              <StackSection title="Styling" items={techStacks.styling} />
+
+              {/* DATABASE */}
+              <StackSection
+                title="Database & ORM"
+                items={techStacks.database}
+              />
+
+              {/* HOSTING */}
+              <StackSection
+                title="Hosting & Tools"
+                items={techStacks.hosting}
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
+  );
+}
+
+function StackSection({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div>
+      <h3 className="text-text font-semibold mb-4 text-lg">{title}</h3>
+
+      <div className="flex flex-wrap gap-3">
+        {items.map((tech, index) => (
+          <motion.span
+            key={tech}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.03 }}
+            whileHover={{ y: -3 }}
+            className="px-4 py-2 rounded-full border border-border bg-background text-sm text-text-secondary shadow-sm transition-colors duration-300"
+          >
+            {tech}
+          </motion.span>
+        ))}
+      </div>
+    </div>
   );
 }
