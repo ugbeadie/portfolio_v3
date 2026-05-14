@@ -5,9 +5,9 @@ import { motion, AnimatePresence, Variants } from "motion/react";
 import { Magnetic } from "./Magnetic";
 
 const navItems = [
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "ABOUT", href: "#about" },
+  { name: "PROJECTS", href: "#projects" },
+  { name: "CONTACT", href: "#contact" },
 ];
 
 export function Navbar() {

@@ -51,7 +51,7 @@ const letterVariant: Variants = {
 };
 
 export function Hero() {
-  const description = "FRONTEND DEVELOPER";
+  const description = "SOFTWARE DEVELOPER";
 
   return (
     <section
@@ -109,31 +109,26 @@ export function Hero() {
             initial="hidden"
             animate="visible"
           >
-            {/* Engineering clean interfaces and scalable solutions. */}
-            {/* Engineering seamless experiences across web and mobile. */}
-            {/* "Software Engineer. Problem Solver. Creating clean, scalable code." */}
             <motion.span
               variants={lineReveal}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
-              Crafting scalable,
+              Building thoughtful,
             </motion.span>
             <motion.span
               variants={lineReveal}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
-              <span className="text-[#a87ffb]">user-first </span>experiences
-              {/* between <span className="text-[#a87ffb]">developers</span> */}
+              scalable <span className="text-[#a87ffb]">digital products</span>
             </motion.span>
             <motion.span
               variants={lineReveal}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-bold leading-[1.05] tracking-tight"
             >
-              across web and mobile.
+              for real users.
             </motion.span>
           </motion.h1>
 
-          {/* Staggered Description */}
           <motion.div
             className="mb-12 max-w-2xl"
             variants={letterContainer}
