@@ -16,36 +16,15 @@ export function Contact() {
     e.preventDefault();
 
     const subject = `Portfolio Contact from ${formData.name}`;
+    const body = `\nName: ${formData.name}\n\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n    `;
 
-    const body = `
-Name: ${formData.name}
-
-Email: ${formData.email}
-
-Message:
-${formData.message}
-    `;
-
-    window.location.href = `mailto:ugbeadie3@gmail.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:ugbeadie3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
     <section
       id="contact"
-      className="
-        py-32
-        px-6
-        md:px-12
-        bg-background
-        text-text
-        relative
-        z-20
-        overflow-hidden
-        transition-colors
-        duration-300
-      "
+      className="py-32 px-6 md:px-12 bg-background text-text relative z-20 overflow-hidden transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-16 md:gap-24">
         {/* LEFT */}
@@ -55,13 +34,7 @@ ${formData.message}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="
-                text-5xl
-                md:text-6xl
-                lg:text-7xl
-                leading-none
-                tracking-[-0.06em]
-              "
+              className="text-5xl md:text-6xl lg:text-7xl leading-none tracking-[-0.06em]"
             >
               Let's build <br />
               <span className="text-[#ab8bff] italic">together</span>
@@ -77,25 +50,7 @@ ${formData.message}
             <Magnetic>
               <a
                 href="mailto:ugbeadie3@gmail.com"
-                className="
-                  inline-block
-                  hover:text-[#ab8bff]
-                  transition-colors
-                  relative
-                  after:content-['']
-                  after:absolute
-                  after:bottom-0
-                  after:left-0
-                  after:w-full
-                  after:h-[1px]
-                  after:bg-[#ab8bff]
-                  after:origin-right
-                  hover:after:origin-left
-                  after:scale-x-0
-                  hover:after:scale-x-100
-                  after:transition-transform
-                  after:duration-300
-                "
+                className="inline-block hover:text-[#ab8bff] transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-[#ab8bff] after:origin-right hover:after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
               >
                 ugbeadie3@gmail.com
               </a>
@@ -120,44 +75,13 @@ ${formData.message}
                 required
                 value={formData.name}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    name: e.target.value,
-                  })
+                  setFormData({ ...formData, name: e.target.value })
                 }
-                className="
-                  block
-                  w-full
-                  bg-transparent
-                  border-b
-                  border-border
-                  py-4
-                  font-sans
-                  text-xl
-                  text-text-secondary
-                  focus:outline-none
-                  focus:border-[#ab8bff]
-                  transition-colors
-                  peer
-                "
+                className="block w-full bg-transparent border-b border-border py-4 font-sans text-xl text-text-secondary focus:outline-none focus:border-[#ab8bff] transition-colors peer"
               />
-
               <label
                 htmlFor="name"
-                className="
-                  absolute
-                  left-0
-                  top-4
-                  font-display
-                  text-text-secondary
-                  text-xl
-                  transition-all
-                  peer-focus:-top-4
-                  peer-focus:text-sm
-                  peer-focus:text-[#ab8bff]
-                  peer-[:not(:placeholder-shown)]:-top-4
-                  peer-[:not(:placeholder-shown)]:text-sm
-                "
+                className="absolute left-0 top-4 font-display text-text-secondary text-xl transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-[#ab8bff] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-sm"
               >
                 What's your name?
               </label>
@@ -172,44 +96,13 @@ ${formData.message}
                 required
                 value={formData.email}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    email: e.target.value,
-                  })
+                  setFormData({ ...formData, email: e.target.value })
                 }
-                className="
-                  block
-                  w-full
-                  bg-transparent
-                  border-b
-                  border-border
-                  py-4
-                  font-sans
-                  text-xl
-                  text-text-secondary
-                  focus:outline-none
-                  focus:border-[#ab8bff]
-                  transition-colors
-                  peer
-                "
+                className="block w-full bg-transparent border-b border-border py-4 font-sans text-xl text-text-secondary focus:outline-none focus:border-[#ab8bff] transition-colors peer"
               />
-
               <label
                 htmlFor="email"
-                className="
-                  absolute
-                  left-0
-                  top-8
-                  font-display
-                  text-text-secondary
-                  text-xl
-                  transition-all
-                  peer-focus:top-0
-                  peer-focus:text-sm
-                  peer-focus:text-[#ab8bff]
-                  peer-[:not(:placeholder-shown)]:top-0
-                  peer-[:not(:placeholder-shown)]:text-sm
-                "
+                className="absolute left-0 top-8 font-display text-text-secondary text-xl transition-all peer-focus:top-0 peer-focus:text-sm peer-focus:text-[#ab8bff] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-sm"
               >
                 Your email address?
               </label>
@@ -224,45 +117,13 @@ ${formData.message}
                 required
                 value={formData.message}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    message: e.target.value,
-                  })
+                  setFormData({ ...formData, message: e.target.value })
                 }
-                className="
-                  block
-                  w-full
-                  bg-transparent
-                  border-b
-                  border-border
-                  py-4
-                  font-sans
-                  text-xl
-                  text-text-secondary
-                  focus:outline-none
-                  focus:border-[#ab8bff]
-                  transition-colors
-                  resize-none
-                  peer
-                "
+                className="block w-full bg-transparent border-b border-border py-4 font-sans text-xl text-text-secondary focus:outline-none focus:border-[#ab8bff] transition-colors resize-none peer"
               />
-
               <label
                 htmlFor="message"
-                className="
-                  absolute
-                  left-0
-                  top-8
-                  font-display
-                  text-text-secondary
-                  text-xl
-                  transition-all
-                  peer-focus:top-0
-                  peer-focus:text-sm
-                  peer-focus:text-[#ab8bff]
-                  peer-[:not(:placeholder-shown)]:top-0
-                  peer-[:not(:placeholder-shown)]:text-sm
-                "
+                className="absolute left-0 top-8 font-display text-text-secondary text-xl transition-all peer-focus:top-0 peer-focus:text-sm peer-focus:text-[#ab8bff] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-sm"
               >
                 Tell me about your project
               </label>
@@ -273,45 +134,13 @@ ${formData.message}
               <Magnetic>
                 <button
                   type="submit"
-                  className="
-                    font-sans
-                    group
-                    relative
-                    flex
-                    items-center
-                    justify-center
-                    gap-3
-                    bg-foreground
-                    text-background
-                    px-8
-                    py-4
-                    rounded-full
-                    font-medium
-                    overflow-hidden
-                    w-full
-                    md:w-auto
-                    transition-colors
-                  "
+                  className="font-sans group relative flex items-center justify-center gap-3 bg-foreground text-background px-8 py-4 rounded-full font-medium overflow-hidden w-full md:w-auto transition-colors"
                 >
                   <span className="uppercase relative z-10 flex items-center gap-2 text-sm">
                     Send Message
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      bg-[#ab8bff]
-                      translate-y-[100%]
-                      group-hover:translate-y-0
-                      transition-transform
-                      duration-500
-                      ease-out
-                      z-0
-                      rounded-full
-                    "
-                  />
+                  <div className="absolute inset-0 bg-[#ab8bff] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0 rounded-full" />
                 </button>
               </Magnetic>
             </div>
