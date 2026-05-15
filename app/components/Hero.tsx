@@ -111,19 +111,19 @@ export function Hero() {
           >
             <motion.span
               variants={lineReveal}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-semibold leading-[1.05] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-semibold leading-[1.05] tracking-[-0.06em]"
             >
               Building thoughtful,
             </motion.span>
             <motion.span
               variants={lineReveal}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-semibold leading-[1.05] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-semibold leading-[1.05] tracking-[-0.06em]"
             >
               scalable <span className="text-[#a87ffb]">digital products</span>
             </motion.span>
             <motion.span
               variants={lineReveal}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-semibold leading-[1.05] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-semibold leading-[1.05] tracking-[-0.06em]"
             >
               for real users.
             </motion.span>

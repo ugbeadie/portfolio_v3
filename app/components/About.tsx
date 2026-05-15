@@ -28,6 +28,8 @@ import {
 } from "react-icons/si";
 
 import { Smartphone, Code2, Box } from "lucide-react";
+import { Magnetic } from "./Magnetic";
+import { FaFilePdf } from "react-icons/fa6";
 
 const PythonIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 256 255" fill="none">
@@ -304,6 +306,25 @@ export function About() {
                   </motion.span>
                 ))}
               </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="pt-8 inline-block"
+              >
+                <Magnetic>
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-3 px-8 h-14 rounded-full border
+                    border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white
+                    transition-all uppercase text-xs tracking-widest font-bold text-text"
+                  >
+                    View Resume
+                    <FaFilePdf className="text-lg" />
+                  </a>
+                </Magnetic>
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>
