@@ -19,7 +19,7 @@ export function DarkModeToggle() {
     <motion.button
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-secondary/80 backdrop-blur-sm border border-border text-foreground hover:bg-secondary transition-colors"
+      className="fixed bottom-6 right-6 z-50 p-3 cursor-pointer rounded-full bg-secondary/80 backdrop-blur-sm border border-border text-foreground hover:bg-secondary transition-colors"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}

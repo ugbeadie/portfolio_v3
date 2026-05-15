@@ -91,7 +91,6 @@ export function Navbar() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-12 py-4 flex items-center justify-between pointer-events-none"
       >
-        {/* Animated background that appears on scroll */}
         <motion.div
           animate={{
             backgroundColor: isScrolled
@@ -206,14 +205,14 @@ export function Navbar() {
               ))}
             </div>
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               transition={{ delay: 0.8 }}
               className="absolute bottom-12 text-sm font-sans tracking-widest uppercase text-foreground"
             >
               Get in touch
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         )}
       </AnimatePresence>

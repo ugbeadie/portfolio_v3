@@ -1,33 +1,32 @@
 "use client";
 
 import { motion } from "motion/react";
-import { FileText, Mail } from "lucide-react";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn, FaXTwitter, FaFilePdf } from "react-icons/fa6";
 
 const socials = [
   {
-    name: "LinkedIn",
-    icon: FaLinkedinIn,
-    href: "#",
-    hoverColor: "#0077B5",
-  },
-  {
     name: "GitHub",
     icon: FaGithub,
-    href: "#",
+    href: "https://github.com/ugbeadie",
     hoverColor: "#24292f",
   },
   {
-    name: "Resume",
-    icon: FileText,
-    href: "#",
-    hoverColor: "#4F585F",
+    name: "LinkedIn",
+    icon: FaLinkedinIn,
+    href: "https://www.linkedin.com/in/ugbe-adie/",
+    hoverColor: "#0077B5",
   },
   {
-    name: "Email",
-    icon: Mail,
+    name: "X (Twitter)",
+    icon: FaXTwitter,
+    href: "https://x.com/atersam1",
+    hoverColor: "#000000",
+  },
+  {
+    name: "Resume",
+    icon: FaFilePdf,
     href: "#",
-    hoverColor: "#72C8AB",
+    hoverColor: "#4F585F",
   },
 ];
 
@@ -48,6 +47,8 @@ export function SocialSidebar() {
             <a
               key={social.name}
               href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-full hover:brightness-110 transition-all"
               style={{
                 backgroundColor: social.hoverColor,
@@ -56,7 +57,6 @@ export function SocialSidebar() {
               aria-label={social.name}
             >
               <Icon className="w-5 h-5" />
-              {/* <span className="font-medium text-sm">{social.name}</span> */}
             </a>
           );
         })}
@@ -71,6 +71,8 @@ export function SocialSidebar() {
             <motion.a
               key={social.name}
               href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ backgroundColor: social.hoverColor }}
               className="group flex items-center justify-end h-12 cursor-pointer overflow-hidden"
               initial="initial"
