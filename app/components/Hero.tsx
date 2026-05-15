@@ -158,7 +158,7 @@ export function Hero() {
             <Magnetic>
               <a
                 href="#contact"
-                className="group relative flex items-center justify-center gap-2 bg-foreground text-background px-8 py-3.5 rounded-[40px] font-bold overflow-hidden"
+                className="group relative flex items-center justify-center gap-2 text-sm bg-foreground text-background px-8 py-4 rounded-[40px] overflow-hidden"
               >
                 <span className="uppercase relative z-10 flex items-center gap-2">
                   Get in Touch
@@ -173,7 +173,7 @@ export function Hero() {
             <Magnetic>
               <a
                 href="#projects"
-                className="uppercase px-8 py-3.5 rounded-[40px] border border-foreground/20 text-foreground font-bold hover:bg-foreground/5 transition-colors flex items-center justify-center"
+                className="uppercase px-8 py-4 text-sm rounded-[40px] border border-foreground/20 text-foreground hover:bg-foreground/5 transition-colors flex items-center justify-center"
               >
                 View Projects
               </a>

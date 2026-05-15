@@ -10,6 +10,7 @@ import { ThemeProvider } from "next-themes";
 import { SocialSidebar } from "./components/SocialSidebar";
 import { Cursor } from "./components/Cursor";
 import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 
 export default function App() {
   const { scrollYProgress } = useScroll();
@@ -35,13 +36,8 @@ export default function App() {
         <About />
         <Projects />
         <Contact />
+        <Footer />
       </main>
-
-      <footer className="py-8 px-6 border-t border-border bg-background text-foreground">
-        <div className="max-w-6xl mx-auto text-center opacity-60 text-sm font-medium">
-          <p>&copy; 2026 Ugbe. Built with React & TailwindCSS</p>
-        </div>
-      </footer>
     </div>
   );
 }
