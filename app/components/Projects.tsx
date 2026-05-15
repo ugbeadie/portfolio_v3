@@ -77,7 +77,6 @@ export function Projects() {
   >(null);
 
   useEffect(() => {
-    // Handle body scroll lock
     if (selectedProject) {
       document.body.style.overflow = "hidden";
     } else {
@@ -151,18 +150,12 @@ export function Projects() {
                 {/* Overlay Darkener */}
                 <div className="absolute inset-0 bg-foreground/20 group-hover:bg-transparent transition-all duration-500" />
 
-                {/* UI Indicator: Click to View */}
                 <div className="absolute bottom-6 left-6 overflow-hidden">
                   <div
-                    className="
-                      px-5 py-2 border border-border bg-background/80 backdrop-blur-md 
-                      text-[10px] tracking-[0.25em] uppercase text-text
-                      transition-all duration-500 ease-out
-                      /* Desktop: Hidden until hover */
-                      lg:translate-y-[120%] lg:group-hover:translate-y-0
-                      /* Mobile: Always visible */
-                      translate-y-0
-                    "
+                    className="px-5 py-2 border border-border bg-background/80 backdrop-blur-md
+                    lg:border-0 lg:bg-transparent lg:backdrop-blur-none
+                    text-[10px] tracking-[0.25em] uppercase text-black transition-all duration-500 ease-out
+                    lg:translate-y-[120%] lg:group-hover:translate-y-0 translate-y-0"
                   >
                     Click to view
                   </div>
