@@ -1,102 +1,270 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { X, ExternalLink } from "lucide-react";
+import { SiGithub } from "react-icons/si";
 import { Magnetic } from "./Magnetic";
 
-const works = [
+const projects = [
   {
-    id: "01",
-    title: "Developer Relations Platform",
-    category: "Architecture & Strategy",
-    image:
-      "https://images.unsplash.com/photo-1559028012-481c04fa702d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBkYXJrJTIwd2ViJTIwZGVzaWduJTIwZGFzaGJvYXJkfGVufDF8fHx8MTc3ODQwNTYyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+    id: 1,
+    title: "TRACKR",
+    image: "images/trackr.png",
+    tools: ["Next.js", "Drizzle ORM", "PostgreSQL", "Tailwind"],
+    about:
+      "A full-stack job tracking platform with a drag-and-drop Kanban board, analytics dashboard, GitHub-style activity graph, and AI-powered job detail extraction from pasted job links.",
+    repo: "https://github.com/ugbeadie/billr",
+    live: "https://trackr-neon.vercel.app/",
   },
   {
-    id: "02",
-    title: "Global Tech Summit",
-    category: "Keynote & Evangelism",
-    image:
-      "https://images.unsplash.com/photo-1773611814475-e80ea69a4f2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwZWNvbW1lcmNlJTIwd2Vic2l0ZSUyMGRlc2lnbnxlbnwxfHx8fDE3Nzg0MDU2MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    id: 2,
+    title: "SNAPSACK",
+    image: "images/snapsack.png",
+    tools: ["React.js", "React Icons", "Animate On Scroll"],
+    about:
+      "An ecommerce store built with React focusing on clean UI. See repo README for full project description and walkthrough.",
+    repo: "https://github.com/ugbeadie/react-ecommerce-app",
+    live: "https://ugbecommercials.vercel.app/",
   },
   {
-    id: "03",
-    title: "Open Source Documentation",
-    category: "Technical Content",
-    image:
-      "https://images.unsplash.com/photo-1661246627162-feb0269e0c07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBpbnRlcmZhY2UlMjBkZXNpZ258ZW58MXx8fHwxNzc4MzIzNDk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    id: 3,
+    title: "Github?!",
+    image: "images/github.png",
+    tools: ["React.js", "GitHub API"],
+    about:
+      "Enter a username of choice and get the GitHub profile of the developer in person. See repo README for full project description and walkthrough.",
+    repo: "https://github.com/ugbeadie/github-profile-analyzer",
+    live: "https://githubalyzer.netlify.app/",
   },
 ];
 
-function WorkCard({ work, index }: { work: any; index: number }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-
+function FoldingImage({ src, slices = 6 }: { src: string; slices?: number }) {
   return (
-    <div ref={ref} className="group cursor-pointer mb-24 md:mb-32">
-      <div className="flex items-baseline gap-6 mb-6">
-        <span className="text-sm font-['Inter'] font-medium text-zinc-400">
-          {work.id}
-        </span>
-        <h3 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl text-zinc-900 group-hover:text-[#ab8bff] transition-colors duration-500">
-          {work.title}
-        </h3>
-      </div>
-
-      <div className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden bg-zinc-100 rounded-xl">
-        <motion.img
-          style={{ y }}
-          src={work.image}
-          alt={work.title}
-          className="absolute inset-0 w-full h-[120%] object-cover -top-[10%] scale-100 group-hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+    <div
+      className="w-full h-full flex overflow-hidden"
+      style={{ perspective: "1400px" }}
+    >
+      {Array.from({ length: slices }).map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ rotateY: 90, opacity: 0, z: -300 }}
+          animate={{ rotateY: 0, opacity: 1, z: 0 }}
+          exit={{ rotateY: -90, opacity: 0, z: -300 }}
+          transition={{
+            duration: 0.85,
+            delay: i * 0.07,
+            ease: [0.23, 1, 0.32, 1],
+          }}
+          style={{
+            flex: 1,
+            height: "100%",
+            backgroundImage: `url(${src})`,
+            backgroundSize: `${slices * 100}% 100%`,
+            backgroundPosition: `${(i / (slices - 1)) * 100}% center`,
+            backgroundRepeat: "no-repeat",
+            transformOrigin: i % 2 === 0 ? "left" : "right",
+          }}
         />
-        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
-
-        {/* Hover Reveal Details */}
-        <div className="absolute inset-0 z-20 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-t from-black/60 to-transparent">
-          <div className="flex items-end justify-between translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-            <p className="font-['Inter'] text-white font-medium tracking-wide uppercase text-sm">
-              {work.category}
-            </p>
-            <Magnetic>
-              <button className="w-16 h-16 rounded-full bg-white text-zinc-900 flex items-center justify-center">
-                <ArrowUpRight className="w-6 h-6" />
-              </button>
-            </Magnetic>
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
 
 export function Projects() {
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[0] | null
+  >(null);
+
+  useEffect(() => {
+    // Handle body scroll lock
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedProject]);
+
   return (
-    <section id="projects" className="py-32 px-6 md:px-12 bg-[#fafafa]">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
-          <h2 className="font-['Playfair_Display'] text-6xl md:text-8xl text-zinc-900 leading-none">
-            Selected <br />
-            <span className="italic text-zinc-400">Works</span>
-          </h2>
-          <p className="font-['Inter'] text-lg text-zinc-500 max-w-sm">
-            A curated selection of talks, platforms, and technical content
-            designed to elevate developer experiences.
+    <section
+      id="projects"
+      className="min-h-screen bg-background text-text px-6 md:px-12 py-24 relative overflow-hidden transition-colors duration-300 scroll-mt-32"
+    >
+      {/* HEADING */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-7xl mx-auto mb-24"
+      >
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div className="overflow-hidden">
+            <motion.h2
+              initial={{ y: 120 }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-5xl md:text-6xl lg:text-7xl leading-none tracking-[-0.06em]"
+            >
+              Selected <br />
+              <span className="italic text-[#ab8bff] inline-block">Works</span>
+            </motion.h2>
+          </div>
+          <p className="text-text-secondary text-base md:text-lg max-w-md leading-relaxed">
+            A curated selection of platforms, applications, and digital
+            experiences crafted with modern technologies.
           </p>
         </div>
+      </motion.div>
 
-        <div className="flex flex-col">
-          {works.map((work, index) => (
-            <WorkCard key={work.id} work={work} index={index} />
-          ))}
-        </div>
+      {/* PROJECTS LIST */}
+      <div className="max-w-7xl mx-auto flex flex-col gap-24 relative z-10">
+        {projects.map((project, index) => {
+          const isEven = index % 2 !== 0;
+
+          return (
+            <div
+              key={project.id}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center"
+            >
+              {/* INTERACTIVE IMAGE CONTAINER */}
+              <motion.div
+                onClick={() => setSelectedProject(project)}
+                className={`
+                  relative overflow-hidden cursor-pointer group order-1
+                  ${isEven ? "lg:order-1 lg:col-span-7" : "lg:order-2 lg:col-span-7"}
+                  h-[220px] sm:h-[260px] md:h-[300px] lg:h-[230px] xl:h-[260px]
+                `}
+              >
+                {/* Image Scale Effect */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"
+                  style={{ backgroundImage: `url(${project.image})` }}
+                />
+
+                {/* Overlay Darkener */}
+                <div className="absolute inset-0 bg-foreground/20 group-hover:bg-transparent transition-all duration-500" />
+
+                {/* UI Indicator: Click to View */}
+                <div className="absolute bottom-6 left-6 overflow-hidden">
+                  <div
+                    className="
+                      px-5 py-2 border border-border bg-background/80 backdrop-blur-md 
+                      text-[10px] tracking-[0.25em] uppercase text-text
+                      transition-all duration-500 ease-out
+                      /* Desktop: Hidden until hover */
+                      lg:translate-y-[120%] lg:group-hover:translate-y-0
+                      /* Mobile: Always visible */
+                      translate-y-0
+                    "
+                  >
+                    Click to view
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* PROJECT INFO */}
+              <div
+                className={`order-2 ${
+                  isEven
+                    ? "lg:order-2 lg:col-span-5"
+                    : "lg:order-1 lg:col-span-5"
+                }`}
+              >
+                <h3 className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] font-bold uppercase leading-[0.9] tracking-[-0.05em] mb-8">
+                  {project.title}
+                </h3>
+
+                <div className="flex flex-wrap gap-3">
+                  {project.tools.map((tool, i) => (
+                    <span
+                      key={i}
+                      className="border border-border px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.18em] text-text-secondary bg-card"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
+
+      {/* FULLSCREEN OVERLAY */}
+      <AnimatePresence mode="wait">
+        {selectedProject && (
+          <motion.div
+            className="fixed inset-0 z-[100] bg-background text-text flex flex-col md:flex-row h-screen overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { delay: 0.45 } }}
+          >
+            {/* Modal Content */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+              className="w-full md:w-[45%] h-auto md:h-full bg-background border-b md:border-b-0 md:border-r border-border p-8 md:p-16 flex flex-col justify-center relative z-20"
+            >
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-8 left-8 p-3 rounded-full border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-2 group"
+              >
+                <X
+                  size={20}
+                  className="group-hover:rotate-90 transition-transform duration-300"
+                />
+                <span className="text-xs uppercase tracking-widest">Close</span>
+              </button>
+
+              <div className="space-y-8 mt-12">
+                <h2 className="text-5xl md:text-7xl font-bold uppercase leading-none border-b border-border pb-6">
+                  {selectedProject.title}
+                </h2>
+                <p className="text-text-secondary text-lg leading-relaxed max-w-xl">
+                  {selectedProject.about}
+                </p>
+
+                <div className="flex items-center gap-6 pt-6">
+                  <Magnetic>
+                    <a
+                      href={selectedProject.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-all"
+                    >
+                      <SiGithub size={24} />
+                    </a>
+                  </Magnetic>
+                  <Magnetic>
+                    <a
+                      href={selectedProject.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 px-8 h-14 rounded-full border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all uppercase text-xs tracking-widest font-bold"
+                    >
+                      Live Demo <ExternalLink size={18} />
+                    </a>
+                  </Magnetic>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Modal Image (Folding Effect) */}
+            <div className="w-full md:w-[55%] flex-1 h-[40vh] md:h-full relative overflow-hidden">
+              <FoldingImage src={selectedProject.image} slices={7} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

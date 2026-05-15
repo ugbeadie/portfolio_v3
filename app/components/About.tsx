@@ -220,7 +220,10 @@ const techStacks = {
 
 export function About() {
   return (
-    <section className="py-32 px-6 md:px-12 bg-background relative overflow-hidden">
+    <section
+      id="about"
+      className="py-32 px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
+    >
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
         {/* LEFT */}
         <motion.div
@@ -235,10 +238,10 @@ export function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
-            className="font-display text-5xl md:text-6xl text-text mb-8 leading-tight"
+            className="text-5xl md:text-6xl lg:text-7xl text-text mb-8 leading-tight tracking-[-0.06em]"
           >
-            Building modern{" "}
-            <span className="text-primary italic">digital experiences</span>.
+            Building Modern{" "}
+            <span className="text-primary italic">Digital Experiences</span>
           </motion.h2>
 
           <div className="font-sans text-md text-text-secondary space-y-6 leading-relaxed">
