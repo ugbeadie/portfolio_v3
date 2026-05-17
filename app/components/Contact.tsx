@@ -134,7 +134,7 @@ export function Contact() {
               <Magnetic>
                 <button
                   type="submit"
-                  className="font-sans group relative flex items-center justify-center gap-3 bg-foreground text-background px-8 py-4 rounded-full font-medium overflow-hidden w-full md:w-auto transition-colors"
+                  className="font-sans group relative flex items-center justify-center gap-3 cursor-pointer bg-foreground text-background px-8 py-4 rounded-full font-medium overflow-hidden w-full md:w-auto transition-colors"
                 >
                   <span className="uppercase relative z-10 flex items-center gap-2 text-sm">
                     Send Message

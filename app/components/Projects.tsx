@@ -209,7 +209,7 @@ export function Projects() {
             >
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-8 left-8 p-3 rounded-full border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-2 group"
+                className="absolute top-8 left-8 p-3 cursor-pointer rounded-full border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-2 group"
               >
                 <X
                   size={20}
@@ -253,7 +253,7 @@ export function Projects() {
 
             {/* Modal Image (Folding Effect) */}
             <div className="w-full md:w-[55%] flex-1 h-[40vh] md:h-full bg-background flex items-center justify-center p-6 md:py-24 md:pl-12 md:pr-20">
-              <div className="w-full aspect-video relative overflow-hidden rounded-lg shadow-2xl">
+              <div className="w-full aspect-video relative overflow-hidden rounded-lg">
                 <FoldingImage src={selectedProject.image} slices={7} />
               </div>
             </div>
