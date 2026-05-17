@@ -205,7 +205,7 @@ export function Projects() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-              className="w-full md:w-[45%] h-auto md:h-full bg-background border-b md:border-b-0 md:border-r border-border p-8 md:p-16 flex flex-col justify-center relative z-20"
+              className="w-full md:w-[45%] h-auto md:h-full bg-background border-b border-border p-8 md:p-16 flex flex-col justify-center relative z-20"
             >
               <button
                 onClick={() => setSelectedProject(null)}
@@ -252,8 +252,10 @@ export function Projects() {
             </motion.div>
 
             {/* Modal Image (Folding Effect) */}
-            <div className="w-full md:w-[55%] flex-1 h-[40vh] md:h-full relative overflow-hidden">
-              <FoldingImage src={selectedProject.image} slices={7} />
+            <div className="w-full md:w-[55%] flex-1 h-[40vh] md:h-full bg-background flex items-center justify-center p-6 md:py-24 md:pl-12 md:pr-20">
+              <div className="w-full aspect-video relative overflow-hidden rounded-lg shadow-2xl">
+                <FoldingImage src={selectedProject.image} slices={7} />
+              </div>
             </div>
           </motion.div>
         )}
