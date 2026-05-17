@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
-  title: "Ugbe Adie",
+  title: "The Personal Website of Ugbe Adie",
   description: "Portfolio website",
 };
 
