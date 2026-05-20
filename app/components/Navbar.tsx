@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
 import { Magnetic } from "./Magnetic";
-import Image from "next/image";
 
 const navItems = [
   { name: "ABOUT", href: "#about" },
@@ -114,7 +113,7 @@ export function Navbar() {
         />
         <div
           onClick={scrollToTop}
-          className="pointer-events-auto cursor-pointer relative z-10"
+          className="font-sans text-2xl font-bold tracking-tight pointer-events-auto cursor-pointer text-foreground relative z-10"
         >
           <a
             href="#hero"
@@ -122,16 +121,8 @@ export function Navbar() {
               e.preventDefault();
               scrollToTop();
             }}
-            className="block"
           >
-            <Image
-              src="/images/logo.png"
-              alt="Ugbe Adie Logo"
-              width={48}
-              height={48}
-              priority
-              className="h-12 w-auto object-contain"
-            />
+            👨🏽‍💻
           </a>
         </div>
 
