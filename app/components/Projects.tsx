@@ -15,7 +15,7 @@ const projects = [
     about:
       "A full-stack job tracking platform with a drag-and-drop Kanban board, analytics dashboard, GitHub-style activity graph, and AI-powered job detail extraction from pasted job links.",
     repo: "https://github.com/ugbeadie/billr",
-    live: "https://trackr-neon.vercel.app/",
+    live: "https://trackr.ugbeadie.com/",
   },
   {
     id: 2,
