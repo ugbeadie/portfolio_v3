@@ -11,7 +11,13 @@ const projects = [
     id: 1,
     title: "TRACKR",
     image: "images/trackr.png",
-    tools: ["Next.js", "Drizzle ORM", "PostgreSQL", "Tailwind"],
+    tools: [
+      "Next.js",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "Tailwind",
+      "OpenRouter AI",
+    ],
     about:
       "A full-stack job tracking platform with a drag-and-drop Kanban board, analytics dashboard, GitHub-style activity graph, and AI-powered job detail extraction from pasted job links.",
     repo: "https://github.com/ugbeadie/billr",
@@ -19,6 +25,24 @@ const projects = [
   },
   {
     id: 2,
+    title: "GitBurn",
+    image: "images/gitburn.png",
+    tools: [
+      "React",
+      "FastAPI",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "Tailwind",
+      "Framer Motion",
+      "OpenRouter AI",
+    ],
+    about:
+      "An AI-powered roast machine that aggregates a developer's public GitHub footprint, repository metrics, and commit history to generate a brutally personalized, cynical code review.",
+    repo: "https://github.com/ugbeadie/GitBurn",
+    live: "https://gitburn.ugbeadie.com",
+  },
+  {
+    id: 3,
     title: "SNAPSACK",
     image: "images/snapsack.png",
     tools: ["React.js", "React Icons", "Animate On Scroll"],
@@ -26,16 +50,6 @@ const projects = [
       "An ecommerce store built with React focusing on clean UI. See repo README for full project description and walkthrough.",
     repo: "https://github.com/ugbeadie/react-ecommerce-app",
     live: "https://ugbecommercials.vercel.app/",
-  },
-  {
-    id: 3,
-    title: "Github?!",
-    image: "images/github.png",
-    tools: ["React.js", "GitHub API"],
-    about:
-      "Enter a username of choice and get the GitHub profile of the developer in person. See repo README for full project description and walkthrough.",
-    repo: "https://github.com/ugbeadie/github-profile-analyzer",
-    live: "https://githubalyzer.netlify.app/",
   },
 ];
 
