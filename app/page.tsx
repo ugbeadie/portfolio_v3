@@ -27,39 +27,27 @@ export default function App() {
     restDelta: 0.001,
   });
 
-  // 1. Capture the raw scroll velocity
   const scrollVelocity = useVelocity(scrollY);
 
-  // 2. Smooth out the velocity values.
-  // Increased stiffness makes it react instantly; higher damping prevents it from wobbling when it stops.
   const smoothVelocity = useSpring(scrollVelocity, {
     stiffness: 120,
     damping: 35,
     restDelta: 0.01,
   });
 
-  // 3. Map high velocity numbers to more extreme skew angles.
-  // Tracking up to 4000 velocity and pushing skew up to 8 degrees makes it punchy.
   const skewY = useTransform(smoothVelocity, [-4000, 0, 4000], [8, 0, -8]);
 
   return (
     <div className="relative overflow-hidden">
       <DarkModeToggle />
       <Cursor />
-
-      {/* Top Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-[#a87ffb] origin-left z-50"
         style={{ scaleX }}
       />
-
       <Navbar />
       <SocialSidebar />
 
-      {/* 
-        Applying transformation origin center handles 
-        the visual shifting elegantly during extreme skews 
-      */}
       <motion.main
         className="relative z-10 origin-center"
         style={{

@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "motion/react";
 import { Magnetic } from "./Magnetic";
+import { socials } from "./SocialSidebar";
 
 const headingContainer: Variants = {
   hidden: {},
@@ -58,11 +59,12 @@ export function Hero() {
       id="home"
       className="min-h-screen flex flex-col justify-center px-6 relative pt-20 lg:pt-0"
     >
-      <div className="max-w-6xl w-full mx-auto flex flex-col items-center sm:items-start relative z-10">
+      <div className="max-w-6xl w-full mx-auto flex flex-col items-start relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          className="w-full"
         >
           <div className="mb-8 md:mb-12">
             <div
@@ -101,9 +103,9 @@ export function Hero() {
             }
           `}</style>
 
-          {/* Heading */}
+          {/* Heading - Left Aligned */}
           <motion.h1
-            className="mb-8 flex flex-col"
+            className="mb-8 flex flex-col items-start text-left"
             style={{ fontFamily: "var(--font-display)" }}
             variants={headingContainer}
             initial="hidden"
@@ -129,13 +131,14 @@ export function Hero() {
             </motion.span>
           </motion.h1>
 
+          {/* Description - Left Aligned */}
           <motion.div
-            className="mb-12 max-w-2xl"
+            className="mb-12 max-w-2xl flex justify-start"
             variants={letterContainer}
             initial="hidden"
             animate="visible"
           >
-            <div className="text-base sm:text-lg md:text-xl leading-relaxed text-text-secondary font-medium flex flex-wrap">
+            <div className="text-base sm:text-lg md:text-xl leading-relaxed text-text-secondary font-medium flex flex-wrap justify-start">
               {description.split("").map((char, index) => (
                 <motion.span
                   key={index}
@@ -148,36 +151,68 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Action Buttons */}
+          {/* Action Buttons - Full width on mobile */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.5, duration: 0.8 }}
           >
-            <Magnetic>
-              <a
-                href="#contact"
-                className="group relative flex items-center justify-center gap-2 text-sm bg-foreground text-background px-8 py-4 rounded-[40px] overflow-hidden"
-              >
-                <span className="uppercase relative z-10 flex items-center gap-2">
-                  Get in Touch
-                  <span className="group-hover:translate-x-1 transition-transform">
-                    &rarr;
+            <div className="w-full sm:w-auto">
+              <Magnetic>
+                <a
+                  href="#contact"
+                  className="group relative flex items-center justify-center gap-2 text-sm bg-foreground text-background px-8 py-4 rounded-[40px] overflow-hidden w-full"
+                >
+                  <span className="uppercase relative z-10 flex items-center gap-2">
+                    Get in Touch
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      &rarr;
+                    </span>
                   </span>
-                </span>
-                <div className="absolute inset-0 bg-[#a87ffb] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0 rounded-[40px]" />
-              </a>
-            </Magnetic>
+                  <div className="absolute inset-0 bg-[#a87ffb] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0 rounded-[40px]" />
+                </a>
+              </Magnetic>
+            </div>
 
-            <Magnetic>
-              <a
-                href="#projects"
-                className="uppercase px-8 py-4 text-sm rounded-[40px] border border-foreground/20 text-foreground hover:bg-foreground/5 transition-colors flex items-center justify-center"
-              >
-                View Projects
-              </a>
-            </Magnetic>
+            <div className="w-full sm:w-auto">
+              <Magnetic>
+                <a
+                  href="#projects"
+                  className="uppercase px-8 py-4 text-sm rounded-[40px] border border-foreground/20 text-foreground hover:bg-foreground/5 transition-colors flex items-center justify-center w-full"
+                >
+                  View Projects
+                </a>
+              </Magnetic>
+            </div>
+          </motion.div>
+
+          {/* Mobile Social Icons - Centered */}
+          <motion.div
+            className="md:hidden flex justify-center items-center flex-wrap gap-4 mt-8 w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.8, duration: 0.8 }}
+          >
+            {socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-full hover:brightness-110 transition-all w-12 h-12"
+                  style={{
+                    backgroundColor: social.hoverColor,
+                    color: "#fff",
+                  }}
+                  aria-label={social.name}
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              );
+            })}
           </motion.div>
         </motion.div>
       </div>

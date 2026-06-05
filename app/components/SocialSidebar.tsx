@@ -3,7 +3,8 @@
 import { motion } from "motion/react";
 import { FaGithub, FaLinkedinIn, FaXTwitter, FaFilePdf } from "react-icons/fa6";
 
-const socials = [
+// Explicitly export the socials array so Hero.tsx can use it
+export const socials = [
   {
     name: "GitHub",
     icon: FaGithub,
@@ -33,36 +34,7 @@ const socials = [
 export function SocialSidebar() {
   return (
     <>
-      {/* Mobile */}
-      <motion.div
-        className="md:hidden flex justify-center items-center flex-wrap gap-4 mb-10 w-full"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-      >
-        {socials.map((social) => {
-          const Icon = social.icon;
-
-          return (
-            <a
-              key={social.name}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-full hover:brightness-110 transition-all"
-              style={{
-                backgroundColor: social.hoverColor,
-                color: "#fff",
-              }}
-              aria-label={social.name}
-            >
-              <Icon className="w-5 h-5" />
-            </a>
-          );
-        })}
-      </motion.div>
-
-      {/* Desktop */}
+      {/* Desktop (Mobile block has been moved to Hero.tsx) */}
       <div className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 flex-col items-end z-50">
         {socials.map((social, index) => {
           const Icon = social.icon;
