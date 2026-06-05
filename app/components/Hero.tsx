@@ -103,7 +103,6 @@ export function Hero() {
             }
           `}</style>
 
-          {/* Heading - Left Aligned */}
           <motion.h1
             className="mb-8 flex flex-col items-start text-left"
             style={{ fontFamily: "var(--font-display)" }}
@@ -131,7 +130,6 @@ export function Hero() {
             </motion.span>
           </motion.h1>
 
-          {/* Description - Left Aligned */}
           <motion.div
             className="mb-12 max-w-2xl flex justify-start"
             variants={letterContainer}
@@ -151,7 +149,6 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Action Buttons - Full width on mobile */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
             initial={{ opacity: 0, y: 20 }}
@@ -187,7 +184,6 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Mobile Social Icons - Centered */}
           <motion.div
             className="md:hidden flex justify-center items-center flex-wrap gap-4 mt-8 w-full"
             initial={{ opacity: 0 }}
