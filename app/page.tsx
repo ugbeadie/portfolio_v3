@@ -5,39 +5,63 @@ import { About } from "./components/About";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
 import { DarkModeToggle } from "./components/DarkModeToggle";
-import { motion, useScroll, useSpring } from "motion/react";
 import { ThemeProvider } from "next-themes";
 import { SocialSidebar } from "./components/SocialSidebar";
 import { Cursor } from "./components/Cursor";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useVelocity,
+  useTransform,
+} from "motion/react";
 
 export default function App() {
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress, scrollY } = useScroll();
+
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
 
+  const scrollVelocity = useVelocity(scrollY);
+
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 20,
+    stiffness: 50,
+  });
+
+  const skewY = useTransform(smoothVelocity, [-1000, 0, 1000], [2, 0, -2]);
+
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <DarkModeToggle />
       <Cursor />
+
+      {/* Top Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-[#a87ffb] origin-left z-50"
         style={{ scaleX }}
       />
 
-      <main className="relative z-10">
-        <Navbar />
+      <Navbar />
+      <SocialSidebar />
+      <motion.main
+        className="relative z-10"
+        style={{
+          skewY,
+          willChange: "transform",
+        }}
+      >
         <Hero />
-        <SocialSidebar />
         <About />
         <Projects />
         <Contact />
         <Footer />
-      </main>
+      </motion.main>
     </div>
   );
 }
