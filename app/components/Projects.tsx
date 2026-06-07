@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { Magnetic } from "./Magnetic";
+import { createPortal } from "react-dom";
 
 const projects = [
   {
@@ -205,75 +206,81 @@ export function Projects() {
       </div>
 
       {/* FULLSCREEN OVERLAY */}
-      <AnimatePresence mode="wait">
-        {selectedProject && (
-          <motion.div
-            className="fixed inset-0 z-[100] bg-background text-text flex flex-col md:flex-row h-screen overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { delay: 0.45 } }}
-          >
-            {/* Modal Content */}
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-              className="w-full md:w-[45%] h-auto md:h-full bg-background border-b border-border p-8 md:p-16 flex flex-col justify-center relative z-20"
-            >
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-8 left-8 p-3 cursor-pointer rounded-full border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-2 group"
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence mode="wait">
+            {selectedProject && (
+              <motion.div
+                className="fixed inset-0 z-[100] bg-background text-text flex flex-col md:flex-row h-screen overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { delay: 0.45 } }}
               >
-                <X
-                  size={20}
-                  className="group-hover:rotate-90 transition-transform duration-300"
-                />
-                <span className="text-xs uppercase tracking-widest">Close</span>
-              </button>
+                {/* Modal Content */}
+                <motion.div
+                  initial={{ x: "-100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+                  className="w-full md:w-[45%] h-auto md:h-full bg-background border-b border-border p-8 md:p-16 flex flex-col justify-center relative z-20"
+                >
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="absolute top-8 left-8 p-3 cursor-pointer rounded-full border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-2 group"
+                  >
+                    <X
+                      size={20}
+                      className="group-hover:rotate-90 transition-transform duration-300"
+                    />
+                    <span className="text-xs uppercase tracking-widest">
+                      Close
+                    </span>
+                  </button>
 
-              <div className="space-y-8 mt-12">
-                <h2 className="text-5xl md:text-7xl font-bold uppercase leading-none border-b border-border pb-6">
-                  {selectedProject.title}
-                </h2>
-                <p className="text-text-secondary text-lg leading-relaxed max-w-xl">
-                  {selectedProject.about}
-                </p>
+                  <div className="space-y-8 mt-12">
+                    <h2 className="text-5xl md:text-7xl font-bold uppercase leading-none border-b border-border pb-6">
+                      {selectedProject.title}
+                    </h2>
+                    <p className="text-text-secondary text-lg leading-relaxed max-w-xl">
+                      {selectedProject.about}
+                    </p>
 
-                <div className="flex items-center gap-6 pt-6">
-                  <Magnetic>
-                    <a
-                      href={selectedProject.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-all"
-                    >
-                      <SiGithub size={24} />
-                    </a>
-                  </Magnetic>
-                  <Magnetic>
-                    <a
-                      href={selectedProject.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-8 h-14 rounded-full border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all uppercase text-xs tracking-widest font-bold"
-                    >
-                      Live Demo <ExternalLink size={18} />
-                    </a>
-                  </Magnetic>
+                    <div className="flex items-center gap-6 pt-6">
+                      <Magnetic>
+                        <a
+                          href={selectedProject.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-all"
+                        >
+                          <SiGithub size={24} />
+                        </a>
+                      </Magnetic>
+                      <Magnetic>
+                        <a
+                          href={selectedProject.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 px-8 h-14 rounded-full border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all uppercase text-xs tracking-widest font-bold"
+                        >
+                          Live Demo <ExternalLink size={18} />
+                        </a>
+                      </Magnetic>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Modal Image (Folding Effect) */}
+                <div className="w-full md:w-[55%] flex-1 h-[40vh] md:h-full bg-background flex items-center justify-center p-6 md:py-24 md:pl-12 md:pr-20">
+                  <div className="w-full aspect-video relative overflow-hidden rounded-lg">
+                    <FoldingImage src={selectedProject.image} slices={7} />
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Modal Image (Folding Effect) */}
-            <div className="w-full md:w-[55%] flex-1 h-[40vh] md:h-full bg-background flex items-center justify-center p-6 md:py-24 md:pl-12 md:pr-20">
-              <div className="w-full aspect-video relative overflow-hidden rounded-lg">
-                <FoldingImage src={selectedProject.image} slices={7} />
-              </div>
-            </div>
-          </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </section>
   );
 }
