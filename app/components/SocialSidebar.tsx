@@ -25,7 +25,7 @@ export const socials = [
   {
     name: "Resume",
     icon: FaFilePdf,
-    href: "#",
+    href: "https://drive.google.com/file/d/1TB55YmNolKag7sJgMA1ZvRtGWCphpTOQ/view?usp=sharing",
     hoverColor: "#4F585F",
   },
 ];
