@@ -30,7 +30,7 @@ const projects = [
     image: "images/moneytrail.png",
     tools: ["Next.js", "Tailwind", "PostgreSQL", "Drizzle ORM"],
     about:
-      "An ecommerce store built with React focusing on clean UI. See repo README for full project description and walkthrough.",
+      "A full-stack expense tracking application with real-time synchronization, comprehensive reporting and extensive analytics.",
     repo: "https://github.com/ugbeadie/moneytrail-rework",
     live: "https://moneytrail.ugbeadie.com/",
   },
@@ -51,6 +51,15 @@ const projects = [
       "An AI-powered roast machine that aggregates a developer's public GitHub footprint, repository metrics, and commit history to generate a brutally personalized, cynical code review.",
     repo: "https://github.com/ugbeadie/GitBurn",
     live: "https://gitburn.ugbeadie.com",
+  },
+  {
+    id: 4,
+    title: "Snapsack",
+    image: "images/snapsack.png",
+    tools: ["React", "React-Router", "Animate-on-scroll"],
+    about: "An ecommerce store built with react focusing on clean ui",
+    repo: "https://github.com/ugbeadie/Snapsack",
+    live: "https://ugbecommercials.vercel.app/",
   },
 ];
 
