@@ -14,9 +14,9 @@ const projects = [
     image: "images/trackr.png",
     tools: [
       "Next.js",
-      "Drizzle ORM",
-      "PostgreSQL",
       "Tailwind",
+      "PostgreSQL",
+      "Drizzle ORM",
       "OpenRouter AI",
     ],
     about:
@@ -26,6 +26,16 @@ const projects = [
   },
   {
     id: 2,
+    title: "MONEYTRAIL",
+    image: "images/moneytrail.png",
+    tools: ["Next.js", "Tailwind", "PostgreSQL", "Drizzle ORM"],
+    about:
+      "An ecommerce store built with React focusing on clean UI. See repo README for full project description and walkthrough.",
+    repo: "https://github.com/ugbeadie/moneytrail-rework",
+    live: "https://moneytrail.ugbeadie.com/",
+  },
+  {
+    id: 3,
     title: "GitBurn",
     image: "images/gitburn.png",
     tools: [
@@ -41,16 +51,6 @@ const projects = [
       "An AI-powered roast machine that aggregates a developer's public GitHub footprint, repository metrics, and commit history to generate a brutally personalized, cynical code review.",
     repo: "https://github.com/ugbeadie/GitBurn",
     live: "https://gitburn.ugbeadie.com",
-  },
-  {
-    id: 3,
-    title: "SNAPSACK",
-    image: "images/snapsack.png",
-    tools: ["React.js", "React Icons", "Animate On Scroll"],
-    about:
-      "An ecommerce store built with React focusing on clean UI. See repo README for full project description and walkthrough.",
-    repo: "https://github.com/ugbeadie/react-ecommerce-app",
-    live: "https://ugbecommercials.vercel.app/",
   },
 ];
 
