@@ -13,7 +13,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   const { navigate } = useTransitionRouter();
   const href = `/projects/${project.slug}`;
 
-  const open = () => navigate(href);
+  const open = () => navigate(href, project.title);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
@@ -63,10 +63,14 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
       >
         <h3
           onClick={open}
-          className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] font-bold uppercase leading-[0.9] tracking-[-0.05em] mb-8 cursor-pointer"
+          className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] font-bold uppercase leading-[0.9] tracking-[-0.05em] mb-5 cursor-pointer"
         >
           {project.title}
         </h3>
+
+        <p className="text-text-secondary text-sm md:text-base leading-relaxed max-w-md mb-8">
+          {project.tagline}
+        </p>
 
         <div className="flex flex-wrap gap-3">
           {project.tools.map((tool, i) => (

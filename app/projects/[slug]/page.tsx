@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   return {
     title: `${project.title} — Ugbe Adie`,
-    description: project.about,
+    description: project.tagline,
   };
 }
 
