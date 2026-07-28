@@ -237,7 +237,7 @@ export const projects: Project[] = [
     tagline:
       "Paste a job link and AI fills the card for you. Every application then lives on a drag-and-drop board.",
     image: "/images/trackr.png",
-    tools: ["Next.js", "PostgreSQL", "Drizzle ORM", "OpenRouter AI"],
+    tools: ["Next.js", "PostgreSQL", "Drizzle", "OpenRouter AI"],
     meta: "2026 · solo project",
     hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
     repo: "https://github.com/ugbeadie/billr",
@@ -252,7 +252,7 @@ export const projects: Project[] = [
       "Tailwind",
       "Framer Motion",
       "PostgreSQL",
-      "Drizzle ORM",
+      "Drizzle",
       "Better-Auth",
       "OpenRouter AI",
     ],
@@ -412,7 +412,7 @@ export const projects: Project[] = [
     tagline:
       "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
     image: "/images/moneytrail.png",
-    tools: ["Next.js", "PostgreSQL", "Drizzle ORM", "Tailwind"],
+    tools: ["Next.js", "PostgreSQL", "Drizzle", "Tailwind"],
     meta: "2026 · solo project",
     hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
     repo: "https://github.com/ugbeadie/moneytrail-rework",

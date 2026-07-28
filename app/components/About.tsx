@@ -10,16 +10,17 @@ import {
   SiVuedotjs,
   SiNextdotjs,
   SiFlutter,
-  SiExpo,
+  SiNodedotjs,
+  SiExpress,
   SiTailwindcss,
   SiSass,
-  SiMui,
-  SiStyledcomponents,
-  SiBootstrap,
+  SiShadcnui,
   SiFramer,
+  SiFastapi,
   SiPostgresql,
   SiMongodb,
   SiPrisma,
+  SiDrizzle,
   SiFirebase,
   SiSupabase,
   SiVercel,
@@ -27,7 +28,7 @@ import {
   SiGithub,
 } from "react-icons/si";
 
-import { Smartphone, Code2, Box } from "lucide-react";
+import { Smartphone, Code2, Box, Zap } from "lucide-react";
 import { Magnetic } from "./Magnetic";
 import { FaFilePdf } from "react-icons/fa6";
 import { RESUME_URL } from "./SocialSidebar";
@@ -43,21 +44,6 @@ type Tech = {
   glow: string;
 };
 
-const disciplines = [
-  {
-    title: "Full-stack web",
-    body: "Next.js and React apps with real data models, authentication and analytics behind them.",
-  },
-  {
-    title: "Mobile",
-    body: "Flutter and React Native, for the products that belong on a phone rather than a tab.",
-  },
-  {
-    title: "Python & AI",
-    body: "Backend services, data workflows, and LLM features wired into products people actually use.",
-  },
-];
-
 const PythonIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 256 255" fill="none">
     <path
@@ -71,8 +57,11 @@ const PythonIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
+/** Brands whose mark is black or white — follow the theme instead. */
+const MONO = "var(--foreground)";
+
 const techStacks: Record<string, Tech[]> = {
-  "Languages & Frameworks": [
+  Frontend: [
     {
       name: "HTML",
       icon: SiHtml5,
@@ -104,16 +93,30 @@ const techStacks: Record<string, Tech[]> = {
       glow: "rgba(1,117,194,0.35)",
     },
     {
-      name: "Python",
-      icon: PythonIcon,
-      color: "#3776AB",
-      glow: "rgba(55,118,171,0.35)",
-    },
-    {
       name: "React.js",
       icon: SiReact,
       color: "#61DAFB",
       glow: "rgba(97,218,251,0.35)",
+    },
+    {
+      name: "Next.js",
+      icon: SiNextdotjs,
+      color: MONO,
+      glow: "rgba(120,120,120,0.3)",
+    },
+
+    {
+      name: "Vue.js",
+      icon: SiVuedotjs,
+      color: "#42B883",
+      glow: "rgba(66,184,131,0.35)",
+    },
+
+    {
+      name: "Nuxt.js",
+      icon: Box,
+      color: "#00DC82",
+      glow: "rgba(0,220,130,0.35)",
     },
     {
       name: "React Native",
@@ -122,38 +125,41 @@ const techStacks: Record<string, Tech[]> = {
       glow: "rgba(97,218,251,0.35)",
     },
     {
-      name: "Vue.js",
-      icon: SiVuedotjs,
-      color: "#42B883",
-      glow: "rgba(66,184,131,0.35)",
-    },
-    {
-      name: "Next.js",
-      icon: SiNextdotjs,
-      color: "#000000",
-      glow: "rgba(120,120,120,0.3)",
-    },
-    {
-      name: "Nuxt.js",
-      icon: Box,
-      color: "#00DC82",
-      glow: "rgba(0,220,130,0.35)",
-    },
-    {
       name: "Flutter",
       icon: SiFlutter,
       color: "#02569B",
       glow: "rgba(2,86,155,0.35)",
     },
+  ],
+
+  Backend: [
     {
-      name: "Expo",
-      icon: SiExpo,
-      color: "#000020",
-      glow: "rgba(120,120,255,0.25)",
+      name: "Node.js",
+      icon: SiNodedotjs,
+      color: "#339933",
+      glow: "rgba(51,153,51,0.35)",
+    },
+    {
+      name: "Express.js",
+      icon: SiExpress,
+      color: MONO,
+      glow: "rgba(120,120,120,0.3)",
+    },
+    {
+      name: "Python",
+      icon: PythonIcon,
+      color: "#3776AB",
+      glow: "rgba(55,118,171,0.35)",
+    },
+    {
+      name: "FastAPI",
+      icon: SiFastapi,
+      color: "#009688",
+      glow: "rgba(0,150,136,0.35)",
     },
   ],
 
-  Styling: [
+  "Styling & UI": [
     {
       name: "TailwindCSS",
       icon: SiTailwindcss,
@@ -161,28 +167,16 @@ const techStacks: Record<string, Tech[]> = {
       glow: "rgba(6,182,212,0.35)",
     },
     {
+      name: "shadcn/ui",
+      icon: SiShadcnui,
+      color: MONO,
+      glow: "rgba(120,120,120,0.3)",
+    },
+    {
       name: "SASS",
       icon: SiSass,
       color: "#CC6699",
       glow: "rgba(204,102,153,0.35)",
-    },
-    {
-      name: "Material UI",
-      icon: SiMui,
-      color: "#007FFF",
-      glow: "rgba(0,127,255,0.35)",
-    },
-    {
-      name: "Styled Components",
-      icon: SiStyledcomponents,
-      color: "#DB7093",
-      glow: "rgba(219,112,147,0.35)",
-    },
-    {
-      name: "Bootstrap",
-      icon: SiBootstrap,
-      color: "#7952B3",
-      glow: "rgba(121,82,179,0.35)",
     },
     {
       name: "Framer Motion",
@@ -208,18 +202,25 @@ const techStacks: Record<string, Tech[]> = {
     {
       name: "Prisma",
       icon: SiPrisma,
-      color: "#2D3748",
+      color: MONO,
       glow: "rgba(45,55,72,0.35)",
+    },
+    {
+      name: "Drizzle",
+      icon: SiDrizzle,
+      color: "#C5F74F",
+      glow: "rgba(197,247,79,0.35)",
     },
   ],
 
   Hosting: [
     {
-      name: "Firebase",
-      icon: SiFirebase,
-      color: "#FFCA28",
-      glow: "rgba(255,202,40,0.35)",
+      name: "Neon",
+      icon: Zap,
+      color: "#00E599",
+      glow: "rgba(0,229,153,0.35)",
     },
+
     {
       name: "Supabase",
       icon: SiSupabase,
@@ -227,9 +228,15 @@ const techStacks: Record<string, Tech[]> = {
       glow: "rgba(62,207,142,0.35)",
     },
     {
+      name: "Firebase",
+      icon: SiFirebase,
+      color: "#FFCA28",
+      glow: "rgba(255,202,40,0.35)",
+    },
+    {
       name: "Vercel",
       icon: SiVercel,
-      color: "#000000",
+      color: MONO,
       glow: "rgba(120,120,120,0.3)",
     },
     {
@@ -238,16 +245,8 @@ const techStacks: Record<string, Tech[]> = {
       color: "#00C7B7",
       glow: "rgba(0,199,183,0.35)",
     },
-    {
-      name: "GitHub",
-      icon: SiGithub,
-      color: "#181717",
-      glow: "rgba(120,120,120,0.3)",
-    },
   ],
 };
-const techCount = Object.values(techStacks).flat().length;
-
 export function About() {
   return (
     <section
@@ -255,23 +254,24 @@ export function About() {
       className="pt-32  px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
     >
       <div className="max-w-[1400px] mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-14 md:mb-20"
-        >
-          <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-6">
-            About
-          </p>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl text-text leading-[1.05] tracking-[-0.06em] max-w-3xl">
-            The short <span className="text-primary italic block">version</span>
-          </h2>
-        </motion.div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
           <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7 }}
+              className="mb-12"
+            >
+              <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-6">
+                About
+              </p>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl text-text leading-[1.05] tracking-[-0.06em]">
+                The short{" "}
+                <span className="text-primary italic block">version</span>
+              </h2>
+            </motion.div>
+
             <div className="font-sans text-text-secondary space-y-6 leading-relaxed">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -294,35 +294,34 @@ export function About() {
                 transition={{ delay: 0.2 }}
                 className="text-base"
               >
-                Beyond frontend development, I&rsquo;ve been actively learning
-                Python for backend development, data science, and AI
-                engineering. I&rsquo;m particularly interested in understanding
-                how intelligent systems are built, which has also pushed me to
-                explore data-focused workflows since data plays a major role in
-                modern AI applications. Alongside this, I continue refining my
-                mobile development skills and exploring new technologies that
-                help me grow as a developer.
+                I started on the frontend, but a good deal of my time since has
+                gone into the backend and most of what I build now I build end
+                to end. What I&rsquo;m looking into next is DevOps: how a thing
+                gets built, deployed and kept running once the code is written.
+                I&rsquo;ve stepped back from Python for the moment, though I
+                fully intend to come back to it for data science and AI
+                engineering. Alongside that, I keep refining my mobile
+                development skills and picking up whatever the next project asks
+                for.
               </motion.p>
-            </div>
 
-            <div className="mt-14 border-t border-border">
-              {disciplines.map((discipline, index) => (
-                <motion.div
-                  key={discipline.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-8 py-6 border-b border-border"
-                >
-                  <h3 className="sm:col-span-5 text-text font-semibold text-lg tracking-[-0.02em]">
-                    {discipline.title}
-                  </h3>
-                  <p className="sm:col-span-7 text-text-secondary leading-relaxed">
-                    {discipline.body}
-                  </p>
-                </motion.div>
-              ))}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="text-base"
+              >
+                Away from the editor, I&rsquo;m at the gym daily for strength
+                and core work, with the occasional outdoor run thrown in, and I
+                read up on tech trends and developer breakthroughs on daily.dev
+                most days. When it&rsquo;s time to properly unwind, it&rsquo;s
+                anime. Music is less optional — there&rsquo;s almost always
+                something playing, and it&rsquo;s an absolute necessity for a
+                coding session. And I&rsquo;m seriously dedicated to mastering
+                French, actively pushing toward fluency (
+                <span className="italic">petit à petit !</span>)
+              </motion.p>
             </div>
 
             <motion.div
@@ -330,7 +329,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="pt-10"
+              className="mt-14 border-t border-border pt-10"
             >
               <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-5">
                 Currently Exploring
@@ -380,13 +379,10 @@ export function About() {
             className="lg:col-span-5 w-full lg:sticky lg:top-28"
           >
             <div className="border border-border bg-card">
-              <div className="flex items-baseline justify-between gap-4 border-b border-border px-6 py-5 md:px-8">
+              <div className="border-b border-border px-6 py-5 md:px-8">
                 <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary">
                   Tech Stack
                 </p>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-text-secondary">
-                  {techCount} tools
-                </span>
               </div>
 
               {Object.entries(techStacks).map(([section, items]) => (
