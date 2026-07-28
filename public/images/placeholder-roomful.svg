@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="g" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#101418"/>
+      <stop offset="55%" stop-color="#1d2c34"/>
+      <stop offset="100%" stop-color="#0b0e10"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="rgba(32,201,151,0.12)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="720" fill="url(#g)"/>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <circle cx="240" cy="560" r="200" fill="#20c997" opacity="0.16"/>
+  <text x="640" y="352" text-anchor="middle" font-family="Sora, Segoe UI, sans-serif" font-size="86" font-weight="700" letter-spacing="14" fill="#ffffff">ROOMFUL</text>
+  <text x="640" y="410" text-anchor="middle" font-family="Sora, Segoe UI, sans-serif" font-size="20" letter-spacing="10" fill="#20c997">PLACEHOLDER PREVIEW</text>
+</svg>

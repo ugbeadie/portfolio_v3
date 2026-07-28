@@ -2,17 +2,35 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
+import { usePathname } from "next/navigation";
 import { Magnetic } from "./Magnetic";
+import { useTransitionRouter } from "./PageTransition";
 
 const navItems = [
-  { name: "ABOUT", href: "#about" },
-  { name: "PROJECTS", href: "#projects" },
-  { name: "CONTACT", href: "#contact" },
+  { name: "ABOUT", hash: "#about" },
+  { name: "PROJECTS", hash: "#projects" },
+  { name: "CONTACT", hash: "#contact" },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const { navigate } = useTransitionRouter();
+
+  const isHome = pathname === "/";
+  // Off the home page the section links have to route back to it first.
+  const hrefFor = (hash: string) => (isHome ? hash : `/${hash}`);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    hash: string,
+  ) => {
+    setIsOpen(false);
+    if (isHome) return; // native smooth scroll
+    e.preventDefault();
+    navigate(`/${hash}`);
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -50,6 +68,10 @@ export function Navbar() {
 
   const scrollToTop = () => {
     setIsOpen(false);
+    if (!isHome) {
+      navigate("/");
+      return;
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -131,7 +153,8 @@ export function Navbar() {
           {navItems.map((item) => (
             <Magnetic key={item.name}>
               <a
-                href={item.href}
+                href={hrefFor(item.hash)}
+                onClick={(e) => handleNavClick(e, item.hash)}
                 className="group relative block overflow-visible py-2 text-foreground"
               >
                 <span className="invisible">{item.name}</span>
@@ -185,13 +208,13 @@ export function Navbar() {
               {navItems.map((item, i) => (
                 <motion.a
                   key={item.name}
-                  href={item.href}
+                  href={hrefFor(item.hash)}
                   custom={i}
                   variants={itemVariants}
                   initial="hidden"
                   animate="show"
                   exit="exit"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, item.hash)}
                   className="group relative block text-4xl font-display font-bold text-foreground overflow-visible"
                 >
                   <span className="invisible">{item.name}</span>

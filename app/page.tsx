@@ -4,11 +4,6 @@ import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
-import { DarkModeToggle } from "./components/DarkModeToggle";
-import { ThemeProvider } from "next-themes";
-import { SocialSidebar } from "./components/SocialSidebar";
-import { Cursor } from "./components/Cursor";
-import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import {
   motion,
@@ -39,14 +34,10 @@ export default function App() {
 
   return (
     <div className="relative overflow-hidden">
-      <DarkModeToggle />
-      <Cursor />
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-[#a87ffb] origin-left z-50"
         style={{ scaleX }}
       />
-      <Navbar />
-      <SocialSidebar />
 
       <motion.main
         className="relative z-10 origin-center"

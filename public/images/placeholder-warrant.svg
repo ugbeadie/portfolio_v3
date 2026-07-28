@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1b1b22"/>
+      <stop offset="55%" stop-color="#2a2440"/>
+      <stop offset="100%" stop-color="#0f0f14"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="rgba(171,139,255,0.12)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="720" fill="url(#g)"/>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <circle cx="1030" cy="180" r="180" fill="#ab8bff" opacity="0.18"/>
+  <text x="640" y="352" text-anchor="middle" font-family="Sora, Segoe UI, sans-serif" font-size="86" font-weight="700" letter-spacing="14" fill="#ffffff">WARRANT</text>
+  <text x="640" y="410" text-anchor="middle" font-family="Sora, Segoe UI, sans-serif" font-size="20" letter-spacing="10" fill="#ab8bff">PLACEHOLDER PREVIEW</text>
+</svg>
