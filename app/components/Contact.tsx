@@ -27,7 +27,6 @@ export function Contact() {
       className="py-32 px-6 md:px-12 bg-background text-text relative z-20 overflow-hidden transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-16 md:gap-24">
-        {/* LEFT */}
         <div className="md:w-1/2 flex flex-col justify-between">
           <div>
             <motion.h2
@@ -58,7 +57,6 @@ export function Contact() {
           </div>
         </div>
 
-        {/* RIGHT */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -66,7 +64,6 @@ export function Contact() {
           className="md:w-1/2"
         >
           <form className="space-y-8 font-['Inter']" onSubmit={handleSubmit}>
-            {/* NAME */}
             <div className="relative group">
               <input
                 type="text"
@@ -87,7 +84,6 @@ export function Contact() {
               </label>
             </div>
 
-            {/* EMAIL */}
             <div className="relative group pt-4">
               <input
                 type="email"
@@ -108,7 +104,6 @@ export function Contact() {
               </label>
             </div>
 
-            {/* MESSAGE */}
             <div className="relative group pt-4">
               <textarea
                 id="message"
@@ -129,7 +124,6 @@ export function Contact() {
               </label>
             </div>
 
-            {/* BUTTON */}
             <div className="pt-8">
               <Magnetic>
                 <button

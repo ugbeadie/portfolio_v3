@@ -3,6 +3,9 @@
 import { motion } from "motion/react";
 import { FaGithub, FaLinkedinIn, FaXTwitter, FaFilePdf } from "react-icons/fa6";
 
+export const RESUME_URL =
+  "https://drive.google.com/file/d/1TB55YmNolKag7sJgMA1ZvRtGWCphpTOQ/view?usp=sharing";
+
 export const socials = [
   {
     name: "GitHub",
@@ -25,7 +28,7 @@ export const socials = [
   {
     name: "Resume",
     icon: FaFilePdf,
-    href: "https://drive.google.com/file/d/1TB55YmNolKag7sJgMA1ZvRtGWCphpTOQ/view?usp=sharing",
+    href: RESUME_URL,
     hoverColor: "#4F585F",
   },
 ];
@@ -88,7 +91,6 @@ export function SocialSidebar() {
                 {social.name}
               </motion.div>
 
-              {/* Persistent Icon Block */}
               <div className="w-12 h-12 flex items-center justify-center text-white shrink-0">
                 <Icon className="w-6 h-6" />
               </div>

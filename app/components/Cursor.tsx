@@ -37,7 +37,6 @@ export function Cursor() {
     };
   }, []);
 
-  // Use springs for ultra-smooth follow
   const springConfigDot = { damping: 25, stiffness: 700, mass: 0.5 };
   const springConfigCircle = { damping: 30, stiffness: 300, mass: 0.8 };
 

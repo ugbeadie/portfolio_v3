@@ -1,17 +1,3 @@
-/**
- * Project copy follows a fixed structure (see *-portfolio-copy.md):
- *
- *   Preview card -> title + tagline + tools     (projects list on the home page)
- *   Project page -> header, hero, stack, sections,
- *                   selected images, closingSections, closer
- *
- * Order matters: "Where it stands" and "What's still missing" come AFTER the
- * selected images, which is why they live in `closingSections`.
- *
- * Section labels are per-project on purpose — "The hard part" tells a skimmer
- * what's coming, "Challenges" doesn't.
- */
-
 export type Shot = { image: string; caption: string };
 
 export type Section = { label: string; body: string[] };
@@ -20,41 +6,31 @@ export type Project = {
   id: number;
   slug: string;
   title: string;
-  /** One line on the preview card. Its only job is to earn a click. */
   tagline: string;
-  /** Listing thumbnail. */
   image: string;
-  /** Chips on the preview card — keep to ~4. */
   tools: string[];
-  /** e.g. "2026 · solo project" */
   meta: string;
-  /** The opening line on the project page, under the title. */
   hook: string;
   repo?: string;
   live?: string;
-  /** Shown on the page, not just in the README — a signup wall loses people. */
   demoLogin?: { email: string; password: string };
-  /** Long-form write-up. Omitted until the article is published; it only ever
-   *  renders in the closer, never in the header. */
-  writeup?: { label: string; url: string };
+  /** Rendered first in the closer, never in the header. A missing url renders
+   *  the title as an unpublished placeholder. */
+  writeup?: { label: string; url?: string };
   hero: Shot;
-  /** Full stack, shown on the project page. */
   stack: string[];
-  /** Sections above the selected images. */
   sections: Section[];
-  /** Stacked, never a carousel. */
   gallery: Shot[];
-  /** Sections below the selected images. */
+  /** Rendered below the selected images. */
   closingSections: Section[];
   closer?: string[];
-  /** Copy still to be written — surfaces a "draft" note on the project page. */
+  /** Marks the copy as unfinished on the project page. */
   draft?: boolean;
 };
 
 const SHOT = "/images/placeholder-shot.svg";
 
-// The first FEATURED_COUNT projects are shown by default on the home page,
-// the rest are revealed by the "View more" toggle.
+/** Shown before the "View more" toggle on the home page. */
 export const FEATURED_COUNT = 4;
 
 export const projects: Project[] = [
@@ -171,7 +147,7 @@ export const projects: Project[] = [
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
     live: "https://roomful.ugbeadie.com",
-    // Write-up not published yet — the link stays off the page until it is.
+    writeup: { label: "Why I built an app that can't phone home" },
     hero: {
       image: "/images/placeholder-roomful.svg",
       caption: "Cataloguing a room. About eight seconds an item.",
@@ -444,39 +420,72 @@ export const projects: Project[] = [
     },
     stack: [
       "React",
-      "FastAPI",
-      "PostgreSQL",
-      "SQLAlchemy",
       "Tailwind",
       "Framer Motion",
-      "OpenRouter AI",
+      "FastAPI",
+      "SQLAlchemy",
+      "PostgreSQL",
+      "OpenRouter",
     ],
     sections: [
       {
         label: "What it does",
         body: [
-          "Give it a GitHub handle and it pulls the public footprint — repositories, languages, stars, commit cadence, the messages themselves — and hands the aggregate to a model with instructions to be cynical about it.",
-          "What comes back is specific rather than generic, because it's working from your actual 3am “fix” commits and that repository you starred and never opened.",
+          "Give it a GitHub handle. The backend pulls the public footprint — profile, up to a hundred repositories, the language split, the star count — then picks the five most recently pushed repos and reads them properly: the last five commit messages and the opening lines of each README.",
+          "All of that gets compiled into one prompt and sent to gpt-4o-mini through OpenRouter, wearing a cynical senior developer persona. What comes back is specific rather than generic, because it's working from your actual 3am “fix” commits.",
+          "While it waits, the screen runs a fake terminal printing INIT, FETCH, SCAN, AI against the real stages as they complete. The roast then types itself out line by line, and the whole card exports to a PNG you can post without a screenshot tool.",
         ],
       },
       {
         label: "The hard part",
         body: [
-          "Placeholder — the rate-limit and aggregation story goes here once written up.",
+          "A roast is only funny if it's specific, and specificity costs requests.",
+          "The profile call is one request. Reading five repositories' commits and READMEs is ten more, and doing them in sequence means the user watches a spinner for the sum of every round trip. So they're fired concurrently with asyncio.gather and the whole detail pass costs about as long as its slowest single call.",
+          "The other ceiling is the context window. A README can run for thousands of words and five of them will bury the commit history that actually holds the jokes, so each one is trimmed to 250 characters — enough to catch a project's tone, cheap enough that five of them still fit alongside everything else.",
         ],
       },
       {
         label: "A decision I'd defend",
-        body: ["Placeholder."],
+        body: [
+          "Only the five most recently pushed repositories get read in depth.",
+          "Everything else contributes as an aggregate: counted, language-tallied, and otherwise unread. It's a deliberate bias toward recency over completeness, and the cost lands on exactly the person you'd least want it to — someone whose best work is three years old gets judged on whatever they touched last week.",
+          "The alternative is reading everything, which multiplies the request count by twenty and dilutes the prompt with repositories nobody has opened since. A roast built on a stale but impressive backlog is more accurate and much less funny.",
+        ],
       },
     ],
     gallery: [
-      { image: SHOT, caption: "Placeholder — the roast, in full." },
-      { image: SHOT, caption: "Placeholder — the stats it drew from." },
+      {
+        image: SHOT,
+        caption:
+          "The roast card. Typed out line by line, and exportable as a PNG from the DOM itself.",
+      },
+      {
+        image: SHOT,
+        caption:
+          "The analysing state. A fake terminal wired to real stages, so the wait shows progress instead of a spinner.",
+      },
+      {
+        image: SHOT,
+        caption:
+          "The metrics sidebar. The numbers the model was actually handed, next to what it made of them.",
+      },
     ],
     closingSections: [
-      { label: "Where it stands", body: ["Shipped and live."] },
-      { label: "What's still missing", body: ["Placeholder."] },
+      {
+        label: "Where it stands",
+        body: [
+          "Shipped and live. Roast generation, the metrics panel, PNG export and one-tap sharing to X all work.",
+          "It runs on free-tier hosting with a lightweight ping endpoint keeping the backend awake, so a cold start after a quiet spell is slower than a warm one.",
+        ],
+      },
+      {
+        label: "What's still missing",
+        body: [
+          "It only sees public activity. Someone who spends their week in private repositories reads as inactive, and gets roasted for it.",
+          "The five-repo depth limit means a quiet fortnight skews the whole verdict, since recency is the only thing deciding what gets read closely.",
+          "And 250 characters of README is enough to catch a tone but not enough to know what a project does, so the model occasionally roasts a thing for being what it isn't.",
+        ],
+      },
     ],
     draft: true,
   },

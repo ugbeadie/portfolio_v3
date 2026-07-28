@@ -30,6 +30,33 @@ import {
 import { Smartphone, Code2, Box } from "lucide-react";
 import { Magnetic } from "./Magnetic";
 import { FaFilePdf } from "react-icons/fa6";
+import { RESUME_URL } from "./SocialSidebar";
+
+type Tech = {
+  name: string;
+  icon: React.ComponentType<{
+    size?: number;
+    className?: string;
+    style?: React.CSSProperties;
+  }>;
+  color: string;
+  glow: string;
+};
+
+const disciplines = [
+  {
+    title: "Full-stack web",
+    body: "Next.js and React apps with real data models, authentication and analytics behind them.",
+  },
+  {
+    title: "Mobile",
+    body: "Flutter and React Native, for the products that belong on a phone rather than a tab.",
+  },
+  {
+    title: "Python & AI",
+    body: "Backend services, data workflows, and LLM features wired into products people actually use.",
+  },
+];
 
 const PythonIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 256 255" fill="none">
@@ -44,7 +71,7 @@ const PythonIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-const techStacks = {
+const techStacks: Record<string, Tech[]> = {
   "Languages & Frameworks": [
     {
       name: "HTML",
@@ -219,68 +246,94 @@ const techStacks = {
     },
   ],
 };
-
 export function About() {
   return (
     <section
       id="about"
-      className="py-32 px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
+      className="py-28 md:py-36 px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
     >
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
-        {/* LEFT */}
+      <div className="max-w-[1400px] mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="max-w-2xl w-full mx-auto"
+          className="mb-14 md:mb-20"
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-            className="text-5xl md:text-6xl lg:text-7xl text-text mb-8 leading-tight tracking-[-0.06em]"
-          >
-            Building Modern{" "}
-            <span className="text-primary italic">Digital Experiences</span>
-          </motion.h2>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-6">
+            About
+          </p>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl text-text leading-[1.05] tracking-[-0.06em] max-w-3xl">
+            The short <span className="text-primary italic">version</span>
+          </h2>
+        </motion.div>
 
-          <div className="font-sans text-md text-text-secondary space-y-6 leading-relaxed">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              My journey into software development started with curiosity and
-              quickly grew into a passion for building intuitive,
-              high-performance applications. I enjoy turning ideas into polished
-              digital experiences while constantly improving my problem-solving
-              and development skills.
-            </motion.p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+          <div className="lg:col-span-7">
+            <div className="font-sans text-text-secondary space-y-6 leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-lg md:text-xl text-text leading-relaxed"
+              >
+                My journey into software development started with curiosity and
+                quickly grew into a passion for building intuitive,
+                high-performance applications. I enjoy turning ideas into
+                polished digital experiences while constantly improving my
+                problem-solving and development skills.
+              </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              Beyond frontend development, I’ve been actively learning Python
-              for backend development, data science, and AI engineering. I’m
-              particularly interested in understanding how intelligent systems
-              are built, which has also pushed me to explore data-focused
-              workflows since data plays a major role in modern AI applications.
-              Alongside this, I continue refining my mobile development skills
-              and exploring new technologies that help me grow as a developer.
-            </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-base"
+              >
+                Beyond frontend development, I&rsquo;ve been actively learning
+                Python for backend development, data science, and AI
+                engineering. I&rsquo;m particularly interested in understanding
+                how intelligent systems are built, which has also pushed me to
+                explore data-focused workflows since data plays a major role in
+                modern AI applications. Alongside this, I continue refining my
+                mobile development skills and exploring new technologies that
+                help me grow as a developer.
+              </motion.p>
+            </div>
+
+            <div className="mt-14 border-t border-border">
+              {disciplines.map((discipline, index) => (
+                <motion.div
+                  key={discipline.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-8 py-6 border-b border-border"
+                >
+                  <div className="sm:col-span-5 flex items-baseline gap-3">
+                    <span className="text-[10px] tracking-[0.2em] text-text-secondary">
+                      0{index + 1}
+                    </span>
+                    <h3 className="text-text font-semibold text-lg tracking-[-0.02em]">
+                      {discipline.title}
+                    </h3>
+                  </div>
+                  <p className="sm:col-span-7 text-text-secondary leading-relaxed">
+                    {discipline.body}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="pt-8 border-t border-border"
+              className="pt-10"
             >
               <p className="text-sm uppercase tracking-[0.2em] text-text-secondary mb-4">
                 Currently Exploring
@@ -295,10 +348,7 @@ export function About() {
                 ].map((item) => (
                   <motion.span
                     key={item}
-                    whileHover={{
-                      y: -4,
-                      scale: 1.03,
-                    }}
+                    whileHover={{ y: -4, scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm border border-primary/20 backdrop-blur-sm"
                   >
@@ -306,16 +356,13 @@ export function About() {
                   </motion.span>
                 ))}
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="pt-8 inline-block"
-              >
+
+              <div className="pt-10 inline-block">
                 <Magnetic>
                   <a
-                    href="#"
+                    href={RESUME_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-3 px-8 h-14 rounded-full border
                     border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white
                     transition-all uppercase text-xs tracking-widest font-bold text-text"
@@ -324,85 +371,68 @@ export function About() {
                     <FaFilePdf className="text-lg" />
                   </a>
                 </Magnetic>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
-        </motion.div>
 
-        {/* RIGHT */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-2xl mx-auto w-full"
-        >
-          <div className="rounded-[2rem] border border-border bg-card/80 backdrop-blur-xl p-8 md:p-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
-            <p className="text-xs uppercase tracking-[0.3em] text-text-secondary mb-10">
-              Tech Stack
-            </p>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 w-full lg:sticky lg:top-28"
+          >
+            <div className="rounded-[2rem] border border-border bg-card/80 backdrop-blur-xl p-8 md:p-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
+              <p className="text-xs uppercase tracking-[0.3em] text-text-secondary mb-10">
+                Tech Stack
+              </p>
 
-            <div className="space-y-10">
-              {Object.entries(techStacks).map(([section, items]) => (
-                <div key={section}>
-                  <h3 className="text-text font-semibold mb-5 text-lg">
-                    {section}
-                  </h3>
+              <div className="space-y-10">
+                {Object.entries(techStacks).map(([section, items]) => (
+                  <div key={section}>
+                    <h3 className="text-text font-semibold mb-5 text-lg">
+                      {section}
+                    </h3>
 
-                  <div className="flex flex-wrap gap-4">
-                    {items.map((tech: any, index: number) => {
-                      const Icon = tech.icon;
+                    <div className="flex flex-wrap gap-4">
+                      {items.map((tech, index) => {
+                        const Icon = tech.icon;
 
-                      return (
-                        <motion.div
-                          key={tech.name}
-                          initial={{ opacity: 0, y: 15 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            delay: index * 0.04,
-                            duration: 0.4,
-                          }}
-                          whileHover={{
-                            y: -8,
-                            scale: 1.05,
-                          }}
-                          whileTap={{ scale: 0.97 }}
-                          className="group relative"
-                        >
-                          {/* HOVER GLOW */}
-                          <div
-                            className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-300"
-                            style={{
-                              background: tech.glow,
-                            }}
-                          />
+                        return (
+                          <motion.div
+                            key={tech.name}
+                            initial={{ opacity: 0, y: 15 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.04, duration: 0.4 }}
+                            whileHover={{ y: -8, scale: 1.05 }}
+                            whileTap={{ scale: 0.97 }}
+                            className="group relative"
+                          >
+                            <div
+                              className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-300"
+                              style={{ background: tech.glow }}
+                            />
 
-                          {/* CHIP */}
-                          <div className="relative flex items-center gap-3 px-4 py-3 rounded-2xl border border-border bg-background/80 backdrop-blur-md text-sm text-text-secondary shadow-sm transition-all duration-300 group-hover:border-white/10">
-                            {/* ICON */}
-                            <div className="flex items-center justify-center">
+                            <div className="relative flex items-center gap-3 px-4 py-3 rounded-2xl border border-border bg-background/80 backdrop-blur-md text-sm text-text-secondary shadow-sm transition-all duration-300 group-hover:border-white/10">
                               <Icon
-                                style={{
-                                  color: tech.color,
-                                }}
+                                style={{ color: tech.color }}
                                 className="text-[18px] shrink-0 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
                               />
+                              <span className="whitespace-nowrap">
+                                {tech.name}
+                              </span>
                             </div>
-
-                            <span className="whitespace-nowrap">
-                              {tech.name}
-                            </span>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
+                          </motion.div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -52,10 +52,7 @@ function SectionBlock({ section }: { section: Section }) {
   );
 }
 
-/**
- * Demo and Code at the top for people who want to skip straight there; the
- * write-up at the bottom, for people already convinced.
- */
+/** The write-up leads the closer; the header only ever gets demo and code. */
 function LinkRow({
   project,
   withWriteup = false,
@@ -75,6 +72,28 @@ function LinkRow({
 
   return (
     <div className="flex flex-wrap items-center gap-4">
+      {writeup &&
+        (writeup.url ? (
+          <Magnetic>
+            <a
+              href={writeup.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-8 h-14 rounded-full border border-border bg-card hover:bg-foreground hover:text-background transition-all text-xs tracking-widest font-bold"
+            >
+              <FileText size={18} className="shrink-0" />
+              <span className="uppercase">{writeup.label}</span>
+            </a>
+          </Magnetic>
+        ) : (
+          <span className="flex items-center gap-3 px-8 h-14 rounded-full border border-dashed border-border text-xs tracking-widest font-bold text-text-secondary">
+            <FileText size={18} className="shrink-0" />
+            <span className="uppercase">{writeup.label}</span>
+            <span className="text-[9px] tracking-[0.25em] border border-border rounded-full px-2 py-1">
+              Soon
+            </span>
+          </span>
+        ))}
       {project.live && (
         <Magnetic>
           <a
@@ -96,19 +115,6 @@ function LinkRow({
             className="flex items-center gap-3 px-8 h-14 rounded-full border border-border hover:bg-foreground hover:text-background transition-all uppercase text-xs tracking-widest font-bold"
           >
             <SiGithub size={18} /> Code
-          </a>
-        </Magnetic>
-      )}
-      {writeup && (
-        <Magnetic>
-          <a
-            href={writeup.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 px-8 h-14 rounded-full border border-border hover:bg-foreground hover:text-background transition-all text-xs tracking-widest font-bold"
-          >
-            <FileText size={18} className="shrink-0" />
-            <span className="uppercase">{writeup.label}</span>
           </a>
         </Magnetic>
       )}
@@ -158,7 +164,6 @@ export function ProjectDetail({
   return (
     <main className="min-h-screen bg-background text-text transition-colors duration-300 pb-32">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        {/* HEADER */}
         <header className="pt-24">
           <motion.button
             initial={{ opacity: 0, x: -20 }}
@@ -233,7 +238,7 @@ export function ProjectDetail({
                 <code className="font-mono text-text">
                   {project.demoLogin.email}
                 </code>
-                <span aria-hidden>·</span>
+                <span aria-hidden>Â·</span>
                 <code className="font-mono text-text">
                   {project.demoLogin.password}
                 </code>
@@ -242,7 +247,6 @@ export function ProjectDetail({
           </motion.div>
         </header>
 
-        {/* HERO */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -252,7 +256,6 @@ export function ProjectDetail({
           <Figure shot={project.hero} delay={0.6} priority />
         </motion.div>
 
-        {/* STACK */}
         <Reveal className="mt-20 md:mt-28 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 border-t border-border pt-10">
           <h2 className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-text-secondary">
             Stack
@@ -269,14 +272,12 @@ export function ProjectDetail({
           </div>
         </Reveal>
 
-        {/* SECTIONS — what it does, the hard part, the decision */}
         <div className="mt-8">
           {project.sections.map((section) => (
             <SectionBlock key={section.label} section={section} />
           ))}
         </div>
 
-        {/* SELECTED IMAGES — stacked, never a carousel */}
         {project.gallery.length > 0 && (
           <section className="border-t border-border pt-12 md:pt-16 pb-4">
             <Reveal>
@@ -294,14 +295,12 @@ export function ProjectDetail({
           </section>
         )}
 
-        {/* CLOSING SECTIONS — where it stands, what's still missing */}
         <div className="mt-12 md:mt-16">
           {project.closingSections.map((section) => (
             <SectionBlock key={section.label} section={section} />
           ))}
         </div>
 
-        {/* CLOSER */}
         {project.closer && project.closer.length > 0 && (
           <Reveal className="border-t border-border pt-12">
             <div className="max-w-2xl space-y-6">
@@ -320,7 +319,6 @@ export function ProjectDetail({
           </Reveal>
         )}
 
-        {/* NEXT PROJECT */}
         <Reveal className="mt-24 md:mt-32 border-t border-border pt-12">
           <button
             onClick={() => navigate(`/projects/${next.slug}`, next.title)}

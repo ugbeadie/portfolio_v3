@@ -148,7 +148,6 @@ export function Navbar() {
           </a>
         </div>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-12 font-sans text-sm font-medium tracking-wide pointer-events-auto relative z-10">
           {navItems.map((item) => (
             <Magnetic key={item.name}>
@@ -175,7 +174,6 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Burger Button (Mobile) */}
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className="md:hidden flex flex-col gap-[6px] p-2 pointer-events-auto z-[111] relative"
@@ -194,7 +192,6 @@ export function Navbar() {
         </button>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence mode="wait">
         {isOpen && (
           <motion.div
@@ -227,15 +224,6 @@ export function Navbar() {
                 </motion.a>
               ))}
             </div>
-
-            {/* <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              transition={{ delay: 0.8 }}
-              className="absolute bottom-12 text-sm font-sans tracking-widest uppercase text-foreground"
-            >
-              Get in touch
-            </motion.div> */}
           </motion.div>
         )}
       </AnimatePresence>

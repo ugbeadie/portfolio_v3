@@ -17,7 +17,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-      {/* INTERACTIVE IMAGE CONTAINER */}
       <motion.a
         href={href}
         onClick={(e) => {
@@ -32,7 +31,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           h-[220px] sm:h-[260px] md:h-[300px] lg:h-[230px] xl:h-[260px]
         `}
       >
-        {/* Image Scale Effect */}
         <motion.div
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -40,7 +38,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           style={{ backgroundImage: `url(${project.image})` }}
         />
 
-        {/* Overlay Darkener */}
         <div className="absolute inset-0 bg-foreground/20 group-hover:bg-transparent transition-all duration-500" />
 
         <div className="absolute bottom-6 left-6 overflow-hidden">
@@ -55,7 +52,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         </div>
       </motion.a>
 
-      {/* PROJECT INFO */}
       <div
         className={`order-2 ${
           isEven ? "lg:order-2 lg:col-span-5" : "lg:order-1 lg:col-span-5"
@@ -98,7 +94,6 @@ export function Projects() {
       id="projects"
       className="min-h-screen bg-background text-text px-6 md:px-12 py-24 relative overflow-hidden transition-colors duration-300 scroll-mt-32"
     >
-      {/* HEADING */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -126,7 +121,6 @@ export function Projects() {
         </div>
       </motion.div>
 
-      {/* PROJECTS LIST */}
       <div className="max-w-7xl mx-auto flex flex-col gap-24 relative z-10">
         {featured.map((project, index) => (
           <ProjectRow key={project.id} project={project} index={index} />
@@ -162,7 +156,6 @@ export function Projects() {
         </AnimatePresence>
       </div>
 
-      {/* VIEW MORE / LESS */}
       {rest.length > 0 && (
         <div className="max-w-7xl mx-auto mt-20 flex justify-center relative z-10">
           <button

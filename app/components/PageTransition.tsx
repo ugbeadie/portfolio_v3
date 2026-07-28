@@ -17,12 +17,10 @@ const COLUMN_DURATION = 0.6;
 const COLUMN_STAGGER = 0.07;
 /** When the last column has finished covering the screen. */
 const COVER_MS = (COLUMN_DURATION + COLUMN_STAGGER * (COLUMNS - 1)) * 1000;
-/** If a route never arrives (failed RSC fetch, dead network), don't sit on a
- *  covered screen forever — drop the curtain and let the page show through. */
+/** Drops the curtain if a route never arrives, so it can't strand the page. */
 const FAILSAFE_MS = 6000;
 
 type TransitionContextValue = {
-  /** Wipes a curtain across the screen, then routes to `href`. */
   navigate: (href: string, label?: string) => void;
   isTransitioning: boolean;
 };
@@ -38,8 +36,7 @@ function CurtainLabel({ label }: { label: string }) {
   const letters = Array.from(label);
 
   return (
-    // The whole group fades on exit — anything static left behind here would
-    // hang over the new page while the columns finish wiping away.
+    // Fades as a group on exit, so nothing static is left hanging over the new page.
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
@@ -93,7 +90,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     timers.current = [];
   }, []);
 
-  // Once the new route is rendered, pull the curtain back off the screen.
+  // The new route has rendered — pull the curtain back off the screen.
   useEffect(() => {
     clearTimers();
     setCurtain(null);
@@ -104,8 +101,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const navigate = useCallback(
     (href: string, label?: string) => {
       const [target] = href.split("#");
-      // Same route (or a bare hash on the current route): let the browser
-      // handle it, no curtain needed.
+      // A hash on the route we're already on scrolls, it doesn't navigate.
       if (target === pathname || target === "") {
         router.push(href);
         return;
@@ -134,7 +130,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
             className="fixed inset-0 z-200 pointer-events-auto"
             aria-hidden
           >
-            {/* Sliced wipe — columns rise to cover, then keep going to reveal. */}
+            {/* Columns rise to cover, then keep going to reveal. */}
             <div className="absolute inset-0 flex">
               {Array.from({ length: COLUMNS }).map((_, i) => (
                 <motion.div
