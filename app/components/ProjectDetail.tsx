@@ -165,49 +165,41 @@ export function ProjectDetail({
     <main className="min-h-screen bg-background text-text transition-colors duration-300 pb-32">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <header className="pt-24">
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-            onClick={() => navigate("/#projects", "Selected works")}
-            className="mb-14 px-5 h-12 cursor-pointer border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-3 group"
-          >
-            <ArrowLeft
-              size={18}
-              className="group-hover:-translate-x-1 transition-transform duration-300"
-            />
-            <span className="text-xs uppercase tracking-widest ">
-              Back to works
-            </span>
-          </motion.button>
-
-          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[10px] uppercase tracking-[0.3em] text-text-secondary"
-            >
-              {project.meta}
-            </motion.p>
-            {/* {project.draft && (
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.25 }}
-                className="px-3 py-1 border border-dashed border-border text-[9px] uppercase tracking-[0.25em] text-text-secondary"
+          <div className="mb-14 flex">
+            <Magnetic>
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+                onClick={() => navigate("/#projects", "Selected works")}
+                className="px-5 h-12 cursor-pointer border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all flex items-center gap-3 group"
               >
-                Copy in progress
-              </motion.span>
-            )} */}
+                <ArrowLeft
+                  size={18}
+                  className="group-hover:-translate-x-1 transition-transform duration-300"
+                />
+                <span className="text-xs uppercase tracking-widest">
+                  Back to works
+                </span>
+              </motion.button>
+            </Magnetic>
           </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-6 text-[10px] uppercase tracking-[0.3em] text-text-secondary"
+          >
+            {project.category}
+          </motion.p>
 
           <div className="overflow-hidden">
             <motion.h1
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.15, ease: EASE }}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.9] tracking-[-0.05em]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-[0.9] tracking-[-0.05em]"
             >
               {project.title}
             </motion.h1>
@@ -217,7 +209,7 @@ export function ProjectDetail({
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-            className="mt-10 text-xl md:text-3xl leading-snug tracking-[-0.02em] max-w-3xl"
+            className="mt-8 text-lg md:text-2xl leading-snug tracking-[-0.02em] max-w-3xl"
           >
             {project.hook}
           </motion.p>

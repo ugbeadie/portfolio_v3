@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -84,11 +84,41 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   );
 }
 
+/** Long enough for the collapse animation to finish and the rows to unmount. */
+const COLLAPSE_MS = 450;
+
 export function Projects() {
   const [showAll, setShowAll] = useState(false);
+  const toggleRef = useRef<HTMLDivElement>(null);
+  const anchorTop = useRef<number | null>(null);
 
   const featured = projects.slice(0, FEATURED_COUNT);
   const rest = projects.slice(FEATURED_COUNT);
+
+  const toggle = () => {
+    // Collapsing deletes rows above the reader, so the page shrinks underneath
+    // them and the browser dumps them at the footer. Remember where the button
+    // sits on screen now, and put it back there once the rows are gone.
+    anchorTop.current = showAll
+      ? (toggleRef.current?.getBoundingClientRect().top ?? null)
+      : null;
+    setShowAll((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (showAll || anchorTop.current === null) return;
+
+    const timer = setTimeout(() => {
+      const before = anchorTop.current;
+      anchorTop.current = null;
+      if (before === null || !toggleRef.current) return;
+
+      const after = toggleRef.current.getBoundingClientRect().top;
+      window.scrollBy({ top: after - before, behavior: "auto" });
+    }, COLLAPSE_MS);
+
+    return () => clearTimeout(timer);
+  }, [showAll]);
 
   return (
     <section
@@ -155,10 +185,13 @@ export function Projects() {
       </div>
 
       {rest.length > 0 && (
-        <div className="max-w-7xl mx-auto mt-20 flex justify-center relative z-10">
+        <div
+          ref={toggleRef}
+          className="max-w-7xl mx-auto mt-20 flex justify-center relative z-10"
+        >
           <Magnetic>
             <button
-              onClick={() => setShowAll((prev) => !prev)}
+              onClick={toggle}
               className="group flex items-center gap-4 px-8 h-14 border border-border cursor-pointer uppercase text-xs tracking-[0.25em] font-bold hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all duration-500"
             >
               {showAll ? "View less" : `View more (${rest.length})`}

@@ -28,7 +28,7 @@ import {
   SiGithub,
 } from "react-icons/si";
 
-import { Smartphone, Code2, Box, Zap } from "lucide-react";
+import { Smartphone, Code2, Box, CloudLightning } from "lucide-react";
 import { Magnetic } from "./Magnetic";
 import { FaFilePdf } from "react-icons/fa6";
 import { RESUME_URL } from "./SocialSidebar";
@@ -216,7 +216,7 @@ const techStacks: Record<string, Tech[]> = {
   Hosting: [
     {
       name: "Neon",
-      icon: Zap,
+      icon: CloudLightning,
       color: "#00E599",
       glow: "rgba(0,229,153,0.35)",
     },
@@ -283,8 +283,8 @@ export function About() {
                 My journey into software development started with curiosity and
                 quickly grew into a passion for building intuitive,
                 high-performance applications. I enjoy turning ideas into
-                polished digital experiences while constantly improving my
-                problem-solving and development skills.
+                polished digital experiences for users while constantly
+                improving my problem-solving and development skills.
               </motion.p>
 
               <motion.p
@@ -301,8 +301,9 @@ export function About() {
                 I&rsquo;ve stepped back from Python for the moment, though I
                 fully intend to come back to it for data science and AI
                 engineering. Alongside that, I keep refining my mobile
-                development skills and picking up whatever the next project asks
-                for.
+                development skills and picking up whatever the next project
+                asks for — I learn fast, and getting my hands on something I
+                haven&rsquo;t used before is the part of this work I enjoy most.
               </motion.p>
 
               <motion.p
@@ -338,9 +339,9 @@ export function About() {
               <div className="flex flex-wrap gap-3">
                 {[
                   "Backend Systems",
+                  "DevOps",
                   "Data Science",
                   "AI Engineering",
-                  "Machine Learning",
                 ].map((item) => (
                   <motion.span
                     key={item}
