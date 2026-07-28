@@ -186,7 +186,7 @@ export function Navbar() {
               custom={i}
               variants={lineVariants}
               animate={isOpen ? "opened" : "closed"}
-              className="w-8 h-[2px] bg-foreground rounded-full"
+              className="w-8 h-[2px] bg-foreground"
             />
           ))}
         </button>

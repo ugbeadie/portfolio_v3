@@ -140,7 +140,7 @@ export const projects: Project[] = [
     slug: "roomful",
     title: "ROOMFUL",
     tagline:
-      "Know what you own. A home contents inventory for insurance claims, built with no backend at all.",
+      "Know what you own. A home inventory for insurance claims with no backend at all — everything stays saved on your device.",
     image: "/images/placeholder-roomful.svg",
     tools: ["React", "TypeScript", "IndexedDB", "PWA"],
     meta: "2026 · solo project",
@@ -235,7 +235,7 @@ export const projects: Project[] = [
     slug: "trackr",
     title: "TRACKR",
     tagline:
-      "Paste a job link, get a filled-in application card. A job hunt tracker that survives past week three.",
+      "Paste a job link and AI fills the card for you. Every application then lives on a drag-and-drop board.",
     image: "/images/trackr.png",
     tools: ["Next.js", "PostgreSQL", "Drizzle ORM", "OpenRouter AI"],
     meta: "2026 · solo project",
@@ -320,90 +320,6 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    slug: "moneytrail",
-    title: "MONEYTRAIL",
-    tagline:
-      "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
-    image: "/images/moneytrail.png",
-    tools: ["Next.js", "PostgreSQL", "Drizzle ORM", "Tailwind"],
-    meta: "2026 · solo project",
-    hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
-    repo: "https://github.com/ugbeadie/moneytrail-rework",
-    live: "https://moneytrail.ugbeadie.com/",
-    hero: {
-      image: "/images/moneytrail.png",
-      caption: "A month at a glance, with the heavy days visible.",
-    },
-    stack: [
-      "Next.js",
-      "React",
-      "Tailwind",
-      "PostgreSQL",
-      "Drizzle ORM",
-      "Better-Auth",
-    ],
-    sections: [
-      {
-        label: "What it does",
-        body: [
-          "Log what you spend and read it back as a calendar. Each day carries its own total, so the pattern you're actually looking for — the three-payday-weekends problem, the month that quietly got away from you — shows up as shape rather than as a row you have to find in a list.",
-          "Underneath the calendar are the reports: category breakdowns, totals over time, and the running charts that answer whether this month is worse than the last one.",
-          "This is the second build of Moneytrail. The rewrite locked down authentication so spending data is private per account, and replaced the interface wholesale for something quicker to enter a transaction into.",
-        ],
-      },
-      {
-        label: "The hard part",
-        body: [
-          "A chart that was correct in development and wrong in production.",
-          "The transaction graph rendered perfectly on my machine and then lagged reality on the live site — sitting on May while the calendar said June. Every test on the data was green, because the data was fine.",
-          "The fault was in how the date range reached the chart, not in the chart. Reworking that mapping made the deployed graph track the current month instead of whichever one happened to be true when the thing was built.",
-        ],
-      },
-      {
-        label: "A decision I'd defend",
-        body: [
-          "Authentication before features, on the rewrite.",
-          "The first version had a nicer surface and a much softer boundary around whose data was whose. For a general-purpose app that's a bug worth scheduling; for a ledger of somebody's spending it's the whole product.",
-          "So the rewrite started at the session layer, and every read is scoped to the signed-in user before it touches a query. It pushed the visible improvements back by weeks, which is the cost, and it's the right trade for the category of data involved.",
-        ],
-      },
-    ],
-    gallery: [
-      {
-        image: SHOT,
-        caption:
-          "Placeholder — the calendar month, with per-day totals doing the summarising.",
-      },
-      {
-        image: SHOT,
-        caption: "Placeholder — category breakdown for the selected range.",
-      },
-      {
-        image: SHOT,
-        caption:
-          "Placeholder — the transaction graph, live and finally on the right month.",
-      },
-    ],
-    closingSections: [
-      {
-        label: "Where it stands",
-        body: [
-          "Live, rebuilt, and in daily use. Auth is enforced, the interface overhaul is shipped, and the charts on the deployed site now agree with the calendar.",
-        ],
-      },
-      {
-        label: "What's still missing",
-        body: [
-          "Draft — confirm before publishing. Everything is entered by hand; there's no bank import, so the tracking only holds while the habit does.",
-          "Recurring expenses are re-entered every month rather than scheduled.",
-          "And it's single-currency, which rules out anyone spending across two.",
-        ],
-      },
-    ],
-    draft: true,
-  },
-  {
-    id: 5,
     slug: "gitburn",
     title: "GITBURN",
     tagline:
@@ -484,6 +400,90 @@ export const projects: Project[] = [
           "It only sees public activity. Someone who spends their week in private repositories reads as inactive, and gets roasted for it.",
           "The five-repo depth limit means a quiet fortnight skews the whole verdict, since recency is the only thing deciding what gets read closely.",
           "And 250 characters of README is enough to catch a tone but not enough to know what a project does, so the model occasionally roasts a thing for being what it isn't.",
+        ],
+      },
+    ],
+    draft: true,
+  },
+  {
+    id: 5,
+    slug: "moneytrail",
+    title: "MONEYTRAIL",
+    tagline:
+      "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
+    image: "/images/moneytrail.png",
+    tools: ["Next.js", "PostgreSQL", "Drizzle ORM", "Tailwind"],
+    meta: "2026 · solo project",
+    hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
+    repo: "https://github.com/ugbeadie/moneytrail-rework",
+    live: "https://moneytrail.ugbeadie.com/",
+    hero: {
+      image: "/images/moneytrail.png",
+      caption: "A month at a glance, with the heavy days visible.",
+    },
+    stack: [
+      "Next.js",
+      "React",
+      "Tailwind",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Better-Auth",
+    ],
+    sections: [
+      {
+        label: "What it does",
+        body: [
+          "Log what you spend and read it back as a calendar. Each day carries its own total, so the pattern you're actually looking for — the three-payday-weekends problem, the month that quietly got away from you — shows up as shape rather than as a row you have to find in a list.",
+          "Underneath the calendar are the reports: category breakdowns, totals over time, and the running charts that answer whether this month is worse than the last one.",
+          "This is the second build of Moneytrail. The rewrite locked down authentication so spending data is private per account, and replaced the interface wholesale for something quicker to enter a transaction into.",
+        ],
+      },
+      {
+        label: "The hard part",
+        body: [
+          "A chart that was correct in development and wrong in production.",
+          "The transaction graph rendered perfectly on my machine and then lagged reality on the live site — sitting on May while the calendar said June. Every test on the data was green, because the data was fine.",
+          "The fault was in how the date range reached the chart, not in the chart. Reworking that mapping made the deployed graph track the current month instead of whichever one happened to be true when the thing was built.",
+        ],
+      },
+      {
+        label: "A decision I'd defend",
+        body: [
+          "Authentication before features, on the rewrite.",
+          "The first version had a nicer surface and a much softer boundary around whose data was whose. For a general-purpose app that's a bug worth scheduling; for a ledger of somebody's spending it's the whole product.",
+          "So the rewrite started at the session layer, and every read is scoped to the signed-in user before it touches a query. It pushed the visible improvements back by weeks, which is the cost, and it's the right trade for the category of data involved.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        image: SHOT,
+        caption:
+          "Placeholder — the calendar month, with per-day totals doing the summarising.",
+      },
+      {
+        image: SHOT,
+        caption: "Placeholder — category breakdown for the selected range.",
+      },
+      {
+        image: SHOT,
+        caption:
+          "Placeholder — the transaction graph, live and finally on the right month.",
+      },
+    ],
+    closingSections: [
+      {
+        label: "Where it stands",
+        body: [
+          "Live, rebuilt, and in daily use. Auth is enforced, the interface overhaul is shipped, and the charts on the deployed site now agree with the calendar.",
+        ],
+      },
+      {
+        label: "What's still missing",
+        body: [
+          "Draft — confirm before publishing. Everything is entered by hand; there's no bank import, so the tracking only holds while the habit does.",
+          "Recurring expenses are re-entered every month rather than scheduled.",
+          "And it's single-currency, which rules out anyone spending across two.",
         ],
       },
     ],

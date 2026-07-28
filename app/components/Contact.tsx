@@ -128,13 +128,13 @@ export function Contact() {
               <Magnetic>
                 <button
                   type="submit"
-                  className="font-sans group relative flex items-center justify-center gap-3 cursor-pointer bg-foreground text-background px-8 py-4 rounded-full font-medium overflow-hidden w-full md:w-auto transition-colors"
+                  className="font-sans group relative flex items-center justify-center gap-3 cursor-pointer bg-foreground text-background px-8 py-4 font-medium overflow-hidden w-full md:w-auto transition-colors"
                 >
                   <span className="uppercase relative z-10 flex items-center gap-2 text-sm">
                     Send Message
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <div className="absolute inset-0 bg-[#ab8bff] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0 rounded-full" />
+                  <div className="absolute inset-0 bg-[#ab8bff] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0" />
                 </button>
               </Magnetic>
             </div>

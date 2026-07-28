@@ -64,7 +64,7 @@ function LinkRow({
 
   if (!project.repo && !project.live && !writeup) {
     return (
-      <span className="inline-flex items-center px-6 h-12 rounded-full border border-dashed border-border text-[10px] uppercase tracking-[0.25em] text-text-secondary">
+      <span className="inline-flex items-center px-6 h-12 border border-dashed border-border text-[10px] uppercase tracking-[0.25em] text-text-secondary">
         Links coming soon
       </span>
     );
@@ -79,17 +79,17 @@ function LinkRow({
               href={writeup.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-8 h-14 rounded-full border border-border bg-card hover:bg-foreground hover:text-background transition-all text-xs tracking-widest font-bold"
+              className="flex items-center gap-3 px-8 h-14 border border-border bg-card hover:bg-foreground hover:text-background transition-all text-xs tracking-widest font-bold"
             >
               <FileText size={18} className="shrink-0" />
               <span className="uppercase">{writeup.label}</span>
             </a>
           </Magnetic>
         ) : (
-          <span className="flex items-center gap-3 px-8 h-14 rounded-full border border-dashed border-border text-xs tracking-widest font-bold text-text-secondary">
+          <span className="flex items-center gap-3 px-8 h-14 border border-dashed border-border text-xs tracking-widest font-bold text-text-secondary">
             <FileText size={18} className="shrink-0" />
             <span className="uppercase">{writeup.label}</span>
-            <span className="text-[9px] tracking-[0.25em] border border-border rounded-full px-2 py-1">
+            <span className="text-[9px] tracking-[0.25em] border border-border px-2 py-1">
               Soon
             </span>
           </span>
@@ -100,7 +100,7 @@ function LinkRow({
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-8 h-14 rounded-full border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all uppercase text-xs tracking-widest font-bold"
+            className="flex items-center gap-3 px-8 h-14 border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all uppercase text-xs tracking-widest font-bold"
           >
             Live demo <ExternalLink size={18} />
           </a>
@@ -112,7 +112,7 @@ function LinkRow({
             href={project.repo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-8 h-14 rounded-full border border-border hover:bg-foreground hover:text-background transition-all uppercase text-xs tracking-widest font-bold"
+            className="flex items-center gap-3 px-8 h-14 border border-border hover:bg-foreground hover:text-background transition-all uppercase text-xs tracking-widest font-bold"
           >
             <SiGithub size={18} /> Code
           </a>
@@ -135,7 +135,7 @@ function Figure({
 }) {
   return (
     <figure className="w-full">
-      <div className="w-full aspect-video overflow-hidden rounded-lg bg-card border border-border">
+      <div className="w-full aspect-video overflow-hidden bg-card border border-border">
         {priority ? (
           <FoldingImage src={shot.image} slices={slices} delay={delay} />
         ) : (
@@ -170,13 +170,13 @@ export function ProjectDetail({
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
             onClick={() => navigate("/#projects", "Selected works")}
-            className="mb-14 px-5 h-12 cursor-pointer rounded-full border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-3 group"
+            className="mb-14 px-5 h-12 cursor-pointer border border-border hover:bg-foreground hover:text-background transition-all flex items-center gap-3 group"
           >
             <ArrowLeft
               size={18}
               className="group-hover:-translate-x-1 transition-transform duration-300"
             />
-            <span className="text-xs uppercase tracking-widest">
+            <span className="text-xs uppercase tracking-widest ">
               Back to works
             </span>
           </motion.button>
@@ -190,16 +190,16 @@ export function ProjectDetail({
             >
               {project.meta}
             </motion.p>
-            {project.draft && (
+            {/* {project.draft && (
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.25 }}
-                className="px-3 py-1 rounded-full border border-dashed border-border text-[9px] uppercase tracking-[0.25em] text-text-secondary"
+                className="px-3 py-1 border border-dashed border-border text-[9px] uppercase tracking-[0.25em] text-text-secondary"
               >
                 Copy in progress
               </motion.span>
-            )}
+            )} */}
           </div>
 
           <div className="overflow-hidden">

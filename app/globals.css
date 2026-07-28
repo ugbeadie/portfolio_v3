@@ -108,15 +108,6 @@
   --font-display: var(--font-display);
 }
 
-@keyframes badge-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @layer base {
   * {
     @apply border-border;

@@ -246,11 +246,13 @@ const techStacks: Record<string, Tech[]> = {
     },
   ],
 };
+const techCount = Object.values(techStacks).flat().length;
+
 export function About() {
   return (
     <section
       id="about"
-      className="py-28 md:py-36 px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
+      className="pt-32  px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
     >
       <div className="max-w-[1400px] mx-auto relative z-10">
         <motion.div
@@ -264,7 +266,7 @@ export function About() {
             About
           </p>
           <h2 className="text-5xl md:text-6xl lg:text-7xl text-text leading-[1.05] tracking-[-0.06em] max-w-3xl">
-            The short <span className="text-primary italic">version</span>
+            The short <span className="text-primary italic block">version</span>
           </h2>
         </motion.div>
 
@@ -313,14 +315,9 @@ export function About() {
                   transition={{ delay: index * 0.1, duration: 0.6 }}
                   className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-8 py-6 border-b border-border"
                 >
-                  <div className="sm:col-span-5 flex items-baseline gap-3">
-                    <span className="text-[10px] tracking-[0.2em] text-text-secondary">
-                      0{index + 1}
-                    </span>
-                    <h3 className="text-text font-semibold text-lg tracking-[-0.02em]">
-                      {discipline.title}
-                    </h3>
-                  </div>
+                  <h3 className="sm:col-span-5 text-text font-semibold text-lg tracking-[-0.02em]">
+                    {discipline.title}
+                  </h3>
                   <p className="sm:col-span-7 text-text-secondary leading-relaxed">
                     {discipline.body}
                   </p>
@@ -335,7 +332,7 @@ export function About() {
               transition={{ delay: 0.3 }}
               className="pt-10"
             >
-              <p className="text-sm uppercase tracking-[0.2em] text-text-secondary mb-4">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-5">
                 Currently Exploring
               </p>
 
@@ -348,9 +345,9 @@ export function About() {
                 ].map((item) => (
                   <motion.span
                     key={item}
-                    whileHover={{ y: -4, scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm border border-primary/20 backdrop-blur-sm"
+                    whileHover={{ y: -3 }}
+                    whileTap={{ y: 0 }}
+                    className="border border-primary/30 bg-primary/10 px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.18em] text-primary"
                   >
                     {item}
                   </motion.span>
@@ -363,7 +360,7 @@ export function About() {
                     href={RESUME_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 px-8 h-14 rounded-full border
+                    className="inline-flex items-center gap-3 px-8 h-14 border
                     border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white
                     transition-all uppercase text-xs tracking-widest font-bold text-text"
                   >
@@ -382,54 +379,53 @@ export function About() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 w-full lg:sticky lg:top-28"
           >
-            <div className="rounded-[2rem] border border-border bg-card/80 backdrop-blur-xl p-8 md:p-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
-              <p className="text-xs uppercase tracking-[0.3em] text-text-secondary mb-10">
-                Tech Stack
-              </p>
-
-              <div className="space-y-10">
-                {Object.entries(techStacks).map(([section, items]) => (
-                  <div key={section}>
-                    <h3 className="text-text font-semibold mb-5 text-lg">
-                      {section}
-                    </h3>
-
-                    <div className="flex flex-wrap gap-4">
-                      {items.map((tech, index) => {
-                        const Icon = tech.icon;
-
-                        return (
-                          <motion.div
-                            key={tech.name}
-                            initial={{ opacity: 0, y: 15 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.04, duration: 0.4 }}
-                            whileHover={{ y: -8, scale: 1.05 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="group relative"
-                          >
-                            <div
-                              className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-300"
-                              style={{ background: tech.glow }}
-                            />
-
-                            <div className="relative flex items-center gap-3 px-4 py-3 rounded-2xl border border-border bg-background/80 backdrop-blur-md text-sm text-text-secondary shadow-sm transition-all duration-300 group-hover:border-white/10">
-                              <Icon
-                                style={{ color: tech.color }}
-                                className="text-[18px] shrink-0 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
-                              />
-                              <span className="whitespace-nowrap">
-                                {tech.name}
-                              </span>
-                            </div>
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
+            <div className="border border-border bg-card">
+              <div className="flex items-baseline justify-between gap-4 border-b border-border px-6 py-5 md:px-8">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary">
+                  Tech Stack
+                </p>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-text-secondary">
+                  {techCount} tools
+                </span>
               </div>
+
+              {Object.entries(techStacks).map(([section, items]) => (
+                <div
+                  key={section}
+                  className="px-6 md:px-8 py-7 border-b border-border last:border-b-0"
+                >
+                  <h3 className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-5">
+                    {section}
+                  </h3>
+
+                  <div className="flex flex-wrap gap-2">
+                    {items.map((tech, index) => {
+                      const Icon = tech.icon;
+
+                      return (
+                        <motion.span
+                          key={tech.name}
+                          initial={{ opacity: 0, y: 12 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.03, duration: 0.4 }}
+                          whileHover={{ y: -3 }}
+                          style={
+                            { "--tech-glow": tech.glow } as React.CSSProperties
+                          }
+                          className="flex items-center gap-2 border border-border bg-background px-3 py-2 text-[10px] md:text-xs uppercase tracking-[0.18em] text-text-secondary transition-colors duration-300 hover:border-foreground/30 hover:bg-(--tech-glow) hover:text-text"
+                        >
+                          <Icon
+                            style={{ color: tech.color }}
+                            className="text-[14px] shrink-0"
+                          />
+                          <span className="whitespace-nowrap">{tech.name}</span>
+                        </motion.span>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>

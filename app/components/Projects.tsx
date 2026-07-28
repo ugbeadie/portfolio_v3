@@ -6,6 +6,7 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { projects, FEATURED_COUNT, type Project } from "../data/projects";
 import { useTransitionRouter } from "./PageTransition";
+import { Magnetic } from "./Magnetic";
 
 function ProjectRow({ project, index }: { project: Project; index: number }) {
   const isEven = index % 2 !== 0;
@@ -92,7 +93,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="min-h-screen bg-background text-text px-6 md:px-12 py-24 relative overflow-hidden transition-colors duration-300 scroll-mt-32"
+      className="min-h-screen bg-background text-text px-6 md:px-12 pt-32 relative overflow-hidden transition-colors duration-300 scroll-mt-32"
     >
       <motion.div
         initial={{ opacity: 0, y: 40 }}
@@ -147,10 +148,7 @@ export function Projects() {
                   transition: { duration: 0.35, ease: [0.76, 0, 0.24, 1] },
                 }}
               >
-                <ProjectRow
-                  project={project}
-                  index={FEATURED_COUNT + index}
-                />
+                <ProjectRow project={project} index={FEATURED_COUNT + index} />
               </motion.div>
             ))}
         </AnimatePresence>
@@ -158,23 +156,25 @@ export function Projects() {
 
       {rest.length > 0 && (
         <div className="max-w-7xl mx-auto mt-20 flex justify-center relative z-10">
-          <button
-            onClick={() => setShowAll((prev) => !prev)}
-            className="group flex items-center gap-4 px-8 h-14 rounded-full border border-border cursor-pointer uppercase text-xs tracking-[0.25em] font-bold hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all duration-500"
-          >
-            {showAll ? "View less" : `View more (${rest.length})`}
-            <motion.span
-              animate={{ y: showAll ? 0 : [0, 4, 0] }}
-              transition={{
-                duration: 1.4,
-                repeat: showAll ? 0 : Infinity,
-                ease: "easeInOut",
-              }}
-              className="flex"
+          <Magnetic>
+            <button
+              onClick={() => setShowAll((prev) => !prev)}
+              className="group flex items-center gap-4 px-8 h-14 border border-border cursor-pointer uppercase text-xs tracking-[0.25em] font-bold hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all duration-500"
             >
-              {showAll ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
-            </motion.span>
-          </button>
+              {showAll ? "View less" : `View more (${rest.length})`}
+              <motion.span
+                animate={{ y: showAll ? 0 : [0, 4, 0] }}
+                transition={{
+                  duration: 1.4,
+                  repeat: showAll ? 0 : Infinity,
+                  ease: "easeInOut",
+                }}
+                className="flex"
+              >
+                {showAll ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
+              </motion.span>
+            </button>
+          </Magnetic>
         </div>
       )}
     </section>

@@ -55,7 +55,7 @@ const letterVariant: Variants = {
 };
 
 const headingLine =
-  "text-4xl sm:text-5xl md:text-6xl lg:text-[95px] 2xl:text-[105px] font-semibold leading-[1.05] tracking-[-0.06em]";
+  "text-3xl sm:text-4xl md:text-5xl lg:text-[64px] xl:text-[72px] font-semibold uppercase leading-[1.05] tracking-[-0.04em]";
 
 export function Hero() {
   const description = "SOFTWARE DEVELOPER";
@@ -63,10 +63,7 @@ export function Hero() {
   const { navigate } = useTransitionRouter();
 
   return (
-    <section
-      id="hero"
-      className="relative overflow-hidden px-6 pt-24 pb-20 md:pb-28"
-    >
+    <section id="hero" className="relative overflow-hidden px-6 pt-24">
       <div
         aria-hidden
         className="pointer-events-none absolute -top-48 right-[-15%] h-[560px] w-[560px] rounded-full bg-[#a87ffb]/20 blur-[130px]"
@@ -79,35 +76,13 @@ export function Hero() {
           transition={{ duration: 0.8 }}
           className="w-full"
         >
-          <div className="mb-8 md:mb-12">
-            <div
-              className="relative inline-flex rounded-full overflow-hidden"
-              style={{ padding: "1.5px" }}
-            >
-              <div
-                aria-hidden="true"
-                className="absolute animate-[badge-spin_2.8s_linear_infinite]"
-                style={{
-                  inset: "-100%",
-                  background:
-                    "conic-gradient(from 0deg, transparent 0%, transparent 60%, #c4a4ff 72%, #a87ffb 78%, transparent 90%)",
-                  transformOrigin: "center",
-                  willChange: "transform",
-                }}
-              />
-
-              <div
-                className="absolute rounded-full bg-background"
-                style={{ inset: "1.5px" }}
-              />
-
-              <div className="relative flex items-center gap-3 text-xs md:text-sm font-bold tracking-[0.2em] text-gray-500 uppercase px-4 py-2 rounded-full">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#a87ffb] opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#a87ffb]" />
-                </span>
-                OPEN TO OPPORTUNITIES
-              </div>
+          <div className="mb-4 md:mb-5">
+            <div className="inline-flex items-center gap-3 text-xs md:text-sm font-bold tracking-[0.2em] text-text-secondary uppercase">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#a87ffb] opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#a87ffb]" />
+              </span>
+              OPEN TO OPPORTUNITIES
             </div>
           </div>
 
@@ -170,7 +145,7 @@ export function Hero() {
               <Magnetic>
                 <a
                   href="#contact"
-                  className="group relative flex items-center justify-center gap-2 text-sm bg-foreground text-background px-8 py-4 rounded-[40px] overflow-hidden w-full"
+                  className="group relative flex items-center justify-center gap-2 text-sm bg-foreground text-background px-8 py-4 overflow-hidden w-full"
                 >
                   <span className="uppercase relative z-10 flex items-center gap-2">
                     Get in Touch
@@ -178,7 +153,7 @@ export function Hero() {
                       &rarr;
                     </span>
                   </span>
-                  <div className="absolute inset-0 bg-[#a87ffb] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0 rounded-[40px]" />
+                  <div className="absolute inset-0 bg-[#a87ffb] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out z-0" />
                 </a>
               </Magnetic>
             </div>
@@ -187,7 +162,7 @@ export function Hero() {
               <Magnetic>
                 <a
                   href="#projects"
-                  className="uppercase px-8 py-4 text-sm rounded-[40px] border border-foreground/20 text-foreground hover:bg-foreground/5 transition-colors flex items-center justify-center w-full"
+                  className="uppercase px-8 py-4 text-sm border border-foreground/20 text-foreground hover:bg-foreground/5 transition-colors flex items-center justify-center w-full"
                 >
                   View Projects
                 </a>
@@ -256,7 +231,7 @@ export function Hero() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-full hover:brightness-110 transition-all w-12 h-12"
+                  className="flex items-center justify-center gap-2 px-4 py-3 hover:brightness-110 transition-all w-12 h-12"
                   style={{
                     backgroundColor: social.hoverColor,
                     color: "#fff",
