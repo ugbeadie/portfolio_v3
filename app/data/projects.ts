@@ -355,12 +355,15 @@ export const projects: Project[] = [
     category: "Entertainment",
     tagline:
       "Feed it a GitHub username and it reads your commit history back to you, unkindly.",
-    image: "/images/gitburn.png",
-    hook: "Every developer thinks their commit history is normal. It is not.",
+    image: "/images/gitburn/landing.png",
+    hook: "Sixty-five repos, seven stars, and a README that stops mid-sentence. Everyone's GitHub has a version of this.",
     repo: "https://github.com/ugbeadie/GitBurn",
     live: "https://gitburn.ugbeadie.com",
     hero: {
-      image: "/images/gitburn.png",
+      image: "/images/gitburn/landing.png",
+      video: "/videos/gitburn-preview.mp4",
+      speed: 2,
+      aspect: "2332 / 1080",
       caption: "One username in, one personalised roast out.",
     },
     stack: [
@@ -399,19 +402,22 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/gitburn/landing.png",
+        aspect: SCREEN,
         caption:
-          "The roast card. Typed out line by line, and exportable as a PNG from the DOM itself.",
+          "The whole input surface: a handle and a button. Everything the roast is built from is public, so nothing else is asked for.",
       },
       {
-        image: SHOT,
+        image: "/images/gitburn/terminal.png",
+        aspect: SCREEN,
         caption:
-          "The analysing state. A fake terminal wired to real stages, so the wait shows progress instead of a spinner.",
+          "The analysing state. A fake terminal wired to the real stages, so the wait shows progress instead of a spinner.",
       },
       {
-        image: SHOT,
+        image: "/images/gitburn/roast-card.png",
+        aspect: SCREEN,
         caption:
-          "The metrics sidebar. The numbers the model was actually handed, next to what it made of them.",
+          "The roast card. Repo, follower and star counts on the left — the numbers the model was actually handed — next to what it made of them. It types itself out line by line and exports to a PNG from the DOM.",
       },
     ],
     closingSections: [

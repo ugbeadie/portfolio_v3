@@ -169,19 +169,6 @@ function ShotVideo({ shot, paused = false }: { shot: Shot; paused?: boolean }) {
   );
 }
 
-/** Sets take the full row, as does a last shot that would otherwise sit alone. */
-function fullWidthShots(gallery: Shot[]) {
-  let cells = 0;
-
-  return gallery.map((shot, i) => {
-    const full =
-      Boolean(shot.images?.length) ||
-      (i === gallery.length - 1 && cells % 2 === 0);
-    cells += full ? 2 : 1;
-    return full;
-  });
-}
-
 export function isPortrait(aspect?: string) {
   if (!aspect) return false;
   const [width, height] = aspect.split("/").map((part) => Number(part.trim()));
@@ -289,7 +276,6 @@ export function ProjectDetail({
   next: Project;
 }) {
   const { navigate } = useTransitionRouter();
-  const fullWidth = fullWidthShots(project.gallery);
 
   return (
     <main className="min-h-screen bg-background text-text transition-colors duration-300 pb-32">
@@ -412,7 +398,8 @@ export function ProjectDetail({
                 <Reveal
                   key={i}
                   delay={(i % 2) * 0.1}
-                  className={fullWidth[i] ? "md:col-span-2" : undefined}
+                  // Only a set of screens claims the row; the rest sit in the grid.
+                  className={shot.images?.length ? "md:col-span-2" : undefined}
                 >
                   <Figure shot={shot} />
                 </Reveal>
