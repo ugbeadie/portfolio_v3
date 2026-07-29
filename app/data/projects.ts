@@ -9,7 +9,6 @@ export type Project = {
   category: string;
   tagline: string;
   image: string;
-  tools: string[];
   hook: string;
   repo?: string;
   live?: string;
@@ -37,7 +36,6 @@ export const projects: Project[] = [
     tagline:
       "Borrow access, not own access. A permissions system where every grant expires by default and can explain itself.",
     image: "/images/placeholder-warrant.svg",
-    tools: ["Node", "Express", "Postgres", "Prisma", "React"],
     hook: "Access gets granted once and never revoked. Someone needs admin for a one-off migration and still has it eighteen months later.",
     repo: "https://github.com/ugbeadie/warrant",
     live: "https://warrant.ugbeadie.com",
@@ -51,12 +49,11 @@ export const projects: Project[] = [
       caption: "Every access decision comes back as a sentence, not a boolean.",
     },
     stack: [
+      "React",
       "Node",
       "Express",
       "PostgreSQL",
       "Prisma",
-      "node-cron",
-      "React",
       "TypeScript",
       "Tailwind",
     ],
@@ -138,7 +135,6 @@ export const projects: Project[] = [
     tagline:
       "Know what you own. A home inventory for insurance claims with no backend at all — everything stays saved on your device.",
     image: "/images/placeholder-roomful.svg",
-    tools: ["React", "TypeScript", "IndexedDB", "PWA"],
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
     live: "https://roomful.ugbeadie.com",
@@ -147,15 +143,7 @@ export const projects: Project[] = [
       image: "/images/placeholder-roomful.svg",
       caption: "Cataloguing a room. About eight seconds an item.",
     },
-    stack: [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Tailwind",
-      "Zustand",
-      "IndexedDB",
-      "PWA",
-    ],
+    stack: ["React", "TypeScript", "Tailwind", "Zustand", "IndexedDB", "PWA"],
     sections: [
       {
         label: "What it does",
@@ -233,7 +221,6 @@ export const projects: Project[] = [
     tagline:
       "Paste a job link and AI fills the card for you. Every application then lives on a drag-and-drop board.",
     image: "/images/trackr.png",
-    tools: ["Next.js", "PostgreSQL", "Drizzle", "OpenRouter AI"],
     hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
     repo: "https://github.com/ugbeadie/billr",
     live: "https://trackr.ugbeadie.com/",
@@ -243,12 +230,10 @@ export const projects: Project[] = [
     },
     stack: [
       "Next.js",
-      "React",
       "Tailwind",
       "Framer Motion",
       "PostgreSQL",
       "Drizzle",
-      "Better-Auth",
       "OpenRouter AI",
     ],
     sections: [
@@ -321,7 +306,6 @@ export const projects: Project[] = [
     tagline:
       "Feed it a GitHub username and it reads your commit history back to you, unkindly.",
     image: "/images/gitburn.png",
-    tools: ["React", "FastAPI", "PostgreSQL", "OpenRouter AI"],
     hook: "Every developer thinks their commit history is normal. It is not.",
     repo: "https://github.com/ugbeadie/GitBurn",
     live: "https://gitburn.ugbeadie.com",
@@ -332,7 +316,6 @@ export const projects: Project[] = [
     stack: [
       "React",
       "Tailwind",
-      "Framer Motion",
       "FastAPI",
       "SQLAlchemy",
       "PostgreSQL",
@@ -408,7 +391,6 @@ export const projects: Project[] = [
     tagline:
       "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
     image: "/images/moneytrail.png",
-    tools: ["Next.js", "PostgreSQL", "Drizzle", "Tailwind"],
     hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
     repo: "https://github.com/ugbeadie/moneytrail-rework",
     live: "https://moneytrail.ugbeadie.com/",
@@ -416,14 +398,7 @@ export const projects: Project[] = [
       image: "/images/moneytrail.png",
       caption: "A month at a glance, with the heavy days visible.",
     },
-    stack: [
-      "Next.js",
-      "React",
-      "Tailwind",
-      "PostgreSQL",
-      "Drizzle ORM",
-      "Better-Auth",
-    ],
+    stack: ["Next.js", "React", "Tailwind", "PostgreSQL", "Drizzle"],
     sections: [
       {
         label: "What it does",
@@ -492,7 +467,6 @@ export const projects: Project[] = [
     tagline:
       "A storefront that gets out of the way. Built to practise restraint in an interface.",
     image: "/images/snapsack.png",
-    tools: ["React", "React Router", "AOS"],
     hook: "An ecommerce build where the point was the interface, not the checkout.",
     repo: "https://github.com/ugbeadie/Snapsack",
     live: "https://ugbecommercials.vercel.app/",

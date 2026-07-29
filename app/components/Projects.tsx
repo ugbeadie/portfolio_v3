@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { projects, FEATURED_COUNT, type Project } from "../data/projects";
@@ -70,9 +70,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         </p>
 
         <div className="flex flex-wrap gap-3">
-          {project.tools.map((tool, i) => (
+          {project.stack.map((tool) => (
             <span
-              key={i}
+              key={tool}
               className="border border-border px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.18em] text-text-secondary bg-card"
             >
               {tool}
@@ -84,9 +84,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   );
 }
 
-/** Long enough for the collapse animation to finish and the rows to unmount. */
-const COLLAPSE_MS = 450;
-
 export function Projects() {
   const [showAll, setShowAll] = useState(false);
   const toggleRef = useRef<HTMLDivElement>(null);
@@ -96,28 +93,31 @@ export function Projects() {
   const rest = projects.slice(FEATURED_COUNT);
 
   const toggle = () => {
-    // Collapsing deletes rows above the reader, so the page shrinks underneath
-    // them and the browser dumps them at the footer. Remember where the button
-    // sits on screen now, and put it back there once the rows are gone.
     anchorTop.current = showAll
       ? (toggleRef.current?.getBoundingClientRect().top ?? null)
       : null;
     setShowAll((prev) => !prev);
   };
 
-  useEffect(() => {
-    if (showAll || anchorTop.current === null) return;
+  // Layout effect, not effect: this has to run after the rows are removed but
+  // before the browser paints, or the footer flashes into view first.
+  useLayoutEffect(() => {
+    const before = anchorTop.current;
+    anchorTop.current = null;
+    if (before === null || !toggleRef.current) return;
 
-    const timer = setTimeout(() => {
-      const before = anchorTop.current;
-      anchorTop.current = null;
-      if (before === null || !toggleRef.current) return;
+    const after = toggleRef.current.getBoundingClientRect().top;
+    if (after === before) return;
 
-      const after = toggleRef.current.getBoundingClientRect().top;
-      window.scrollBy({ top: after - before, behavior: "auto" });
-    }, COLLAPSE_MS);
-
-    return () => clearTimeout(timer);
+    // globals.css sets `scroll-behavior: smooth` on <html>, which every scroll
+    // API defers to — including behavior: "auto". Left on, the correction
+    // animates, so you watch the page travel back up from the footer. Suspend
+    // it for this one jump.
+    const html = document.documentElement;
+    const previous = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+    window.scrollBy(0, after - before);
+    html.style.scrollBehavior = previous;
   }, [showAll]);
 
   return (
@@ -157,31 +157,24 @@ export function Projects() {
           <ProjectRow key={project.id} project={project} index={index} />
         ))}
 
-        <AnimatePresence initial={false}>
-          {showAll &&
-            rest.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.8,
-                    delay: index * 0.12,
-                    ease: [0.22, 1, 0.36, 1],
-                  },
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 40,
-                  transition: { duration: 0.35, ease: [0.76, 0, 0.24, 1] },
-                }}
-              >
-                <ProjectRow project={project} index={FEATURED_COUNT + index} />
-              </motion.div>
-            ))}
-        </AnimatePresence>
+        {showAll &&
+          rest.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.8,
+                  delay: index * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              }}
+            >
+              <ProjectRow project={project} index={FEATURED_COUNT + index} />
+            </motion.div>
+          ))}
       </div>
 
       {rest.length > 0 && (

@@ -171,9 +171,36 @@ export function Hero() {
           </motion.div>
 
           <motion.div
+            className="md:hidden flex justify-center items-center flex-wrap gap-4 mt-10 w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.1, duration: 0.8 }}
+          >
+            {socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-4 py-3 hover:brightness-110 transition-all w-12 h-12"
+                  style={{
+                    backgroundColor: social.hoverColor,
+                    color: "#fff",
+                  }}
+                  aria-label={social.name}
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              );
+            })}
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.1, duration: 0.8 }}
+            transition={{ delay: 2.25, duration: 0.8 }}
             className="mt-16 md:mt-20 w-full"
           >
             <div className="flex items-center justify-between gap-6 mb-6">
@@ -217,32 +244,6 @@ export function Hero() {
             </div>
           </motion.div>
 
-          <motion.div
-            className="md:hidden flex justify-center items-center flex-wrap gap-4 mt-12 w-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.3, duration: 0.8 }}
-          >
-            {socials.map((social) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-3 hover:brightness-110 transition-all w-12 h-12"
-                  style={{
-                    backgroundColor: social.hoverColor,
-                    color: "#fff",
-                  }}
-                  aria-label={social.name}
-                >
-                  <Icon className="w-5 h-5" />
-                </a>
-              );
-            })}
-          </motion.div>
         </motion.div>
       </div>
     </section>

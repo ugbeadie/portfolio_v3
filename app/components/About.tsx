@@ -57,7 +57,6 @@ const PythonIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-/** Brands whose mark is black or white — follow the theme instead. */
 const MONO = "var(--foreground)";
 
 const techStacks: Record<string, Tech[]> = {
@@ -301,8 +300,8 @@ export function About() {
                 I&rsquo;ve stepped back from Python for the moment, though I
                 fully intend to come back to it for data science and AI
                 engineering. Alongside that, I keep refining my mobile
-                development skills and picking up whatever the next project
-                asks for — I learn fast, and getting my hands on something I
+                development skills and picking up whatever the next project asks
+                for — I learn fast, and getting my hands on something I
                 haven&rsquo;t used before is the part of this work I enjoy most.
               </motion.p>
 
