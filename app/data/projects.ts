@@ -34,8 +34,6 @@ export type Project = {
   draft?: boolean;
 };
 
-const SHOT = "/images/placeholder-shot.svg";
-
 /** Screen captures come off a laptop viewport, not a 16:9 frame. */
 const SCREEN = "1365 / 630";
 
@@ -131,7 +129,7 @@ export const projects: Project[] = [
         label: "Where it stands",
         body: [
           "Shipped and live with a public demo login, so you can see the whole system rather than a scoped-down guest view.",
-          "Nine distinct audit actions covering every way access can begin, change hands or end. Requests must escalate rather than duplicate, and a higher grant supersedes lower ones automatically.",
+          "Distinct audit actions covering every way access can begin, change hands or end. Requests must escalate rather than duplicate, and a higher grant supersedes lower ones automatically.",
         ],
       },
       {
@@ -275,7 +273,7 @@ export const projects: Project[] = [
       "Framer Motion",
       "PostgreSQL",
       "Drizzle",
-      "OpenRouter AI",
+      "OpenRouter API",
     ],
     sections: [
       {
@@ -346,6 +344,9 @@ export const projects: Project[] = [
         ],
       },
     ],
+    closer: [
+      "Paste a job link into the demo and watch the fields fill themselves, then change one before you save it. That editable step is the whole argument, and it's easier to believe once you've used it.",
+    ],
     draft: true,
   },
   {
@@ -372,7 +373,7 @@ export const projects: Project[] = [
       "FastAPI",
       "SQLAlchemy",
       "PostgreSQL",
-      "OpenRouter",
+      "OpenRouter API",
     ],
     sections: [
       {
@@ -437,6 +438,9 @@ export const projects: Project[] = [
         ],
       },
     ],
+    closer: [
+      "Try it on your own handle. There's no login and nothing is stored — it reads what anyone can already see, and the worst it can do is be right.",
+    ],
     draft: true,
   },
   {
@@ -451,7 +455,10 @@ export const projects: Project[] = [
     repo: "https://github.com/ugbeadie/moneytrail-rework",
     live: "https://moneytrail.ugbeadie.com/",
     hero: {
-      image: "/images/moneytrail.png",
+      image: "/images/moneytrail/summary.png",
+      video: "/videos/moneytrail-preview.mp4",
+      speed: 2,
+      aspect: "2312 / 1080",
       caption: "A month at a glance, with the heavy days visible.",
     },
     stack: ["Next.js", "React", "Tailwind", "PostgreSQL", "Drizzle"],
@@ -483,18 +490,28 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/moneytrail/summary.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the calendar month, with per-day totals doing the summarising.",
+          "The summary. Balance, income and expense for the month, the ledger grouped by day, and the entry form beside it so logging a transaction never leaves the page.",
       },
       {
-        image: SHOT,
-        caption: "Placeholder — category breakdown for the selected range.",
+        image: "/images/moneytrail/calendar.png",
+        aspect: SCREEN,
+        caption:
+          "The calendar month, with per-day totals doing the summarising. A heavy week is a shape rather than a row you have to find.",
       },
       {
-        image: SHOT,
+        image: "/images/moneytrail/statistics.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the transaction graph, live and finally on the right month.",
+          "Category breakdown for the selected range, with the share and transaction count beside each slice.",
+      },
+      {
+        image: "/images/moneytrail/category.png",
+        aspect: SCREEN,
+        caption:
+          "One category opened. The spending trend sits next to the transactions behind it — this is the graph that was correct locally and wrong in production until the date range was reworked.",
       },
     ],
     closingSections: [
@@ -513,6 +530,9 @@ export const projects: Project[] = [
         ],
       },
     ],
+    closer: [
+      "Log a few days in the demo and the calendar starts doing the summarising for you. The session layer that made this a rewrite rather than a redesign is the first thing you'll meet in the repo.",
+    ],
     draft: true,
   },
   {
@@ -527,7 +547,10 @@ export const projects: Project[] = [
     repo: "https://github.com/ugbeadie/Snapsack",
     live: "https://ugbecommercials.vercel.app/",
     hero: {
-      image: "/images/snapsack.png",
+      image: "/images/snapsack/home.png",
+      video: "/videos/snapsack-preview.mp4",
+      speed: 2,
+      aspect: "2308 / 1080",
       caption:
         "Catalogue, cart, and as little chrome as it could get away with.",
     },
@@ -539,25 +562,41 @@ export const projects: Project[] = [
           "A browsable catalogue with a working cart and a clean, deliberately quiet product page. Routing, state and scroll-triggered motion, with the visual noise kept down on purpose.",
         ],
       },
-      {
-        label: "The hard part",
-        body: ["Placeholder."],
-      },
-      {
-        label: "A decision I'd defend",
-        body: ["Placeholder."],
-      },
     ],
     gallery: [
-      { image: SHOT, caption: "Placeholder — the catalogue grid." },
-      { image: SHOT, caption: "Placeholder — the cart." },
+      {
+        image: "/images/snapsack/home.png",
+        aspect: SCREEN,
+        caption:
+          "The landing grid. Four category tiles carry the navigation, with the trending row underneath.",
+      },
+      {
+        image: "/images/snapsack/product.png",
+        aspect: SCREEN,
+        caption:
+          "A product page. Image, price, rating and one action — the restraint exercise this build was for.",
+      },
+      {
+        image: "/images/snapsack/promos.png",
+        aspect: SCREEN,
+        caption:
+          "The promotional band, revealed on scroll. One motion, used consistently, rather than a different entrance per section.",
+      },
+      {
+        image: "/images/snapsack/footer.png",
+        aspect: SCREEN,
+        caption:
+          "The closing band. Social strip and the shipping, returns and payment row a storefront is expected to have.",
+      },
     ],
     closingSections: [
       {
         label: "Where it stands",
         body: ["Shipped and live. An earlier build, kept for the record."],
       },
-      { label: "What's still missing", body: ["Placeholder."] },
+    ],
+    closer: [
+      "The oldest thing on this site, kept as it was rather than quietly improved. The restraint in the interface is the part I'd still defend; most of the rest I'd write differently now.",
     ],
     draft: true,
   },
