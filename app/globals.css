@@ -33,6 +33,11 @@
   --muted-foreground: #555555;
   --accent: #a87ffb;
   --accent-foreground: #ffffff;
+  /* Screenshots and video float on this instead of a padded panel: a soft
+     lavender halo reaching about as far as the old 16px mat, plus the weighted
+     drop underneath. Spread sets the reach, alpha sets the strength. */
+  --shot-glow: 0 0 16px 2px rgba(171, 139, 255, 0.13),
+    0 14px 34px -22px rgba(26, 10, 64, 0.35);
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
   --border: rgba(0, 0, 0, 0.1);
@@ -62,6 +67,10 @@
   --muted-foreground: #a0a0a0;
   --accent: #a87ffb;
   --accent-foreground: #ffffff;
+  /* Same halo, a touch wider and fainter: purple carries further against
+     #0a0a0a, and the dark drop has nothing left to darken. */
+  --shot-glow: 0 0 20px 2px rgba(171, 139, 255, 0.1),
+    0 14px 34px -24px rgba(0, 0, 0, 0.7);
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.1);
@@ -91,6 +100,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --shadow-shot: var(--shot-glow);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);

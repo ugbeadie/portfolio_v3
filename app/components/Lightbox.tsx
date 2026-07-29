@@ -1,0 +1,115 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { motion } from "motion/react";
+import { X } from "lucide-react";
+import type { Shot } from "../data/projects";
+
+/**
+ * Portalled to the body rather than rendered in place: every figure sits inside
+ * an animating motion.div, and a transformed ancestor would make `fixed`
+ * position against that element instead of the viewport.
+ *
+ * Sits above the navbar (z-100) and below the page-transition curtain (z-200),
+ * so navigating away covers it rather than leaving it stranded on top.
+ */
+export function Lightbox({
+  shot,
+  onClose,
+}: {
+  shot: Shot;
+  onClose: () => void;
+}) {
+  const [mounted, setMounted] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    // The page behind must hold still while the overlay owns the screen.
+    const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus?.();
+    };
+  }, [onClose]);
+
+  useEffect(() => {
+    if (mounted) closeRef.current?.focus();
+  }, [mounted]);
+
+  if (!mounted) return null;
+
+  return createPortal(
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      role="dialog"
+      aria-modal="true"
+      aria-label={shot.caption}
+      onClick={onClose}
+      className="fixed inset-0 z-150 flex flex-col items-center justify-center gap-6 bg-black/92 backdrop-blur-sm p-4 sm:p-8 md:p-14"
+    >
+      <button
+        ref={closeRef}
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute top-5 right-5 md:top-8 md:right-8 flex items-center gap-3 px-4 h-11 border border-white/20 text-white cursor-pointer hover:bg-white hover:text-black transition-colors text-[10px] uppercase tracking-[0.25em]"
+      >
+        Close <X size={16} />
+      </button>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        // Clicks on the media itself must not reach the backdrop, or scrubbing
+        // the video would close the overlay.
+        onClick={(event) => event.stopPropagation()}
+        className="flex flex-col items-center gap-5 max-w-full"
+      >
+        {shot.video ? (
+          <video
+            src={shot.video}
+            poster={shot.image}
+            controls
+            autoPlay
+            playsInline
+            className="max-h-[78vh] max-w-full border border-white/10"
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element -- natural
+          // dimensions are unknown here and the overlay is opened on demand.
+          <img
+            src={shot.image}
+            alt={shot.caption}
+            className="max-h-[78vh] max-w-full object-contain border border-white/10"
+          />
+        )}
+
+        <figcaption className="flex flex-col items-center gap-3 text-sm text-white/60 italic leading-relaxed text-center max-w-2xl">
+          {shot.caption}
+          {/* The file itself is sped up, so the disclosure follows it here too. */}
+          {shot.speed && (
+            <span className="not-italic border border-white/20 px-3 py-1 text-[9px] uppercase tracking-[0.25em] text-white/50">
+              {shot.speed}× speed
+            </span>
+          )}
+        </figcaption>
+      </motion.div>
+    </motion.div>,
+    document.body,
+  );
+}

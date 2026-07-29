@@ -1,4 +1,14 @@
-export type Shot = { image: string; caption: string };
+export type Shot = {
+  image: string;
+  caption: string;
+  /** Plays in place of the still; the image becomes its poster frame. */
+  video?: string;
+  /** Playback multiple the file was exported at. Declared, not hidden: nobody
+   *  should come away thinking the app runs this fast. */
+  speed?: number;
+  /** CSS aspect-ratio for the frame. Defaults to 16 / 9. */
+  aspect?: string;
+};
 
 export type Section = { label: string; body: string[] };
 
@@ -25,6 +35,9 @@ export type Project = {
 
 const SHOT = "/images/placeholder-shot.svg";
 
+/** Screen captures come off a laptop viewport, not a 16:9 frame. */
+const SCREEN = "1365 / 630";
+
 export const FEATURED_COUNT = 4;
 
 export const projects: Project[] = [
@@ -35,7 +48,7 @@ export const projects: Project[] = [
     category: "Security & access",
     tagline:
       "Borrow access, not own access. A permissions system where every grant expires by default and can explain itself.",
-    image: "/images/placeholder-warrant.svg",
+    image: "/images/warrant/access-trace.png",
     hook: "Access gets granted once and never revoked. Someone needs admin for a one-off migration and still has it eighteen months later.",
     repo: "https://github.com/ugbeadie/warrant",
     live: "https://warrant.ugbeadie.com",
@@ -45,7 +58,10 @@ export const projects: Project[] = [
       url: "https://medium.com/@ugbeadie3/why-i-built-a-system-that-forgets-acab773178c1",
     },
     hero: {
-      image: "/images/placeholder-warrant.svg",
+      image: "/images/warrant/access-trace.png",
+      video: "/videos/warrant-preview.mp4",
+      speed: 2,
+      aspect: "2324 / 1080",
       caption: "Every access decision comes back as a sentence, not a boolean.",
     },
     stack: [
@@ -85,22 +101,26 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/warrant/access-trace.png",
+        aspect: SCREEN,
         caption:
           "The why panel. Traces access to its source, and says what's missing when it's denied.",
       },
       {
-        image: SHOT,
+        image: "/images/warrant/approvals-queue.png",
+        aspect: SCREEN,
         caption:
           "Approvals queue. Owners decide requests for their own resources; admins can see every pending request platform-wide.",
       },
       {
-        image: SHOT,
+        image: "/images/warrant/audit-log.png",
+        aspect: SCREEN,
         caption:
           "Audit log. Distinct actions, so a policy auto-approval never looks like a human decision.",
       },
       {
-        image: SHOT,
+        image: "/images/warrant/policy-rule.png",
+        aspect: SCREEN,
         caption:
           "Policy rule editor. Auto-approval is capped by role tier, so “auto-approve viewer” can never become “auto-approve admin”.",
       },

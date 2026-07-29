@@ -1,10 +1,19 @@
 "use client";
 
-import { motion } from "motion/react";
-import { ArrowLeft, ExternalLink, ArrowUpRight, FileText } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  ArrowUpRight,
+  FileText,
+  Maximize2,
+  Play,
+} from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { Magnetic } from "./Magnetic";
 import { FoldingImage } from "./FoldingImage";
+import { Lightbox } from "./Lightbox";
 import { useTransitionRouter } from "./PageTransition";
 import type { Project, Section, Shot } from "../data/projects";
 
@@ -122,6 +131,48 @@ function LinkRow({
   );
 }
 
+/**
+ * Ambient only — no controls, no sound. Anyone who wants to actually watch it
+ * opens the lightbox, which is where the real player lives.
+ */
+function ShotVideo({ shot, paused = false }: { shot: Shot; paused?: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(query.matches);
+
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    // autoPlay has already fired by now, so both the motion preference and the
+    // open overlay are honoured by pausing after the fact.
+    if (reduced || paused) video.pause();
+    else void video.play().catch(() => {});
+  }, [reduced, paused]);
+
+  return (
+    <video
+      ref={ref}
+      src={shot.video}
+      poster={shot.image}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden
+      className="w-full h-full object-cover"
+    />
+  );
+}
+
 function Figure({
   shot,
   slices = 7,
@@ -133,10 +184,26 @@ function Figure({
   delay?: number;
   priority?: boolean;
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const label = shot.video
+    ? `Play video: ${shot.caption}`
+    : `View full size: ${shot.caption}`;
+
   return (
     <figure className="w-full">
-      <div className="w-full aspect-video overflow-hidden bg-card border border-border">
-        {priority ? (
+      {shot.video && (
+        <p className="mb-4 text-sm text-text-secondary leading-relaxed">
+          Click to preview.
+          {shot.speed ? ` The recording runs at ${shot.speed}× speed.` : ""}
+        </p>
+      )}
+      <div
+        className="relative w-full overflow-hidden bg-card border border-border shadow-shot group"
+        style={{ aspectRatio: shot.aspect ?? "16 / 9" }}
+      >
+        {shot.video ? (
+          <ShotVideo shot={shot} paused={expanded} />
+        ) : priority ? (
           <FoldingImage src={shot.image} slices={slices} delay={delay} />
         ) : (
           <div
@@ -144,10 +211,31 @@ function Figure({
             style={{ backgroundImage: `url(${shot.image})` }}
           />
         )}
+
+        {/* Covers the frame, so the whole shot is the target rather than a
+            badge you have to aim at. */}
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          aria-label={label}
+          className="absolute inset-0 flex items-end justify-end p-4 cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-[#ab8bff]"
+        >
+          <span className="flex items-center gap-2 px-4 h-10 border border-white/25 bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-[0.25em] opacity-100 md:opacity-0 md:group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300">
+            {shot.video ? <Play size={14} /> : <Maximize2 size={14} />}
+            {shot.video ? "Play" : "Expand"}
+          </span>
+        </button>
+
       </div>
       <figcaption className="mt-4 text-sm text-text-secondary leading-relaxed italic">
         {shot.caption}
       </figcaption>
+
+      <AnimatePresence>
+        {expanded && (
+          <Lightbox shot={shot} onClose={() => setExpanded(false)} />
+        )}
+      </AnimatePresence>
     </figure>
   );
 }
