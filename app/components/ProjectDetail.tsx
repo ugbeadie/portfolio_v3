@@ -230,7 +230,7 @@ export function ProjectDetail({
                 <code className="font-mono text-text">
                   {project.demoLogin.email}
                 </code>
-                <span aria-hidden>Â·</span>
+                <span aria-hidden>·</span>
                 <code className="font-mono text-text">
                   {project.demoLogin.password}
                 </code>
@@ -250,7 +250,7 @@ export function ProjectDetail({
 
         <Reveal className="mt-20 md:mt-28 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 border-t border-border pt-10">
           <h2 className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-text-secondary">
-            Stack
+            Stack/Tools
           </h2>
           <div className="lg:col-span-8 flex flex-wrap gap-3">
             {project.stack.map((item) => (
