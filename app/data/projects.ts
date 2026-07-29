@@ -34,8 +34,6 @@ export type Project = {
   draft?: boolean;
 };
 
-const SHOT = "/images/placeholder-shot.svg";
-
 /** Screen captures come off a laptop viewport, not a 16:9 frame. */
 const SCREEN = "1365 / 630";
 
@@ -446,12 +444,15 @@ export const projects: Project[] = [
     category: "Finance",
     tagline:
       "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
-    image: "/images/moneytrail.png",
+    image: "/images/moneytrail/summary.png",
     hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
     repo: "https://github.com/ugbeadie/moneytrail-rework",
     live: "https://moneytrail.ugbeadie.com/",
     hero: {
-      image: "/images/moneytrail.png",
+      image: "/images/moneytrail/summary.png",
+      video: "/videos/moneytrail-preview.mp4",
+      speed: 2,
+      aspect: "2312 / 1080",
       caption: "A month at a glance, with the heavy days visible.",
     },
     stack: ["Next.js", "React", "Tailwind", "PostgreSQL", "Drizzle"],
@@ -483,18 +484,28 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/moneytrail/summary.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the calendar month, with per-day totals doing the summarising.",
+          "The summary. Balance, income and expense for the month, the ledger grouped by day, and the entry form beside it so logging a transaction never leaves the page.",
       },
       {
-        image: SHOT,
-        caption: "Placeholder — category breakdown for the selected range.",
+        image: "/images/moneytrail/calendar.png",
+        aspect: SCREEN,
+        caption:
+          "The calendar month, with per-day totals doing the summarising. A heavy week is a shape rather than a row you have to find.",
       },
       {
-        image: SHOT,
+        image: "/images/moneytrail/statistics.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the transaction graph, live and finally on the right month.",
+          "Category breakdown for the selected range, with the share and transaction count beside each slice.",
+      },
+      {
+        image: "/images/moneytrail/category.png",
+        aspect: SCREEN,
+        caption:
+          "One category opened. The spending trend sits next to the transactions behind it — this is the graph that was correct locally and wrong in production until the date range was reworked.",
       },
     ],
     closingSections: [
@@ -522,12 +533,15 @@ export const projects: Project[] = [
     category: "E-commerce",
     tagline:
       "A storefront that gets out of the way. Built to practise restraint in an interface.",
-    image: "/images/snapsack.png",
+    image: "/images/snapsack/home.png",
     hook: "An ecommerce build where the point was the interface, not the checkout.",
     repo: "https://github.com/ugbeadie/Snapsack",
     live: "https://ugbecommercials.vercel.app/",
     hero: {
-      image: "/images/snapsack.png",
+      image: "/images/snapsack/home.png",
+      video: "/videos/snapsack-preview.mp4",
+      speed: 2,
+      aspect: "2308 / 1080",
       caption:
         "Catalogue, cart, and as little chrome as it could get away with.",
     },
@@ -549,8 +563,30 @@ export const projects: Project[] = [
       },
     ],
     gallery: [
-      { image: SHOT, caption: "Placeholder — the catalogue grid." },
-      { image: SHOT, caption: "Placeholder — the cart." },
+      {
+        image: "/images/snapsack/home.png",
+        aspect: SCREEN,
+        caption:
+          "The landing grid. Four category tiles carry the navigation, with the trending row underneath.",
+      },
+      {
+        image: "/images/snapsack/product.png",
+        aspect: SCREEN,
+        caption:
+          "A product page. Image, price, rating and one action — the restraint exercise this build was for.",
+      },
+      {
+        image: "/images/snapsack/promos.png",
+        aspect: SCREEN,
+        caption:
+          "The promotional band, revealed on scroll. One motion, used consistently, rather than a different entrance per section.",
+      },
+      {
+        image: "/images/snapsack/footer.png",
+        aspect: SCREEN,
+        caption:
+          "The closing band. Social strip and the shipping, returns and payment row a storefront is expected to have.",
+      },
     ],
     closingSections: [
       {
