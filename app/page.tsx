@@ -7,10 +7,11 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import {
   motion,
+  useReducedMotion,
   useScroll,
   useSpring,
-  useVelocity,
   useTransform,
+  useVelocity,
 } from "motion/react";
 
 export default function App() {
@@ -22,15 +23,18 @@ export default function App() {
     restDelta: 0.001,
   });
 
-  const scrollVelocity = useVelocity(scrollY);
-
-  const smoothVelocity = useSpring(scrollVelocity, {
+  const smoothVelocity = useSpring(useVelocity(scrollY), {
     stiffness: 120,
     damping: 35,
     restDelta: 0.01,
   });
 
-  const skewY = useTransform(smoothVelocity, [-4000, 0, 4000], [8, 0, -8]);
+  const lean = useReducedMotion() ? 0 : 8;
+  const skewY = useTransform(
+    smoothVelocity,
+    [-4000, 0, 4000],
+    [lean, 0, -lean],
+  );
 
   return (
     <div className="relative overflow-hidden">

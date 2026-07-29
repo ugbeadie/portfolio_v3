@@ -226,7 +226,6 @@ function Figure({
               ? "w-full max-w-3xl mx-auto"
               : "w-full"
         }`}
-        // A group is sized by the images it holds, not by a set ratio.
         style={{ aspectRatio: group ? undefined : (shot.aspect ?? "16 / 9") }}
       >
         {group ? (
@@ -398,7 +397,6 @@ export function ProjectDetail({
                 <Reveal
                   key={i}
                   delay={(i % 2) * 0.1}
-                  // Only a set of screens claims the row; the rest sit in the grid.
                   className={shot.images?.length ? "md:col-span-2" : undefined}
                 >
                   <Figure shot={shot} />
@@ -414,8 +412,6 @@ export function ProjectDetail({
           ))}
         </div>
 
-        {/* Always rendered: by the time you have read the page, the links are
-            back above the fold. */}
         <Reveal className="border-t border-border pt-12">
           {project.closer && project.closer.length > 0 && (
             <div className="max-w-2xl space-y-6">

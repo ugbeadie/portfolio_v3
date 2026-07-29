@@ -129,7 +129,7 @@ export const projects: Project[] = [
         label: "Where it stands",
         body: [
           "Shipped and live with a public demo login, so you can see the whole system rather than a scoped-down guest view.",
-          "Nine distinct audit actions covering every way access can begin, change hands or end. Requests must escalate rather than duplicate, and a higher grant supersedes lower ones automatically.",
+          "Distinct audit actions covering every way access can begin, change hands or end. Requests must escalate rather than duplicate, and a higher grant supersedes lower ones automatically.",
         ],
       },
       {
@@ -273,7 +273,7 @@ export const projects: Project[] = [
       "Framer Motion",
       "PostgreSQL",
       "Drizzle",
-      "OpenRouter AI",
+      "OpenRouter API",
     ],
     sections: [
       {
@@ -344,6 +344,9 @@ export const projects: Project[] = [
         ],
       },
     ],
+    closer: [
+      "Paste a job link into the demo and watch the fields fill themselves, then change one before you save it. That editable step is the whole argument, and it's easier to believe once you've used it.",
+    ],
     draft: true,
   },
   {
@@ -370,7 +373,7 @@ export const projects: Project[] = [
       "FastAPI",
       "SQLAlchemy",
       "PostgreSQL",
-      "OpenRouter",
+      "OpenRouter API",
     ],
     sections: [
       {
@@ -434,6 +437,9 @@ export const projects: Project[] = [
           "And 250 characters of README is enough to catch a tone but not enough to know what a project does, so the model occasionally roasts a thing for being what it isn't.",
         ],
       },
+    ],
+    closer: [
+      "Try it on your own handle. There's no login and nothing is stored — it reads what anyone can already see, and the worst it can do is be right.",
     ],
     draft: true,
   },
@@ -524,6 +530,9 @@ export const projects: Project[] = [
         ],
       },
     ],
+    closer: [
+      "Log a few days in the demo and the calendar starts doing the summarising for you. The session layer that made this a rewrite rather than a redesign is the first thing you'll meet in the repo.",
+    ],
     draft: true,
   },
   {
@@ -585,6 +594,9 @@ export const projects: Project[] = [
         label: "Where it stands",
         body: ["Shipped and live. An earlier build, kept for the record."],
       },
+    ],
+    closer: [
+      "The oldest thing on this site, kept as it was rather than quietly improved. The restraint in the interface is the part I'd still defend; most of the rest I'd write differently now.",
     ],
     draft: true,
   },
