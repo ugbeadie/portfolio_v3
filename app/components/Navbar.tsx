@@ -2,17 +2,35 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
+import { usePathname } from "next/navigation";
 import { Magnetic } from "./Magnetic";
+import { useTransitionRouter } from "./PageTransition";
 
 const navItems = [
-  { name: "ABOUT", href: "#about" },
-  { name: "PROJECTS", href: "#projects" },
-  { name: "CONTACT", href: "#contact" },
+  { name: "ABOUT", hash: "#about" },
+  { name: "PROJECTS", hash: "#projects" },
+  { name: "CONTACT", hash: "#contact" },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const { navigate } = useTransitionRouter();
+
+  const isHome = pathname === "/";
+  // Off the home page the section links have to route back to it first.
+  const hrefFor = (hash: string) => (isHome ? hash : `/${hash}`);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    hash: string,
+  ) => {
+    setIsOpen(false);
+    if (isHome) return; // native smooth scroll
+    e.preventDefault();
+    navigate(`/${hash}`);
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -50,6 +68,10 @@ export function Navbar() {
 
   const scrollToTop = () => {
     setIsOpen(false);
+    if (!isHome) {
+      navigate("/");
+      return;
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -126,12 +148,12 @@ export function Navbar() {
           </a>
         </div>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-12 font-sans text-sm font-medium tracking-wide pointer-events-auto relative z-10">
           {navItems.map((item) => (
             <Magnetic key={item.name}>
               <a
-                href={item.href}
+                href={hrefFor(item.hash)}
+                onClick={(e) => handleNavClick(e, item.hash)}
                 className="group relative block overflow-visible py-2 text-foreground"
               >
                 <span className="invisible">{item.name}</span>
@@ -152,7 +174,6 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Burger Button (Mobile) */}
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className="md:hidden flex flex-col gap-[6px] p-2 pointer-events-auto z-[111] relative"
@@ -165,13 +186,12 @@ export function Navbar() {
               custom={i}
               variants={lineVariants}
               animate={isOpen ? "opened" : "closed"}
-              className="w-8 h-[2px] bg-foreground rounded-full"
+              className="w-8 h-[2px] bg-foreground"
             />
           ))}
         </button>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence mode="wait">
         {isOpen && (
           <motion.div
@@ -185,13 +205,13 @@ export function Navbar() {
               {navItems.map((item, i) => (
                 <motion.a
                   key={item.name}
-                  href={item.href}
+                  href={hrefFor(item.hash)}
                   custom={i}
                   variants={itemVariants}
                   initial="hidden"
                   animate="show"
                   exit="exit"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, item.hash)}
                   className="group relative block text-4xl font-display font-bold text-foreground overflow-visible"
                 >
                   <span className="invisible">{item.name}</span>
@@ -204,15 +224,6 @@ export function Navbar() {
                 </motion.a>
               ))}
             </div>
-
-            {/* <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              transition={{ delay: 0.8 }}
-              className="absolute bottom-12 text-sm font-sans tracking-widest uppercase text-foreground"
-            >
-              Get in touch
-            </motion.div> */}
           </motion.div>
         )}
       </AnimatePresence>

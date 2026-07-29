@@ -10,16 +10,17 @@ import {
   SiVuedotjs,
   SiNextdotjs,
   SiFlutter,
-  SiExpo,
+  SiNodedotjs,
+  SiExpress,
   SiTailwindcss,
   SiSass,
-  SiMui,
-  SiStyledcomponents,
-  SiBootstrap,
+  SiShadcnui,
   SiFramer,
+  SiFastapi,
   SiPostgresql,
   SiMongodb,
   SiPrisma,
+  SiDrizzle,
   SiFirebase,
   SiSupabase,
   SiVercel,
@@ -27,9 +28,21 @@ import {
   SiGithub,
 } from "react-icons/si";
 
-import { Smartphone, Code2, Box } from "lucide-react";
+import { Smartphone, Code2, Box, CloudLightning } from "lucide-react";
 import { Magnetic } from "./Magnetic";
 import { FaFilePdf } from "react-icons/fa6";
+import { RESUME_URL } from "./SocialSidebar";
+
+type Tech = {
+  name: string;
+  icon: React.ComponentType<{
+    size?: number;
+    className?: string;
+    style?: React.CSSProperties;
+  }>;
+  color: string;
+  glow: string;
+};
 
 const PythonIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 256 255" fill="none">
@@ -44,8 +57,10 @@ const PythonIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-const techStacks = {
-  "Languages & Frameworks": [
+const MONO = "var(--foreground)";
+
+const techStacks: Record<string, Tech[]> = {
+  Frontend: [
     {
       name: "HTML",
       icon: SiHtml5,
@@ -77,16 +92,30 @@ const techStacks = {
       glow: "rgba(1,117,194,0.35)",
     },
     {
-      name: "Python",
-      icon: PythonIcon,
-      color: "#3776AB",
-      glow: "rgba(55,118,171,0.35)",
-    },
-    {
       name: "React.js",
       icon: SiReact,
       color: "#61DAFB",
       glow: "rgba(97,218,251,0.35)",
+    },
+    {
+      name: "Next.js",
+      icon: SiNextdotjs,
+      color: MONO,
+      glow: "rgba(120,120,120,0.3)",
+    },
+
+    {
+      name: "Vue.js",
+      icon: SiVuedotjs,
+      color: "#42B883",
+      glow: "rgba(66,184,131,0.35)",
+    },
+
+    {
+      name: "Nuxt.js",
+      icon: Box,
+      color: "#00DC82",
+      glow: "rgba(0,220,130,0.35)",
     },
     {
       name: "React Native",
@@ -95,38 +124,41 @@ const techStacks = {
       glow: "rgba(97,218,251,0.35)",
     },
     {
-      name: "Vue.js",
-      icon: SiVuedotjs,
-      color: "#42B883",
-      glow: "rgba(66,184,131,0.35)",
-    },
-    {
-      name: "Next.js",
-      icon: SiNextdotjs,
-      color: "#000000",
-      glow: "rgba(120,120,120,0.3)",
-    },
-    {
-      name: "Nuxt.js",
-      icon: Box,
-      color: "#00DC82",
-      glow: "rgba(0,220,130,0.35)",
-    },
-    {
       name: "Flutter",
       icon: SiFlutter,
       color: "#02569B",
       glow: "rgba(2,86,155,0.35)",
     },
+  ],
+
+  Backend: [
     {
-      name: "Expo",
-      icon: SiExpo,
-      color: "#000020",
-      glow: "rgba(120,120,255,0.25)",
+      name: "Node.js",
+      icon: SiNodedotjs,
+      color: "#339933",
+      glow: "rgba(51,153,51,0.35)",
+    },
+    {
+      name: "Express.js",
+      icon: SiExpress,
+      color: MONO,
+      glow: "rgba(120,120,120,0.3)",
+    },
+    {
+      name: "Python",
+      icon: PythonIcon,
+      color: "#3776AB",
+      glow: "rgba(55,118,171,0.35)",
+    },
+    {
+      name: "FastAPI",
+      icon: SiFastapi,
+      color: "#009688",
+      glow: "rgba(0,150,136,0.35)",
     },
   ],
 
-  Styling: [
+  "Styling & UI": [
     {
       name: "TailwindCSS",
       icon: SiTailwindcss,
@@ -134,28 +166,16 @@ const techStacks = {
       glow: "rgba(6,182,212,0.35)",
     },
     {
+      name: "shadcn/ui",
+      icon: SiShadcnui,
+      color: MONO,
+      glow: "rgba(120,120,120,0.3)",
+    },
+    {
       name: "SASS",
       icon: SiSass,
       color: "#CC6699",
       glow: "rgba(204,102,153,0.35)",
-    },
-    {
-      name: "Material UI",
-      icon: SiMui,
-      color: "#007FFF",
-      glow: "rgba(0,127,255,0.35)",
-    },
-    {
-      name: "Styled Components",
-      icon: SiStyledcomponents,
-      color: "#DB7093",
-      glow: "rgba(219,112,147,0.35)",
-    },
-    {
-      name: "Bootstrap",
-      icon: SiBootstrap,
-      color: "#7952B3",
-      glow: "rgba(121,82,179,0.35)",
     },
     {
       name: "Framer Motion",
@@ -181,18 +201,25 @@ const techStacks = {
     {
       name: "Prisma",
       icon: SiPrisma,
-      color: "#2D3748",
+      color: MONO,
       glow: "rgba(45,55,72,0.35)",
+    },
+    {
+      name: "Drizzle",
+      icon: SiDrizzle,
+      color: "#C5F74F",
+      glow: "rgba(197,247,79,0.35)",
     },
   ],
 
   Hosting: [
     {
-      name: "Firebase",
-      icon: SiFirebase,
-      color: "#FFCA28",
-      glow: "rgba(255,202,40,0.35)",
+      name: "Neon",
+      icon: CloudLightning,
+      color: "#00E599",
+      glow: "rgba(0,229,153,0.35)",
     },
+
     {
       name: "Supabase",
       icon: SiSupabase,
@@ -200,9 +227,15 @@ const techStacks = {
       glow: "rgba(62,207,142,0.35)",
     },
     {
+      name: "Firebase",
+      icon: SiFirebase,
+      color: "#FFCA28",
+      glow: "rgba(255,202,40,0.35)",
+    },
+    {
       name: "Vercel",
       icon: SiVercel,
-      color: "#000000",
+      color: MONO,
       glow: "rgba(120,120,120,0.3)",
     },
     {
@@ -211,112 +244,122 @@ const techStacks = {
       color: "#00C7B7",
       glow: "rgba(0,199,183,0.35)",
     },
-    {
-      name: "GitHub",
-      icon: SiGithub,
-      color: "#181717",
-      glow: "rgba(120,120,120,0.3)",
-    },
   ],
 };
-
 export function About() {
   return (
     <section
       id="about"
-      className="py-32 px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
+      className="pt-32  px-6 md:px-12 bg-background relative overflow-hidden scroll-mt-32"
     >
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
-        {/* LEFT */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="max-w-2xl w-full mx-auto"
-        >
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-            className="text-5xl md:text-6xl lg:text-7xl text-text mb-8 leading-tight tracking-[-0.06em]"
-          >
-            Building Modern{" "}
-            <span className="text-primary italic">Digital Experiences</span>
-          </motion.h2>
-
-          <div className="font-sans text-md text-text-secondary space-y-6 leading-relaxed">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
+      <div className="max-w-[1400px] mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7 }}
+              className="mb-12"
             >
-              My journey into software development started with curiosity and
-              quickly grew into a passion for building intuitive,
-              high-performance applications. I enjoy turning ideas into polished
-              digital experiences while constantly improving my problem-solving
-              and development skills.
-            </motion.p>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-6">
+                About
+              </p>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl text-text leading-[1.05] tracking-[-0.06em]">
+                The short{" "}
+                <span className="text-primary italic block">version</span>
+              </h2>
+            </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              Beyond frontend development, I’ve been actively learning Python
-              for backend development, data science, and AI engineering. I’m
-              particularly interested in understanding how intelligent systems
-              are built, which has also pushed me to explore data-focused
-              workflows since data plays a major role in modern AI applications.
-              Alongside this, I continue refining my mobile development skills
-              and exploring new technologies that help me grow as a developer.
-            </motion.p>
+            <div className="font-sans text-text-secondary space-y-6 leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-lg md:text-xl text-text leading-relaxed"
+              >
+                My journey into software development started with curiosity and
+                quickly grew into a passion for building intuitive,
+                high-performance applications. I enjoy turning ideas into
+                polished digital experiences for users while constantly
+                improving my problem-solving and development skills.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-base"
+              >
+                I started on the frontend, but a good deal of my time since has
+                gone into the backend and most of what I build now I build end
+                to end. What I&rsquo;m looking into next is DevOps: how a thing
+                gets built, deployed and kept running once the code is written.
+                I&rsquo;ve stepped back from Python for the moment, though I
+                fully intend to come back to it for data science and AI
+                engineering. Alongside that, I keep refining my mobile
+                development skills and picking up whatever the next project asks
+                for — I learn fast, and getting my hands on something I
+                haven&rsquo;t used before is the part of this work I enjoy most.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="text-base"
+              >
+                Away from the editor, I&rsquo;m at the gym daily for strength
+                and core work, with the occasional outdoor run thrown in, and I
+                read up on tech trends and developer breakthroughs on daily.dev
+                most days. When it&rsquo;s time to properly unwind, it&rsquo;s
+                anime. Music is less optional — there&rsquo;s almost always
+                something playing, and it&rsquo;s an absolute necessity for a
+                coding session. And I&rsquo;m seriously dedicated to mastering
+                French, actively pushing toward fluency (
+                <span className="italic">petit à petit !</span>)
+              </motion.p>
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="pt-8 border-t border-border"
+              className="mt-14 border-t border-border pt-10"
             >
-              <p className="text-sm uppercase tracking-[0.2em] text-text-secondary mb-4">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-5">
                 Currently Exploring
               </p>
 
               <div className="flex flex-wrap gap-3">
                 {[
                   "Backend Systems",
+                  "DevOps",
                   "Data Science",
                   "AI Engineering",
-                  "Machine Learning",
                 ].map((item) => (
                   <motion.span
                     key={item}
-                    whileHover={{
-                      y: -4,
-                      scale: 1.03,
-                    }}
-                    whileTap={{ scale: 0.97 }}
-                    className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm border border-primary/20 backdrop-blur-sm"
+                    whileHover={{ y: -3 }}
+                    whileTap={{ y: 0 }}
+                    className="border border-primary/30 bg-primary/10 px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.18em] text-primary"
                   >
                     {item}
                   </motion.span>
                 ))}
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="pt-8 inline-block"
-              >
+
+              <div className="pt-10 inline-block">
                 <Magnetic>
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-3 px-8 h-14 rounded-full border
+                    href={RESUME_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-8 h-14 border
                     border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white
                     transition-all uppercase text-xs tracking-widest font-bold text-text"
                   >
@@ -324,85 +367,64 @@ export function About() {
                     <FaFilePdf className="text-lg" />
                   </a>
                 </Magnetic>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
-        </motion.div>
 
-        {/* RIGHT */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-2xl mx-auto w-full"
-        >
-          <div className="rounded-[2rem] border border-border bg-card/80 backdrop-blur-xl p-8 md:p-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
-            <p className="text-xs uppercase tracking-[0.3em] text-text-secondary mb-10">
-              Tech Stack
-            </p>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 w-full lg:sticky lg:top-28"
+          >
+            <div className="border border-border bg-card">
+              <div className="border-b border-border px-6 py-5 md:px-8">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary">
+                  Tech Stack
+                </p>
+              </div>
 
-            <div className="space-y-10">
               {Object.entries(techStacks).map(([section, items]) => (
-                <div key={section}>
-                  <h3 className="text-text font-semibold mb-5 text-lg">
+                <div
+                  key={section}
+                  className="px-6 md:px-8 py-7 border-b border-border last:border-b-0"
+                >
+                  <h3 className="text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-5">
                     {section}
                   </h3>
 
-                  <div className="flex flex-wrap gap-4">
-                    {items.map((tech: any, index: number) => {
+                  <div className="flex flex-wrap gap-2">
+                    {items.map((tech, index) => {
                       const Icon = tech.icon;
 
                       return (
-                        <motion.div
+                        <motion.span
                           key={tech.name}
-                          initial={{ opacity: 0, y: 15 }}
+                          initial={{ opacity: 0, y: 12 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
-                          transition={{
-                            delay: index * 0.04,
-                            duration: 0.4,
-                          }}
-                          whileHover={{
-                            y: -8,
-                            scale: 1.05,
-                          }}
-                          whileTap={{ scale: 0.97 }}
-                          className="group relative"
+                          transition={{ delay: index * 0.03, duration: 0.4 }}
+                          whileHover={{ y: -3 }}
+                          style={
+                            { "--tech-glow": tech.glow } as React.CSSProperties
+                          }
+                          className="flex items-center gap-2 border border-border bg-background px-3 py-2 text-[10px] md:text-xs uppercase tracking-[0.18em] text-text-secondary transition-colors duration-300 hover:border-foreground/30 hover:bg-(--tech-glow) hover:text-text"
                         >
-                          {/* HOVER GLOW */}
-                          <div
-                            className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-300"
-                            style={{
-                              background: tech.glow,
-                            }}
+                          <Icon
+                            style={{ color: tech.color }}
+                            className="text-[14px] shrink-0"
                           />
-
-                          {/* CHIP */}
-                          <div className="relative flex items-center gap-3 px-4 py-3 rounded-2xl border border-border bg-background/80 backdrop-blur-md text-sm text-text-secondary shadow-sm transition-all duration-300 group-hover:border-white/10">
-                            {/* ICON */}
-                            <div className="flex items-center justify-center">
-                              <Icon
-                                style={{
-                                  color: tech.color,
-                                }}
-                                className="text-[18px] shrink-0 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
-                              />
-                            </div>
-
-                            <span className="whitespace-nowrap">
-                              {tech.name}
-                            </span>
-                          </div>
-                        </motion.div>
+                          <span className="whitespace-nowrap">{tech.name}</span>
+                        </motion.span>
                       );
                     })}
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
