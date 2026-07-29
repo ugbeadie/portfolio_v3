@@ -444,7 +444,7 @@ export const projects: Project[] = [
     category: "Finance",
     tagline:
       "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
-    image: "/images/moneytrail/summary.png",
+    image: "/images/moneytrail.png",
     hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
     repo: "https://github.com/ugbeadie/moneytrail-rework",
     live: "https://moneytrail.ugbeadie.com/",
@@ -533,7 +533,7 @@ export const projects: Project[] = [
     category: "E-commerce",
     tagline:
       "A storefront that gets out of the way. Built to practise restraint in an interface.",
-    image: "/images/snapsack/home.png",
+    image: "/images/snapsack.png",
     hook: "An ecommerce build where the point was the interface, not the checkout.",
     repo: "https://github.com/ugbeadie/Snapsack",
     live: "https://ugbecommercials.vercel.app/",
@@ -552,14 +552,6 @@ export const projects: Project[] = [
         body: [
           "A browsable catalogue with a working cart and a clean, deliberately quiet product page. Routing, state and scroll-triggered motion, with the visual noise kept down on purpose.",
         ],
-      },
-      {
-        label: "The hard part",
-        body: ["Placeholder."],
-      },
-      {
-        label: "A decision I'd defend",
-        body: ["Placeholder."],
       },
     ],
     gallery: [
@@ -593,7 +585,6 @@ export const projects: Project[] = [
         label: "Where it stands",
         body: ["Shipped and live. An earlier build, kept for the record."],
       },
-      { label: "What's still missing", body: ["Placeholder."] },
     ],
     draft: true,
   },

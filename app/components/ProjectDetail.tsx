@@ -61,6 +61,19 @@ function SectionBlock({ section }: { section: Section }) {
   );
 }
 
+function DemoLogin({ project }: { project: Project }) {
+  if (!project.demoLogin) return null;
+
+  return (
+    <p className="mt-6 inline-flex flex-wrap items-center gap-x-3 gap-y-1 border border-border bg-card px-5 py-3 text-xs md:text-sm text-text-secondary">
+      <span className="uppercase tracking-[0.2em] text-[10px]">Demo login</span>
+      <code className="font-mono text-text">{project.demoLogin.email}</code>
+      <span aria-hidden>·</span>
+      <code className="font-mono text-text">{project.demoLogin.password}</code>
+    </p>
+  );
+}
+
 /** The write-up leads the closer; the header only ever gets demo and code. */
 function LinkRow({
   project,
@@ -338,20 +351,7 @@ export function ProjectDetail({
           >
             <LinkRow project={project} />
 
-            {project.demoLogin && (
-              <p className="mt-6 inline-flex flex-wrap items-center gap-x-3 gap-y-1 border border-border bg-card px-5 py-3 text-xs md:text-sm text-text-secondary">
-                <span className="uppercase tracking-[0.2em] text-[10px]">
-                  Demo login
-                </span>
-                <code className="font-mono text-text">
-                  {project.demoLogin.email}
-                </code>
-                <span aria-hidden>·</span>
-                <code className="font-mono text-text">
-                  {project.demoLogin.password}
-                </code>
-              </p>
-            )}
+            <DemoLogin project={project} />
           </motion.div>
         </header>
 
@@ -414,8 +414,10 @@ export function ProjectDetail({
           ))}
         </div>
 
-        {project.closer && project.closer.length > 0 && (
-          <Reveal className="border-t border-border pt-12">
+        {/* Always rendered: by the time you have read the page, the links are
+            back above the fold. */}
+        <Reveal className="border-t border-border pt-12">
+          {project.closer && project.closer.length > 0 && (
             <div className="max-w-2xl space-y-6">
               {project.closer.map((paragraph, i) => (
                 <p
@@ -426,11 +428,12 @@ export function ProjectDetail({
                 </p>
               ))}
             </div>
-            <div className="mt-10">
-              <LinkRow project={project} withWriteup />
-            </div>
-          </Reveal>
-        )}
+          )}
+          <div className={project.closer?.length ? "mt-10" : undefined}>
+            <LinkRow project={project} withWriteup />
+            <DemoLogin project={project} />
+          </div>
+        </Reveal>
 
         <Reveal className="mt-24 md:mt-32 border-t border-border pt-12">
           <button

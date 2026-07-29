@@ -41,6 +41,14 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
         <div className="absolute inset-0 bg-foreground/20 group-hover:bg-transparent transition-all duration-500" />
 
+        {/* Desktop only, and only until you do it — below lg there is no hover
+            to discover and "Click to view" is already showing. */}
+        <div className="absolute top-6 left-6 hidden lg:block">
+          <div className="px-4 py-2 border border-border bg-background/80 backdrop-blur-md text-[10px] tracking-[0.25em] uppercase text-text-secondary transition-opacity duration-500 group-hover:opacity-0">
+            Hover me
+          </div>
+        </div>
+
         <div className="absolute bottom-6 left-6 overflow-hidden">
           {/* Keeps its own surface at every width — the screenshots are dark. */}
           <div
