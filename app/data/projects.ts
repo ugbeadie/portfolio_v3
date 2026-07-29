@@ -1,13 +1,9 @@
 export type Shot = {
   image: string;
   caption: string;
-  /** Shown side by side in one frame, in order. `image` stays the lead. */
   images?: string[];
-  /** Plays in place of the still; the image becomes its poster frame. */
   video?: string;
-  /** Playback multiple the file was exported at. Declared, never hidden. */
   speed?: number;
-  /** CSS aspect-ratio for the frame. Defaults to 16 / 9. */
   aspect?: string;
 };
 
@@ -20,6 +16,7 @@ export type Project = {
   category: string;
   tagline: string;
   image: string;
+  coverImages?: string[];
   hook: string;
   repo?: string;
   live?: string;
@@ -34,7 +31,6 @@ export type Project = {
   draft?: boolean;
 };
 
-/** Screen captures come off a laptop viewport, not a 16:9 frame. */
 const SCREEN = "1365 / 630";
 
 export const FEATURED_COUNT = 4;
@@ -154,6 +150,11 @@ export const projects: Project[] = [
     tagline:
       "Know what you own. A home inventory for insurance claims with no backend at all — everything stays saved on your device.",
     image: "/images/roomful/desktop.png",
+    coverImages: [
+      "/images/roomful/01-home.jpg",
+      "/images/roomful/01-room.jpg",
+      "/images/roomful/01-capture.jpg",
+    ],
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
     live: "https://roomful.ugbeadie.com",

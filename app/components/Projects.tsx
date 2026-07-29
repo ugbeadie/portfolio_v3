@@ -36,8 +36,21 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"
-          style={{ backgroundImage: `url(${project.image})` }}
-        />
+          style={
+            project.coverImages
+              ? undefined
+              : { backgroundImage: `url(${project.image})` }
+          }
+        >
+          {project.coverImages && (
+            <div className="w-full h-full flex items-center justify-center gap-3 md:gap-4 bg-card p-4 md:p-6">
+              {project.coverImages.map((src) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={src} src={src} alt="" className="h-full w-auto" />
+              ))}
+            </div>
+          )}
+        </motion.div>
 
         <div className="absolute inset-0 bg-foreground/20 group-hover:bg-transparent transition-all duration-500" />
 
