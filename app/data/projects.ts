@@ -258,12 +258,15 @@ export const projects: Project[] = [
     category: "Productivity",
     tagline:
       "Paste a job link and AI fills the card for you. Every application then lives on a drag-and-drop board.",
-    image: "/images/trackr.png",
+    image: "/images/trackr/board.png",
     hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
     repo: "https://github.com/ugbeadie/billr",
     live: "https://trackr.ugbeadie.com/",
     hero: {
-      image: "/images/trackr.png",
+      image: "/images/trackr/board.png",
+      video: "/videos/trackr-preview.mp4",
+      speed: 2,
+      aspect: "2336 / 1080",
       caption: "The board. Every application you have open, in one screen.",
     },
     stack: [
@@ -302,19 +305,28 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/trackr/board.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the Kanban board mid-drag. Status is a position, not a dropdown.",
+          "The board mid-drag. Status is a position rather than a dropdown, so moving a job forward is the same gesture as thinking about it.",
       },
       {
-        image: SHOT,
+        image: "/images/trackr/autofill.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — autofill from a pasted link, with every field still editable.",
+          "Autofill from a pasted link. Extraction lands in a draft with every field still editable, and nothing reaches the database until you confirm it.",
       },
       {
-        image: SHOT,
+        image: "/images/trackr/job-details.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the activity graph. Makes a quiet fortnight impossible to miss.",
+          "A card opened. Salary reads “Not specified” instead of a plausible invented number — every extracted field is allowed to come back empty.",
+      },
+      {
+        image: "/images/trackr/dashboard.png",
+        aspect: SCREEN,
+        caption:
+          "The dashboard. Volume, conversion rates and a status breakdown, with the application-frequency graph below — the screen you open on a bad week.",
       },
     ],
     closingSections: [
