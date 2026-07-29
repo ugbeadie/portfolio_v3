@@ -7,12 +7,9 @@ import { X } from "lucide-react";
 import type { Shot } from "../data/projects";
 
 /**
- * Portalled to the body rather than rendered in place: every figure sits inside
- * an animating motion.div, and a transformed ancestor would make `fixed`
- * position against that element instead of the viewport.
- *
- * Sits above the navbar (z-100) and below the page-transition curtain (z-200),
- * so navigating away covers it rather than leaving it stranded on top.
+ * Portalled to the body: figures sit inside an animating motion.div, and a
+ * transformed ancestor would make `fixed` position against it, not the viewport.
+ * z-150 puts it over the navbar and under the page-transition curtain.
  */
 export function Lightbox({
   shot,
@@ -31,7 +28,6 @@ export function Lightbox({
       if (event.key === "Escape") onClose();
     };
 
-    // The page behind must hold still while the overlay owns the screen.
     const previousOverflow = document.body.style.overflow;
     const previouslyFocused = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
@@ -75,8 +71,7 @@ export function Lightbox({
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        // Clicks on the media itself must not reach the backdrop, or scrubbing
-        // the video would close the overlay.
+        // Or scrubbing the video would reach the backdrop and close it.
         onClick={(event) => event.stopPropagation()}
         className="flex flex-col items-center gap-5 max-w-full"
       >
@@ -90,11 +85,9 @@ export function Lightbox({
             className="max-h-[78vh] max-w-full border border-white/10"
           />
         ) : shot.images?.length ? (
-          // The set opens as a set — the point of these three is the sequence.
           <div className="flex gap-3 md:gap-6 justify-center max-w-full">
             {shot.images.map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element -- natural
-              // dimensions are unknown here and the overlay is opened on demand.
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={src}
                 src={src}
@@ -104,8 +97,7 @@ export function Lightbox({
             ))}
           </div>
         ) : (
-          // eslint-disable-next-line @next/next/no-img-element -- natural
-          // dimensions are unknown here and the overlay is opened on demand.
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={shot.image}
             alt={shot.caption}
@@ -115,7 +107,6 @@ export function Lightbox({
 
         <figcaption className="flex flex-col items-center gap-3 text-sm text-white/60 italic leading-relaxed text-center max-w-2xl">
           {shot.caption}
-          {/* The file itself is sped up, so the disclosure follows it here too. */}
           {shot.speed && (
             <span className="not-italic border border-white/20 px-3 py-1 text-[9px] uppercase tracking-[0.25em] text-white/50">
               {shot.speed}× speed

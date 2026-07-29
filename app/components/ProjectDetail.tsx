@@ -131,10 +131,7 @@ function LinkRow({
   );
 }
 
-/**
- * Ambient only — no controls, no sound. Anyone who wants to actually watch it
- * opens the lightbox, which is where the real player lives.
- */
+/** Ambient only — controls and sound live in the lightbox. */
 function ShotVideo({ shot, paused = false }: { shot: Shot; paused?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [reduced, setReduced] = useState(false);
@@ -151,8 +148,7 @@ function ShotVideo({ shot, paused = false }: { shot: Shot; paused?: boolean }) {
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
-    // autoPlay has already fired by now, so both the motion preference and the
-    // open overlay are honoured by pausing after the fact.
+    // autoPlay has already fired by now, so this pauses after the fact.
     if (reduced || paused) video.pause();
     else void video.play().catch(() => {});
   }, [reduced, paused]);
@@ -173,7 +169,19 @@ function ShotVideo({ shot, paused = false }: { shot: Shot; paused?: boolean }) {
   );
 }
 
-/** A phone capture at column width would be comically tall, so it gets capped. */
+/** Sets take the full row, as does a last shot that would otherwise sit alone. */
+function fullWidthShots(gallery: Shot[]) {
+  let cells = 0;
+
+  return gallery.map((shot, i) => {
+    const full =
+      Boolean(shot.images?.length) ||
+      (i === gallery.length - 1 && cells % 2 === 0);
+    cells += full ? 2 : 1;
+    return full;
+  });
+}
+
 export function isPortrait(aspect?: string) {
   if (!aspect) return false;
   const [width, height] = aspect.split("/").map((part) => Number(part.trim()));
@@ -212,17 +220,19 @@ function Figure({
       )}
       <div
         className={`relative overflow-hidden bg-card border border-border shadow-shot group ${
-          portrait ? "w-full max-w-[340px] mx-auto" : "w-full"
+          portrait
+            ? "w-full max-w-[340px] mx-auto"
+            : group
+              ? "w-full max-w-3xl mx-auto"
+              : "w-full"
         }`}
-        // A group sizes itself off the images it holds; everything else is
-        // pinned to the shot's own ratio.
+        // A group is sized by the images it holds, not by a set ratio.
         style={{ aspectRatio: group ? undefined : (shot.aspect ?? "16 / 9") }}
       >
         {group ? (
           <div className="flex gap-2 sm:gap-3 p-2 sm:p-3">
             {group.map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element -- described
-              // by the shared figcaption, sized by the row rather than intrinsics.
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={src}
                 src={src}
@@ -242,8 +252,6 @@ function Figure({
           />
         )}
 
-        {/* Covers the frame, so the whole shot is the target rather than a
-            badge you have to aim at. */}
         <button
           type="button"
           onClick={() => setExpanded(true)}
@@ -256,7 +264,11 @@ function Figure({
           </span>
         </button>
       </div>
-      <figcaption className="mt-4 text-sm text-text-secondary leading-relaxed italic">
+      <figcaption
+        className={`mt-4 text-sm text-text-secondary leading-relaxed italic ${
+          portrait ? "text-center" : ""
+        }`}
+      >
         {shot.caption}
       </figcaption>
 
@@ -277,6 +289,7 @@ export function ProjectDetail({
   next: Project;
 }) {
   const { navigate } = useTransitionRouter();
+  const fullWidth = fullWidthShots(project.gallery);
 
   return (
     <main className="min-h-screen bg-background text-text transition-colors duration-300 pb-32">
@@ -396,7 +409,11 @@ export function ProjectDetail({
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
               {project.gallery.map((shot, i) => (
-                <Reveal key={i} delay={(i % 2) * 0.1}>
+                <Reveal
+                  key={i}
+                  delay={(i % 2) * 0.1}
+                  className={fullWidth[i] ? "md:col-span-2" : undefined}
+                >
                   <Figure shot={shot} />
                 </Reveal>
               ))}

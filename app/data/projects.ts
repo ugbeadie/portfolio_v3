@@ -1,13 +1,11 @@
 export type Shot = {
   image: string;
   caption: string;
-  /** Shown side by side in one frame, in order — a set of screens that only
-   *  makes sense read together. `image` stays the lead, used for the card. */
+  /** Shown side by side in one frame, in order. `image` stays the lead. */
   images?: string[];
   /** Plays in place of the still; the image becomes its poster frame. */
   video?: string;
-  /** Playback multiple the file was exported at. Declared, not hidden: nobody
-   *  should come away thinking the app runs this fast. */
+  /** Playback multiple the file was exported at. Declared, never hidden. */
   speed?: number;
   /** CSS aspect-ratio for the frame. Defaults to 16 / 9. */
   aspect?: string;
@@ -205,6 +203,12 @@ export const projects: Project[] = [
         ],
         caption:
           "The phone, left to right: the house total by room, a room's items, and the capture screen whose primary button reopens the camera rather than returning to a list.",
+      },
+      {
+        image: "/images/roomful/empty-state.png",
+        aspect: SCREEN,
+        caption:
+          "First run. It offers the room you're standing in, or a sample home, so you can see what an export looks like before cataloguing anything of your own.",
       },
       {
         image: "/images/roomful/desktop.png",

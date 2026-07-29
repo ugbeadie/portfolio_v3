@@ -42,10 +42,10 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         <div className="absolute inset-0 bg-foreground/20 group-hover:bg-transparent transition-all duration-500" />
 
         <div className="absolute bottom-6 left-6 overflow-hidden">
+          {/* Keeps its own surface at every width — the screenshots are dark. */}
           <div
             className="px-5 py-2 border border-border bg-background/80 backdrop-blur-md
-            lg:border-0 lg:bg-transparent lg:backdrop-blur-none
-            text-[10px] tracking-[0.25em] uppercase text-text lg:text-black transition-all duration-500 ease-out
+            text-[10px] tracking-[0.25em] uppercase text-text transition-all duration-500 ease-out
             lg:translate-y-[120%] lg:group-hover:translate-y-0 translate-y-0"
           >
             Click to view
