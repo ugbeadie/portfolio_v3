@@ -1,10 +1,19 @@
 "use client";
 
-import { motion } from "motion/react";
-import { ArrowLeft, ExternalLink, ArrowUpRight, FileText } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  ArrowUpRight,
+  FileText,
+  Maximize2,
+  Play,
+} from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { Magnetic } from "./Magnetic";
 import { FoldingImage } from "./FoldingImage";
+import { Lightbox } from "./Lightbox";
 import { useTransitionRouter } from "./PageTransition";
 import type { Project, Section, Shot } from "../data/projects";
 
@@ -122,6 +131,50 @@ function LinkRow({
   );
 }
 
+/** Ambient only — controls and sound live in the lightbox. */
+function ShotVideo({ shot, paused = false }: { shot: Shot; paused?: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(query.matches);
+
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    // autoPlay has already fired by now, so this pauses after the fact.
+    if (reduced || paused) video.pause();
+    else void video.play().catch(() => {});
+  }, [reduced, paused]);
+
+  return (
+    <video
+      ref={ref}
+      src={shot.video}
+      poster={shot.image}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden
+      className="w-full h-full object-cover"
+    />
+  );
+}
+
+export function isPortrait(aspect?: string) {
+  if (!aspect) return false;
+  const [width, height] = aspect.split("/").map((part) => Number(part.trim()));
+  return Boolean(width && height && width < height);
+}
+
 function Figure({
   shot,
   slices = 7,
@@ -133,10 +186,51 @@ function Figure({
   delay?: number;
   priority?: boolean;
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const group = shot.images?.length ? shot.images : null;
+  const portrait = isPortrait(shot.aspect);
+  const label = shot.video
+    ? `Play video: ${shot.caption}`
+    : `View full size: ${shot.caption}`;
+
   return (
     <figure className="w-full">
-      <div className="w-full aspect-video overflow-hidden bg-card border border-border">
-        {priority ? (
+      {shot.video && (
+        <p
+          className={`mb-4 text-[10px] uppercase tracking-[0.3em] text-text-secondary ${
+            portrait ? "text-center" : ""
+          }`}
+        >
+          Click to preview
+          {shot.speed ? ` · ${shot.speed}× speed` : ""}
+        </p>
+      )}
+      <div
+        className={`relative overflow-hidden bg-card border border-border shadow-shot group ${
+          portrait
+            ? "w-full max-w-[340px] mx-auto"
+            : group
+              ? "w-full max-w-3xl mx-auto"
+              : "w-full"
+        }`}
+        // A group is sized by the images it holds, not by a set ratio.
+        style={{ aspectRatio: group ? undefined : (shot.aspect ?? "16 / 9") }}
+      >
+        {group ? (
+          <div className="flex gap-2 sm:gap-3 p-2 sm:p-3">
+            {group.map((src) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={src}
+                src={src}
+                alt=""
+                className="min-w-0 flex-1 object-contain"
+              />
+            ))}
+          </div>
+        ) : shot.video ? (
+          <ShotVideo shot={shot} paused={expanded} />
+        ) : priority ? (
           <FoldingImage src={shot.image} slices={slices} delay={delay} />
         ) : (
           <div
@@ -144,10 +238,32 @@ function Figure({
             style={{ backgroundImage: `url(${shot.image})` }}
           />
         )}
+
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          aria-label={label}
+          className="absolute inset-0 flex items-end justify-end p-4 cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-[#ab8bff]"
+        >
+          <span className="flex items-center gap-2 px-4 h-10 border border-white/25 bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-[0.25em] opacity-100 md:opacity-0 md:group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300">
+            {shot.video ? <Play size={14} /> : <Maximize2 size={14} />}
+            {shot.video ? "Play" : "Expand"}
+          </span>
+        </button>
       </div>
-      <figcaption className="mt-4 text-sm text-text-secondary leading-relaxed italic">
+      <figcaption
+        className={`mt-4 text-sm text-text-secondary leading-relaxed italic ${
+          portrait ? "text-center" : ""
+        }`}
+      >
         {shot.caption}
       </figcaption>
+
+      <AnimatePresence>
+        {expanded && (
+          <Lightbox shot={shot} onClose={() => setExpanded(false)} />
+        )}
+      </AnimatePresence>
     </figure>
   );
 }
@@ -230,7 +346,7 @@ export function ProjectDetail({
                 <code className="font-mono text-text">
                   {project.demoLogin.email}
                 </code>
-                <span aria-hidden>Â·</span>
+                <span aria-hidden>·</span>
                 <code className="font-mono text-text">
                   {project.demoLogin.password}
                 </code>
@@ -250,7 +366,7 @@ export function ProjectDetail({
 
         <Reveal className="mt-20 md:mt-28 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 border-t border-border pt-10">
           <h2 className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-text-secondary">
-            Stack
+            Stack/Tools
           </h2>
           <div className="lg:col-span-8 flex flex-wrap gap-3">
             {project.stack.map((item) => (
@@ -274,12 +390,17 @@ export function ProjectDetail({
           <section className="border-t border-border pt-12 md:pt-16 pb-4">
             <Reveal>
               <h2 className="text-xl md:text-2xl font-bold tracking-[-0.03em] mb-10">
-                Selected images
+                Selected screens
               </h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
               {project.gallery.map((shot, i) => (
-                <Reveal key={i} delay={(i % 2) * 0.1}>
+                <Reveal
+                  key={i}
+                  delay={(i % 2) * 0.1}
+                  // Only a set of screens claims the row; the rest sit in the grid.
+                  className={shot.images?.length ? "md:col-span-2" : undefined}
+                >
                   <Figure shot={shot} />
                 </Reveal>
               ))}

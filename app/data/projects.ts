@@ -1,4 +1,15 @@
-export type Shot = { image: string; caption: string };
+export type Shot = {
+  image: string;
+  caption: string;
+  /** Shown side by side in one frame, in order. `image` stays the lead. */
+  images?: string[];
+  /** Plays in place of the still; the image becomes its poster frame. */
+  video?: string;
+  /** Playback multiple the file was exported at. Declared, never hidden. */
+  speed?: number;
+  /** CSS aspect-ratio for the frame. Defaults to 16 / 9. */
+  aspect?: string;
+};
 
 export type Section = { label: string; body: string[] };
 
@@ -25,6 +36,9 @@ export type Project = {
 
 const SHOT = "/images/placeholder-shot.svg";
 
+/** Screen captures come off a laptop viewport, not a 16:9 frame. */
+const SCREEN = "1365 / 630";
+
 export const FEATURED_COUNT = 4;
 
 export const projects: Project[] = [
@@ -35,7 +49,7 @@ export const projects: Project[] = [
     category: "Security & access",
     tagline:
       "Borrow access, not own access. A permissions system where every grant expires by default and can explain itself.",
-    image: "/images/placeholder-warrant.svg",
+    image: "/images/warrant/audit-log.png",
     hook: "Access gets granted once and never revoked. Someone needs admin for a one-off migration and still has it eighteen months later.",
     repo: "https://github.com/ugbeadie/warrant",
     live: "https://warrant.ugbeadie.com",
@@ -45,17 +59,20 @@ export const projects: Project[] = [
       url: "https://medium.com/@ugbeadie3/why-i-built-a-system-that-forgets-acab773178c1",
     },
     hero: {
-      image: "/images/placeholder-warrant.svg",
+      image: "/images/warrant/access-trace.png",
+      video: "/videos/warrant-preview.mp4",
+      speed: 2,
+      aspect: "2324 / 1080",
       caption: "Every access decision comes back as a sentence, not a boolean.",
     },
     stack: [
       "React",
+      "TypeScript",
+      "Tailwind",
       "Node",
       "Express",
       "PostgreSQL",
       "Prisma",
-      "TypeScript",
-      "Tailwind",
     ],
     sections: [
       {
@@ -85,22 +102,26 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/warrant/access-trace.png",
+        aspect: SCREEN,
         caption:
           "The why panel. Traces access to its source, and says what's missing when it's denied.",
       },
       {
-        image: SHOT,
+        image: "/images/warrant/approvals-queue.png",
+        aspect: SCREEN,
         caption:
           "Approvals queue. Owners decide requests for their own resources; admins can see every pending request platform-wide.",
       },
       {
-        image: SHOT,
+        image: "/images/warrant/audit-log.png",
+        aspect: SCREEN,
         caption:
-          "Audit log. Nine distinct actions, so a policy auto-approval never looks like a human decision.",
+          "Audit log. Distinct actions, so a policy auto-approval never looks like a human decision.",
       },
       {
-        image: SHOT,
+        image: "/images/warrant/policy-rule.png",
+        aspect: SCREEN,
         caption:
           "Policy rule editor. Auto-approval is capped by role tier, so “auto-approve viewer” can never become “auto-approve admin”.",
       },
@@ -134,13 +155,16 @@ export const projects: Project[] = [
     category: "Utility",
     tagline:
       "Know what you own. A home inventory for insurance claims with no backend at all — everything stays saved on your device.",
-    image: "/images/placeholder-roomful.svg",
+    image: "/images/roomful/desktop.png",
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
     live: "https://roomful.ugbeadie.com",
     writeup: { label: "Why I built an app that can't phone home" },
     hero: {
-      image: "/images/placeholder-roomful.svg",
+      image: "/images/roomful/01-home.jpg",
+      video: "/videos/roomful-preview.mp4",
+      speed: 2,
+      aspect: "1080 / 2244",
       caption: "Cataloguing a room. About eight seconds an item.",
     },
     stack: ["React", "TypeScript", "Tailwind", "Zustand", "IndexedDB", "PWA"],
@@ -171,24 +195,38 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/roomful/01-home.jpg",
+        images: [
+          "/images/roomful/01-home.jpg",
+          "/images/roomful/01-room.jpg",
+          "/images/roomful/01-capture.jpg",
+        ],
         caption:
-          "Mobile capture screen. Four fields, one optional. The primary button reopens the camera rather than returning to a list.",
+          "The phone, left to right: the house total by room, a room's items, and the capture screen whose primary button reopens the camera rather than returning to a list.",
       },
       {
-        image: SHOT,
+        image: "/images/roomful/empty-state.png",
+        aspect: SCREEN,
+        caption:
+          "First run. It offers the room you're standing in, or a sample home, so you can see what an export looks like before cataloguing anything of your own.",
+      },
+      {
+        image: "/images/roomful/desktop.png",
+        aspect: SCREEN,
         caption:
           "Desktop three-column layout. The phone captures and the laptop reviews, so they get different arrangements of the same components.",
       },
       {
-        image: SHOT,
+        image: "/images/roomful/export.png",
+        aspect: SCREEN,
         caption:
-          "The exported document. Grouped by room with photos and subtotals, generated by a print stylesheet rather than a PDF library.",
+          "Export and transfer. With no server to sync through, moving an inventory between devices is a backup file you carry.",
       },
       {
-        image: SHOT,
+        image: "/images/roomful/print.png",
+        aspect: SCREEN,
         caption:
-          "Storage indicator. Makes “it's all on your device” visible rather than just stated.",
+          "The exported document. Grouped by room with photos and subtotals, generated by a print stylesheet rather than a PDF library.",
       },
     ],
     closingSections: [
@@ -196,7 +234,7 @@ export const projects: Project[] = [
         label: "Where it stands",
         body: [
           "Shipped and live. Installs to a home screen, opens in airplane mode, and produces a document you could attach to a claim.",
-          "66 KB gzipped. 23 tests covering the money helpers and the total calculations, including the property that the grand total always equals the sum of the room totals.",
+          "23 tests covering the money helpers and the total calculations, including the property that the grand total always equals the sum of the room totals.",
         ],
       },
       {
@@ -220,12 +258,15 @@ export const projects: Project[] = [
     category: "Productivity",
     tagline:
       "Paste a job link and AI fills the card for you. Every application then lives on a drag-and-drop board.",
-    image: "/images/trackr.png",
+    image: "/images/trackr/board.png",
     hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
     repo: "https://github.com/ugbeadie/billr",
     live: "https://trackr.ugbeadie.com/",
     hero: {
-      image: "/images/trackr.png",
+      image: "/images/trackr/board.png",
+      video: "/videos/trackr-preview.mp4",
+      speed: 2,
+      aspect: "2336 / 1080",
       caption: "The board. Every application you have open, in one screen.",
     },
     stack: [
@@ -241,7 +282,7 @@ export const projects: Project[] = [
         label: "What it does",
         body: [
           "Every job you apply to becomes a card on a Kanban board, and you drag it between Applied, Interviewing, Offer and Rejected as things move. Interview dates and notes live on the card, so the follow-up you promised is attached to the thing it's about rather than sitting in a separate reminder.",
-          "Adding a job is a paste. Drop in a posting link or the description text and the fields come back filled: company, role, salary, location, job type, remote or onsite. Typing all of that out by hand is exactly the friction that kills a tracking habit.",
+          "Adding a job is a paste. Drop in a posting link or the description text and the fields come back filled: company, role, salary, location, job type, remote or onsite, etc. Typing all of that out by hand is exactly the friction that kills a tracking habit.",
           "The dashboard is the part you open on a bad week. Application volume over time, a status breakdown, and a GitHub-style activity graph that makes a quiet fortnight visible without you having to count anything.",
         ],
       },
@@ -264,19 +305,28 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/trackr/board.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the Kanban board mid-drag. Status is a position, not a dropdown.",
+          "The board mid-drag. Status is a position rather than a dropdown, so moving a job forward is the same gesture as thinking about it.",
       },
       {
-        image: SHOT,
+        image: "/images/trackr/autofill.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — autofill from a pasted link, with every field still editable.",
+          "Autofill from a pasted link. Extraction lands in a draft with every field still editable, and nothing reaches the database until you confirm it.",
       },
       {
-        image: SHOT,
+        image: "/images/trackr/job-details.png",
+        aspect: SCREEN,
         caption:
-          "Placeholder — the activity graph. Makes a quiet fortnight impossible to miss.",
+          "A card opened. Salary reads “Not specified” instead of a plausible invented number — every extracted field is allowed to come back empty.",
+      },
+      {
+        image: "/images/trackr/dashboard.png",
+        aspect: SCREEN,
+        caption:
+          "The dashboard. Volume, conversion rates and a status breakdown, with the application-frequency graph below — the screen you open on a bad week.",
       },
     ],
     closingSections: [
@@ -305,12 +355,15 @@ export const projects: Project[] = [
     category: "Entertainment",
     tagline:
       "Feed it a GitHub username and it reads your commit history back to you, unkindly.",
-    image: "/images/gitburn.png",
-    hook: "Every developer thinks their commit history is normal. It is not.",
+    image: "/images/gitburn/landing.png",
+    hook: "Sixty-five repos, seven stars, and a README that stops mid-sentence. Everyone's GitHub has a version of this.",
     repo: "https://github.com/ugbeadie/GitBurn",
     live: "https://gitburn.ugbeadie.com",
     hero: {
-      image: "/images/gitburn.png",
+      image: "/images/gitburn/landing.png",
+      video: "/videos/gitburn-preview.mp4",
+      speed: 2,
+      aspect: "2332 / 1080",
       caption: "One username in, one personalised roast out.",
     },
     stack: [
@@ -349,19 +402,22 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: SHOT,
+        image: "/images/gitburn/landing.png",
+        aspect: SCREEN,
         caption:
-          "The roast card. Typed out line by line, and exportable as a PNG from the DOM itself.",
+          "The whole input surface: a handle and a button. Everything the roast is built from is public, so nothing else is asked for.",
       },
       {
-        image: SHOT,
+        image: "/images/gitburn/terminal.png",
+        aspect: SCREEN,
         caption:
-          "The analysing state. A fake terminal wired to real stages, so the wait shows progress instead of a spinner.",
+          "The analysing state. A fake terminal wired to the real stages, so the wait shows progress instead of a spinner.",
       },
       {
-        image: SHOT,
+        image: "/images/gitburn/roast-card.png",
+        aspect: SCREEN,
         caption:
-          "The metrics sidebar. The numbers the model was actually handed, next to what it made of them.",
+          "The roast card. Repo, follower and star counts on the left — the numbers the model was actually handed — next to what it made of them. It types itself out line by line and exports to a PNG from the DOM.",
       },
     ],
     closingSections: [
