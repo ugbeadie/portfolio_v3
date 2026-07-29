@@ -29,7 +29,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         className={`
           relative overflow-hidden cursor-pointer group order-1 block
           ${isEven ? "lg:order-1 lg:col-span-7" : "lg:order-2 lg:col-span-7"}
-          h-[220px] sm:h-[260px] md:h-[300px] lg:h-[230px] xl:h-[260px]
+          aspect-[1365/630]
         `}
       >
         <motion.div

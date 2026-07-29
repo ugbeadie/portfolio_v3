@@ -89,6 +89,20 @@ export function Lightbox({
             playsInline
             className="max-h-[78vh] max-w-full border border-white/10"
           />
+        ) : shot.images?.length ? (
+          // The set opens as a set — the point of these three is the sequence.
+          <div className="flex gap-3 md:gap-6 justify-center max-w-full">
+            {shot.images.map((src) => (
+              // eslint-disable-next-line @next/next/no-img-element -- natural
+              // dimensions are unknown here and the overlay is opened on demand.
+              <img
+                key={src}
+                src={src}
+                alt=""
+                className="min-w-0 max-h-[78vh] object-contain border border-white/10"
+              />
+            ))}
+          </div>
         ) : (
           // eslint-disable-next-line @next/next/no-img-element -- natural
           // dimensions are unknown here and the overlay is opened on demand.

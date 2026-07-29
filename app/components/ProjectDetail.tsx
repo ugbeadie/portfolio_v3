@@ -173,6 +173,13 @@ function ShotVideo({ shot, paused = false }: { shot: Shot; paused?: boolean }) {
   );
 }
 
+/** A phone capture at column width would be comically tall, so it gets capped. */
+export function isPortrait(aspect?: string) {
+  if (!aspect) return false;
+  const [width, height] = aspect.split("/").map((part) => Number(part.trim()));
+  return Boolean(width && height && width < height);
+}
+
 function Figure({
   shot,
   slices = 7,
@@ -185,6 +192,8 @@ function Figure({
   priority?: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const group = shot.images?.length ? shot.images : null;
+  const portrait = isPortrait(shot.aspect);
   const label = shot.video
     ? `Play video: ${shot.caption}`
     : `View full size: ${shot.caption}`;
@@ -192,16 +201,37 @@ function Figure({
   return (
     <figure className="w-full">
       {shot.video && (
-        <p className="mb-4 text-sm text-text-secondary leading-relaxed">
-          Click to preview.
-          {shot.speed ? ` The recording runs at ${shot.speed}× speed.` : ""}
+        <p
+          className={`mb-4 text-[10px] uppercase tracking-[0.3em] text-text-secondary ${
+            portrait ? "text-center" : ""
+          }`}
+        >
+          Click to preview
+          {shot.speed ? ` · ${shot.speed}× speed` : ""}
         </p>
       )}
       <div
-        className="relative w-full overflow-hidden bg-card border border-border shadow-shot group"
-        style={{ aspectRatio: shot.aspect ?? "16 / 9" }}
+        className={`relative overflow-hidden bg-card border border-border shadow-shot group ${
+          portrait ? "w-full max-w-[340px] mx-auto" : "w-full"
+        }`}
+        // A group sizes itself off the images it holds; everything else is
+        // pinned to the shot's own ratio.
+        style={{ aspectRatio: group ? undefined : (shot.aspect ?? "16 / 9") }}
       >
-        {shot.video ? (
+        {group ? (
+          <div className="flex gap-2 sm:gap-3 p-2 sm:p-3">
+            {group.map((src) => (
+              // eslint-disable-next-line @next/next/no-img-element -- described
+              // by the shared figcaption, sized by the row rather than intrinsics.
+              <img
+                key={src}
+                src={src}
+                alt=""
+                className="min-w-0 flex-1 object-contain"
+              />
+            ))}
+          </div>
+        ) : shot.video ? (
           <ShotVideo shot={shot} paused={expanded} />
         ) : priority ? (
           <FoldingImage src={shot.image} slices={slices} delay={delay} />
@@ -225,7 +255,6 @@ function Figure({
             {shot.video ? "Play" : "Expand"}
           </span>
         </button>
-
       </div>
       <figcaption className="mt-4 text-sm text-text-secondary leading-relaxed italic">
         {shot.caption}
@@ -362,7 +391,7 @@ export function ProjectDetail({
           <section className="border-t border-border pt-12 md:pt-16 pb-4">
             <Reveal>
               <h2 className="text-xl md:text-2xl font-bold tracking-[-0.03em] mb-10">
-                Selected images
+                Selected screens
               </h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
