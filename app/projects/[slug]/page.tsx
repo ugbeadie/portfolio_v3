@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectDetail } from "./ProjectDetail";
-import { projects } from "../../data/projects";
+import { projects, FEATURED_COUNT } from "../../data/projects";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -29,6 +29,17 @@ export default async function ProjectPage({ params }: Params) {
 
   const project = projects[index];
   const next = index < projects.length - 1 ? projects[index + 1] : null;
+  // The pitch belongs at the end of the curated set, not the end of the array,
+  // so appending weaker work never inherits it.
+  const closerIndex = Math.min(FEATURED_COUNT, projects.length) - 1;
 
-  return <ProjectDetail key={project.slug} project={project} next={next} />;
+  return (
+    <ProjectDetail
+      key={project.slug}
+      project={project}
+      next={next}
+      isCloser={index === closerIndex}
+      hasMore={projects.length > FEATURED_COUNT}
+    />
+  );
 }

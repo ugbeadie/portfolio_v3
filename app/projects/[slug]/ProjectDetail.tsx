@@ -283,9 +283,13 @@ function Figure({
 export function ProjectDetail({
   project,
   next,
+  isCloser = false,
+  hasMore = false,
 }: {
   project: Project;
   next: Project | null;
+  isCloser?: boolean;
+  hasMore?: boolean;
 }) {
   const { navigate } = useTransitionRouter();
 
@@ -432,7 +436,7 @@ export function ProjectDetail({
         </Reveal>
 
         <Reveal className="mt-24 md:mt-32 border-t border-border pt-12">
-          {next ? (
+          {next && !isCloser ? (
             <>
               <button
                 onClick={() => navigate(`/projects/${next.slug}`, next.title)}
@@ -476,17 +480,35 @@ export function ProjectDetail({
                 </button>
               </div>
             </>
-          ) : (
+          ) : isCloser ? (
             <div className="flex flex-col gap-10">
               <div>
                 <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
-                  That was the last one
+                  {hasMore
+                    ? "That's the last of the selected work"
+                    : "That was the last one"}
                 </span>
                 <p className="text-3xl md:text-5xl font-bold uppercase tracking-[-0.04em] max-w-3xl leading-[0.95]">
-                  Have a look at the playground, or say hello.
+                  {hasMore
+                    ? "There is more in the archive, and something livelier in the playground."
+                    : "There is something livelier in the playground."}
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                {hasMore && (
+                  <Magnetic>
+                    <button
+                      onClick={() => navigate("/projects", "Projects")}
+                      className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 h-14 border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-colors uppercase text-xs tracking-widest font-bold cursor-pointer"
+                    >
+                      All projects
+                      <ArrowUpRight
+                        size={18}
+                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                      />
+                    </button>
+                  </Magnetic>
+                )}
                 <Magnetic>
                   <button
                     onClick={() => navigate("/playground", "Playground")}
@@ -511,6 +533,44 @@ export function ProjectDetail({
                     />
                   </button>
                 </Magnetic>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-8">
+              <span className="block text-3xl md:text-4xl font-bold uppercase tracking-[-0.04em]">
+                End of the archive
+              </span>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] uppercase tracking-[0.3em] text-text-secondary">
+                <button
+                  onClick={() => navigate("/projects", "Projects")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  All projects
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+                <button
+                  onClick={() => navigate("/playground", "Playground")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  Playground
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+                <button
+                  onClick={() => navigate("/#contact", "Get in touch")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  Get in touch
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
               </div>
             </div>
           )}

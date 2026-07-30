@@ -5,14 +5,17 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Magnetic } from "../components/ui/Magnetic";
 import { useTransitionRouter } from "../components/layout/PageTransition";
-import { projects, type Project } from "../data/projects";
+import { projects, FEATURED_COUNT, type Project } from "../data/projects";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+const STACK_SHOWN = 3;
 
 function IndexRow({ project, index }: { project: Project; index: number }) {
   const router = useRouter();
   const { navigate } = useTransitionRouter();
   const href = `/projects/${project.slug}`;
+  const hidden = project.stack.length - STACK_SHOWN;
 
   return (
     <motion.button
@@ -28,11 +31,20 @@ function IndexRow({ project, index }: { project: Project; index: number }) {
         {String(index + 1).padStart(2, "0")}
       </span>
 
-      <div className="md:col-span-3 w-full aspect-[1365/630] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500 border border-border">
-        <div
-          className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${project.image})` }}
-        />
+      <div className="md:col-span-3 w-full aspect-[1365/630] grayscale group-hover:grayscale-0 transition-all duration-500 border border-border">
+        {project.coverImages ? (
+          <div className="w-full h-full flex items-center justify-center gap-1.5 bg-card p-2">
+            {project.coverImages.map((src) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={src} src={src} alt="" className="h-full w-auto" />
+            ))}
+          </div>
+        ) : (
+          <div
+            className="w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: `url(${project.image})` }}
+          />
+        )}
       </div>
 
       <div className="md:col-span-5">
@@ -49,7 +61,7 @@ function IndexRow({ project, index }: { project: Project; index: number }) {
 
       <div className="md:col-span-3 flex items-center justify-between gap-4">
         <div className="flex flex-wrap gap-2">
-          {project.stack.slice(0, 3).map((tool) => (
+          {project.stack.slice(0, STACK_SHOWN).map((tool) => (
             <span
               key={tool}
               className="border border-border px-3 py-1 text-[9px] uppercase tracking-[0.2em] text-text-secondary"
@@ -57,6 +69,14 @@ function IndexRow({ project, index }: { project: Project; index: number }) {
               {tool}
             </span>
           ))}
+          {hidden > 0 && (
+            <span
+              title={project.stack.join(" · ")}
+              className="border border-dashed border-border px-3 py-1 text-[9px] uppercase tracking-[0.2em] text-text-secondary"
+            >
+              +{hidden}
+            </span>
+          )}
         </div>
         <ArrowUpRight
           size={24}
@@ -67,8 +87,29 @@ function IndexRow({ project, index }: { project: Project; index: number }) {
   );
 }
 
+function GroupHeading({ title, note }: { title: string; note: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: EASE }}
+      className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3"
+    >
+      <h2 className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-text">
+        {title}
+      </h2>
+      <p className="text-xs md:text-sm text-text-secondary max-w-sm sm:text-right">
+        {note}
+      </p>
+    </motion.div>
+  );
+}
+
 export function ProjectsIndex() {
   const { navigate } = useTransitionRouter();
+  const selected = projects.slice(0, FEATURED_COUNT);
+  const archive = projects.slice(FEATURED_COUNT);
 
   return (
     <main className="min-h-screen bg-background text-text transition-colors duration-300 pb-32">
@@ -118,10 +159,31 @@ export function ProjectsIndex() {
         </header>
 
         <div className="mt-16 md:mt-20">
-          {projects.map((project, i) => (
+          <GroupHeading
+            title="Selected work"
+            note="The four worth reading closely."
+          />
+          {selected.map((project, i) => (
             <IndexRow key={project.slug} project={project} index={i} />
           ))}
           <div className="border-t border-border" />
+
+          {archive.length > 0 && (
+            <div className="mt-20 md:mt-24">
+              <GroupHeading
+                title="Archive"
+                note="Older work, shown as it was built."
+              />
+              {archive.map((project, i) => (
+                <IndexRow
+                  key={project.slug}
+                  project={project}
+                  index={FEATURED_COUNT + i}
+                />
+              ))}
+              <div className="border-t border-border" />
+            </div>
+          )}
         </div>
       </div>
     </main>

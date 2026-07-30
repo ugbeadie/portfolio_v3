@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PlaygroundPage } from "./PlaygroundPage";
+import { PlaygroundGallery } from "./PlaygroundGallery";
 
 export const metadata: Metadata = {
   title: "Playground — Ugbe Adie",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <PlaygroundPage />;
+  return <PlaygroundGallery />;
 }

@@ -10,7 +10,7 @@ import { experiments } from "../data/playground";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function PlaygroundPage() {
+export function PlaygroundGallery() {
   const { navigate } = useTransitionRouter();
 
   return (

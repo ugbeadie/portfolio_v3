@@ -444,164 +444,163 @@ export const projects: Project[] = [
     ],
     draft: true,
   },
-  // Moneytrail and Snapsack, held back: four entries read stronger than six.
-  //   {
-  //     id: 5,
-  //     slug: "moneytrail",
-  //     title: "MONEYTRAIL",
-  //     category: "Finance",
-  //     tagline:
-  //       "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
-  //     image: "/images/moneytrail.png",
-  //     hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
-  //     repo: "https://github.com/ugbeadie/moneytrail-rework",
-  //     live: "https://moneytrail.ugbeadie.com/",
-  //     hero: {
-  //       image: "/images/moneytrail/summary.png",
-  //       video: "/videos/moneytrail-preview.mp4",
-  //       speed: 2,
-  //       aspect: "2312 / 1080",
-  //       caption: "A month at a glance, with the heavy days visible.",
-  //     },
-  //     stack: ["Next.js", "React", "Tailwind", "PostgreSQL", "Drizzle"],
-  //     sections: [
-  //       {
-  //         label: "What it does",
-  //         body: [
-  //           "Log what you spend and read it back as a calendar. Each day carries its own total, so the pattern you're actually looking for — the three-payday-weekends problem, the month that quietly got away from you — shows up as shape rather than as a row you have to find in a list.",
-  //           "Underneath the calendar are the reports: category breakdowns, totals over time, and the running charts that answer whether this month is worse than the last one.",
-  //           "This is the second build of Moneytrail. The rewrite locked down authentication so spending data is private per account, and replaced the interface wholesale for something quicker to enter a transaction into.",
-  //         ],
-  //       },
-  //       {
-  //         label: "The hard part",
-  //         body: [
-  //           "A chart that was correct in development and wrong in production.",
-  //           "The transaction graph rendered perfectly on my machine and then lagged reality on the live site — sitting on May while the calendar said June. Every test on the data was green, because the data was fine.",
-  //           "The fault was in how the date range reached the chart, not in the chart. Reworking that mapping made the deployed graph track the current month instead of whichever one happened to be true when the thing was built.",
-  //         ],
-  //       },
-  //       {
-  //         label: "A decision I'd defend",
-  //         body: [
-  //           "Authentication before features, on the rewrite.",
-  //           "The first version had a nicer surface and a much softer boundary around whose data was whose. For a general-purpose app that's a bug worth scheduling; for a ledger of somebody's spending it's the whole product.",
-  //           "So the rewrite started at the session layer, and every read is scoped to the signed-in user before it touches a query. It pushed the visible improvements back by weeks, which is the cost, and it's the right trade for the category of data involved.",
-  //         ],
-  //       },
-  //     ],
-  //     gallery: [
-  //       {
-  //         image: "/images/moneytrail/summary.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "The summary. Balance, income and expense for the month, the ledger grouped by day, and the entry form beside it so logging a transaction never leaves the page.",
-  //       },
-  //       {
-  //         image: "/images/moneytrail/calendar.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "The calendar month, with per-day totals doing the summarising. A heavy week is a shape rather than a row you have to find.",
-  //       },
-  //       {
-  //         image: "/images/moneytrail/statistics.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "Category breakdown for the selected range, with the share and transaction count beside each slice.",
-  //       },
-  //       {
-  //         image: "/images/moneytrail/category.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "One category opened. The spending trend sits next to the transactions behind it — this is the graph that was correct locally and wrong in production until the date range was reworked.",
-  //       },
-  //     ],
-  //     closingSections: [
-  //       {
-  //         label: "Where it stands",
-  //         body: [
-  //           "Live, rebuilt, and in daily use. Auth is enforced, the interface overhaul is shipped, and the charts on the deployed site now agree with the calendar.",
-  //         ],
-  //       },
-  //       {
-  //         label: "What's still missing",
-  //         body: [
-  //           "Draft — confirm before publishing. Everything is entered by hand; there's no bank import, so the tracking only holds while the habit does.",
-  //           "Recurring expenses are re-entered every month rather than scheduled.",
-  //           "And it's single-currency, which rules out anyone spending across two.",
-  //         ],
-  //       },
-  //     ],
-  //     closer: [
-  //       "Log a few days in the demo and the calendar starts doing the summarising for you. The session layer that made this a rewrite rather than a redesign is the first thing you'll meet in the repo.",
-  //     ],
-  //     draft: true,
-  //   },
-  //   {
-  //     id: 6,
-  //     slug: "snapsack",
-  //     title: "SNAPSACK",
-  //     category: "E-commerce",
-  //     tagline:
-  //       "A storefront that gets out of the way. Built to practise restraint in an interface.",
-  //     image: "/images/snapsack.png",
-  //     hook: "An ecommerce build where the point was the interface, not the checkout.",
-  //     repo: "https://github.com/ugbeadie/Snapsack",
-  //     live: "https://ugbecommercials.vercel.app/",
-  //     hero: {
-  //       image: "/images/snapsack/home.png",
-  //       video: "/videos/snapsack-preview.mp4",
-  //       speed: 2,
-  //       aspect: "2308 / 1080",
-  //       caption:
-  //         "Catalogue, cart, and as little chrome as it could get away with.",
-  //     },
-  //     stack: ["React", "React Router", "Animate on Scroll", "CSS"],
-  //     sections: [
-  //       {
-  //         label: "What it does",
-  //         body: [
-  //           "A browsable catalogue with a working cart and a clean, deliberately quiet product page. Routing, state and scroll-triggered motion, with the visual noise kept down on purpose.",
-  //         ],
-  //       },
-  //     ],
-  //     gallery: [
-  //       {
-  //         image: "/images/snapsack/home.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "The landing grid. Four category tiles carry the navigation, with the trending row underneath.",
-  //       },
-  //       {
-  //         image: "/images/snapsack/product.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "A product page. Image, price, rating and one action — the restraint exercise this build was for.",
-  //       },
-  //       {
-  //         image: "/images/snapsack/promos.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "The promotional band, revealed on scroll. One motion, used consistently, rather than a different entrance per section.",
-  //       },
-  //       {
-  //         image: "/images/snapsack/footer.png",
-  //         aspect: SCREEN,
-  //         caption:
-  //           "The closing band. Social strip and the shipping, returns and payment row a storefront is expected to have.",
-  //       },
-  //     ],
-  //     closingSections: [
-  //       {
-  //         label: "Where it stands",
-  //         body: ["Shipped and live. An earlier build, kept for the record."],
-  //       },
-  //     ],
-  //     closer: [
-  //       "The oldest thing on this site, kept as it was rather than quietly improved. The restraint in the interface is the part I'd still defend; most of the rest I'd write differently now.",
-  //     ],
-  //     draft: true,
-  //   },
+  {
+    id: 5,
+    slug: "moneytrail",
+    title: "MONEYTRAIL",
+    category: "Finance",
+    tagline:
+      "Where the money went, by the day. An expense tracker built around a calendar rather than a list.",
+    image: "/images/moneytrail.png",
+    hook: "Expense apps are good at telling you what you spent. Fewer are good at telling you when.",
+    repo: "https://github.com/ugbeadie/moneytrail-rework",
+    live: "https://moneytrail.ugbeadie.com/",
+    hero: {
+      image: "/images/moneytrail/summary.png",
+      video: "/videos/moneytrail-preview.mp4",
+      speed: 2,
+      aspect: "2312 / 1080",
+      caption: "A month at a glance, with the heavy days visible.",
+    },
+    stack: ["Next.js", "React", "Tailwind", "PostgreSQL", "Drizzle"],
+    sections: [
+      {
+        label: "What it does",
+        body: [
+          "Log what you spend and read it back as a calendar. Each day carries its own total, so the pattern you're actually looking for — the three-payday-weekends problem, the month that quietly got away from you — shows up as shape rather than as a row you have to find in a list.",
+          "Underneath the calendar are the reports: category breakdowns, totals over time, and the running charts that answer whether this month is worse than the last one.",
+          "This is the second build of Moneytrail. The rewrite locked down authentication so spending data is private per account, and replaced the interface wholesale for something quicker to enter a transaction into.",
+        ],
+      },
+      {
+        label: "The hard part",
+        body: [
+          "A chart that was correct in development and wrong in production.",
+          "The transaction graph rendered perfectly on my machine and then lagged reality on the live site — sitting on May while the calendar said June. Every test on the data was green, because the data was fine.",
+          "The fault was in how the date range reached the chart, not in the chart. Reworking that mapping made the deployed graph track the current month instead of whichever one happened to be true when the thing was built.",
+        ],
+      },
+      {
+        label: "A decision I'd defend",
+        body: [
+          "Authentication before features, on the rewrite.",
+          "The first version had a nicer surface and a much softer boundary around whose data was whose. For a general-purpose app that's a bug worth scheduling; for a ledger of somebody's spending it's the whole product.",
+          "So the rewrite started at the session layer, and every read is scoped to the signed-in user before it touches a query. It pushed the visible improvements back by weeks, which is the cost, and it's the right trade for the category of data involved.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        image: "/images/moneytrail/summary.png",
+        aspect: SCREEN,
+        caption:
+          "The summary. Balance, income and expense for the month, the ledger grouped by day, and the entry form beside it so logging a transaction never leaves the page.",
+      },
+      {
+        image: "/images/moneytrail/calendar.png",
+        aspect: SCREEN,
+        caption:
+          "The calendar month, with per-day totals doing the summarising. A heavy week is a shape rather than a row you have to find.",
+      },
+      {
+        image: "/images/moneytrail/statistics.png",
+        aspect: SCREEN,
+        caption:
+          "Category breakdown for the selected range, with the share and transaction count beside each slice.",
+      },
+      {
+        image: "/images/moneytrail/category.png",
+        aspect: SCREEN,
+        caption:
+          "One category opened. The spending trend sits next to the transactions behind it — this is the graph that was correct locally and wrong in production until the date range was reworked.",
+      },
+    ],
+    closingSections: [
+      {
+        label: "Where it stands",
+        body: [
+          "Live, rebuilt, and in daily use. Auth is enforced, the interface overhaul is shipped, and the charts on the deployed site now agree with the calendar.",
+        ],
+      },
+      {
+        label: "What's still missing",
+        body: [
+          "Draft — confirm before publishing. Everything is entered by hand; there's no bank import, so the tracking only holds while the habit does.",
+          "Recurring expenses are re-entered every month rather than scheduled.",
+          "And it's single-currency, which rules out anyone spending across two.",
+        ],
+      },
+    ],
+    closer: [
+      "Log a few days in the demo and the calendar starts doing the summarising for you. The session layer that made this a rewrite rather than a redesign is the first thing you'll meet in the repo.",
+    ],
+    draft: true,
+  },
+  {
+    id: 6,
+    slug: "snapsack",
+    title: "SNAPSACK",
+    category: "E-commerce",
+    tagline:
+      "A storefront that gets out of the way. Built to practise restraint in an interface.",
+    image: "/images/snapsack.png",
+    hook: "An ecommerce build where the point was the interface, not the checkout.",
+    repo: "https://github.com/ugbeadie/Snapsack",
+    live: "https://ugbecommercials.vercel.app/",
+    hero: {
+      image: "/images/snapsack/home.png",
+      video: "/videos/snapsack-preview.mp4",
+      speed: 2,
+      aspect: "2308 / 1080",
+      caption:
+        "Catalogue, cart, and as little chrome as it could get away with.",
+    },
+    stack: ["React", "React Router", "Animate on Scroll", "CSS"],
+    sections: [
+      {
+        label: "What it does",
+        body: [
+          "A browsable catalogue with a working cart and a clean, deliberately quiet product page. Routing, state and scroll-triggered motion, with the visual noise kept down on purpose.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        image: "/images/snapsack/home.png",
+        aspect: SCREEN,
+        caption:
+          "The landing grid. Four category tiles carry the navigation, with the trending row underneath.",
+      },
+      {
+        image: "/images/snapsack/product.png",
+        aspect: SCREEN,
+        caption:
+          "A product page. Image, price, rating and one action — the restraint exercise this build was for.",
+      },
+      {
+        image: "/images/snapsack/promos.png",
+        aspect: SCREEN,
+        caption:
+          "The promotional band, revealed on scroll. One motion, used consistently, rather than a different entrance per section.",
+      },
+      {
+        image: "/images/snapsack/footer.png",
+        aspect: SCREEN,
+        caption:
+          "The closing band. Social strip and the shipping, returns and payment row a storefront is expected to have.",
+      },
+    ],
+    closingSections: [
+      {
+        label: "Where it stands",
+        body: ["Shipped and live. An earlier build, kept for the record."],
+      },
+    ],
+    closer: [
+      "The oldest thing on this site, kept as it was rather than quietly improved. The restraint in the interface is the part I'd still defend; most of the rest I'd write differently now.",
+    ],
+    draft: true,
+  },
 ];
 
 export function getProject(slug: string) {
