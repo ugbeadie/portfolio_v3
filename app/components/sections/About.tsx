@@ -25,7 +25,6 @@ import {
   SiSupabase,
   SiVercel,
   SiNetlify,
-  SiGithub,
 } from "react-icons/si";
 
 import { Smartphone, Code2, Box, CloudLightning } from "lucide-react";

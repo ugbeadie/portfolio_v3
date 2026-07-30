@@ -2,16 +2,19 @@
 
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { motion } from "motion/react";
 
-export function DarkModeToggle() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+const subscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export function DarkModeToggle() {
+  // False on the server, true once hydrated — the theme is unknowable until then.
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
+  const { theme, setTheme } = useTheme();
 
   if (!mounted) {
     return null;

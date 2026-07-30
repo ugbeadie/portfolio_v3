@@ -39,8 +39,6 @@ export function Navbar() {
       if (e.matches) setIsOpen(false);
     };
 
-    if (mq.matches) setIsOpen(false);
-
     mq.addEventListener("change", handleChange);
     return () => mq.removeEventListener("change", handleChange);
   }, []);
