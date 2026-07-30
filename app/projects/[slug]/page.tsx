@@ -16,8 +16,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!project) return { title: "Project not found" };
 
   return {
-    title: `${project.title} — Ugbe Adie`,
+    title: project.title,
     description: project.tagline,
+    openGraph: {
+      type: "article",
+      siteName: "Ugbe Adie",
+      title: `${project.title} — Ugbe Adie`,
+      description: project.tagline,
+      url: `/projects/${project.slug}`,
+      images: [{ url: project.image, width: 1365, height: 630 }],
+    },
   };
 }
 
