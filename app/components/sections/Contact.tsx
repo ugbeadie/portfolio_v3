@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { Magnetic } from "./Magnetic";
+import { Magnetic } from "../ui/Magnetic";
 
 export function Contact() {
   const [formData, setFormData] = useState({

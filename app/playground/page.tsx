@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PlaygroundPage } from "../components/PlaygroundPage";
+import { PlaygroundPage } from "./PlaygroundPage";
 
 export const metadata: Metadata = {
   title: "Playground — Ugbe Adie",

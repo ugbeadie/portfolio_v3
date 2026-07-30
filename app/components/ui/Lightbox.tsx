@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import { X } from "lucide-react";
-import type { Shot } from "../data/projects";
+import type { Shot } from "../../data/projects";
 
 /**
  * Portalled to the body: figures sit inside an animating motion.div, and a
@@ -18,10 +18,7 @@ export function Lightbox({
   shot: Shot;
   onClose: () => void;
 }) {
-  const [mounted, setMounted] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -32,6 +29,7 @@ export function Lightbox({
     const previouslyFocused = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKey);
+    closeRef.current?.focus();
 
     return () => {
       document.removeEventListener("keydown", onKey);
@@ -39,12 +37,6 @@ export function Lightbox({
       previouslyFocused?.focus?.();
     };
   }, [onClose]);
-
-  useEffect(() => {
-    if (mounted) closeRef.current?.focus();
-  }, [mounted]);
-
-  if (!mounted) return null;
 
   return createPortal(
     <motion.div

@@ -2,11 +2,11 @@
 
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { Magnetic } from "./Magnetic";
-import { ExperimentCard } from "./ExperimentCard";
-import { PlaygroundDemos } from "./PlaygroundDemos";
-import { useTransitionRouter } from "./PageTransition";
-import { experiments, HOME_EXPERIMENT_COUNT } from "../data/playground";
+import { Magnetic } from "../ui/Magnetic";
+import { ExperimentCard } from "../ui/ExperimentCard";
+import { PlaygroundDemos } from "../ui/PlaygroundDemos";
+import { useTransitionRouter } from "../layout/PageTransition";
+import { experiments, HOME_EXPERIMENT_COUNT } from "../../data/playground";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 

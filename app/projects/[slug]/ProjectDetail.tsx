@@ -11,11 +11,11 @@ import {
   Play,
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
-import { Magnetic } from "./Magnetic";
-import { FoldingImage } from "./FoldingImage";
-import { Lightbox } from "./Lightbox";
-import { useTransitionRouter } from "./PageTransition";
-import type { Project, Section, Shot } from "../data/projects";
+import { Magnetic } from "../../components/ui/Magnetic";
+import { FoldingImage } from "../../components/ui/FoldingImage";
+import { Lightbox } from "../../components/ui/Lightbox";
+import { useTransitionRouter } from "../../components/layout/PageTransition";
+import type { Project, Section, Shot } from "../../data/projects";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -433,23 +433,39 @@ export function ProjectDetail({
 
         <Reveal className="mt-24 md:mt-32 border-t border-border pt-12">
           {next ? (
-            <button
-              onClick={() => navigate(`/projects/${next.slug}`, next.title)}
-              className="group w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 cursor-pointer text-left"
-            >
-              <div>
-                <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
-                  Next project
-                </span>
-                <span className="block text-4xl md:text-6xl font-bold uppercase tracking-[-0.04em] group-hover:text-[#ab8bff] transition-colors duration-300">
-                  {next.title}
-                </span>
+            <>
+              <button
+                onClick={() => navigate(`/projects/${next.slug}`, next.title)}
+                className="group w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 cursor-pointer text-left"
+              >
+                <div>
+                  <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
+                    Next project
+                  </span>
+                  <span className="block text-4xl md:text-6xl font-bold uppercase tracking-[-0.04em] group-hover:text-[#ab8bff] transition-colors duration-300">
+                    {next.title}
+                  </span>
+                </div>
+                <ArrowUpRight
+                  size={40}
+                  className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 shrink-0"
+                />
+              </button>
+
+              <div className="mt-12 pt-8 border-t border-border flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] uppercase tracking-[0.3em] text-text-secondary">
+                <span>Or step sideways</span>
+                <button
+                  onClick={() => navigate("/playground", "Playground")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  Playground
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
               </div>
-              <ArrowUpRight
-                size={40}
-                className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 shrink-0"
-              />
-            </button>
+            </>
           ) : (
             <div className="flex flex-col gap-10">
               <div>
@@ -463,7 +479,7 @@ export function ProjectDetail({
               <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <Magnetic>
                   <button
-                    onClick={() => navigate("/#playground", "Playground")}
+                    onClick={() => navigate("/playground", "Playground")}
                     className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 h-14 border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-colors uppercase text-xs tracking-widest font-bold cursor-pointer"
                   >
                     Playground

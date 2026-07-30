@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { ThemeProvider } from "next-themes";
-import { PageTransitionProvider } from "./components/PageTransition";
-import { Navbar } from "./components/Navbar";
-import { Cursor } from "./components/Cursor";
-import { DarkModeToggle } from "./components/DarkModeToggle";
-import { SocialSidebar } from "./components/SocialSidebar";
+import { PageTransitionProvider } from "./components/layout/PageTransition";
+import { Navbar } from "./components/layout/Navbar";
+import { Cursor } from "./components/layout/Cursor";
+import { DarkModeToggle } from "./components/layout/DarkModeToggle";
+import { SocialSidebar } from "./components/layout/SocialSidebar";
 
 export const metadata: Metadata = {
   title: "The Personal Website of Ugbe Adie",

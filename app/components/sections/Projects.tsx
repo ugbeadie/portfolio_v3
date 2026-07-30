@@ -4,9 +4,9 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { projects, FEATURED_COUNT, type Project } from "../data/projects";
-import { useTransitionRouter } from "./PageTransition";
-import { Magnetic } from "./Magnetic";
+import { projects, FEATURED_COUNT, type Project } from "../../data/projects";
+import { useTransitionRouter } from "../layout/PageTransition";
+import { Magnetic } from "../ui/Magnetic";
 
 function ProjectRow({ project, index }: { project: Project; index: number }) {
   const isEven = index % 2 !== 0;

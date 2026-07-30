@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
-import type { Experiment } from "../data/playground";
+import type { Experiment } from "../../data/playground";
 
 export function ExperimentCard({ item }: { item: Experiment }) {
   const ref = useRef<HTMLVideoElement>(null);

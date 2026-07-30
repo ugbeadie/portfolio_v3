@@ -2,10 +2,10 @@
 
 import { motion, Variants } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { Magnetic } from "./Magnetic";
-import { socials } from "./SocialSidebar";
-import { projects } from "../data/projects";
-import { useTransitionRouter } from "./PageTransition";
+import { Magnetic } from "../ui/Magnetic";
+import { socials } from "../layout/SocialSidebar";
+import { projects } from "../../data/projects";
+import { useTransitionRouter } from "../layout/PageTransition";
 
 const headingContainer: Variants = {
   hidden: {},
@@ -243,7 +243,6 @@ export function Hero() {
               ))}
             </div>
           </motion.div>
-
         </motion.div>
       </div>
     </section>

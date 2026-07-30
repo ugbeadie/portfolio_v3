@@ -29,9 +29,9 @@ import {
 } from "react-icons/si";
 
 import { Smartphone, Code2, Box, CloudLightning } from "lucide-react";
-import { Magnetic } from "./Magnetic";
+import { Magnetic } from "../ui/Magnetic";
 import { FaFilePdf } from "react-icons/fa6";
-import { RESUME_URL } from "./SocialSidebar";
+import { RESUME_URL } from "../layout/SocialSidebar";
 
 type Tech = {
   name: string;

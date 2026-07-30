@@ -1,11 +1,11 @@
 "use client";
 
-import { Hero } from "./components/Hero";
-import { About } from "./components/About";
-import { Projects } from "./components/Projects";
-import { Playground } from "./components/Playground";
-import { Contact } from "./components/Contact";
-import { Footer } from "./components/Footer";
+import { Hero } from "./components/sections/Hero";
+import { About } from "./components/sections/About";
+import { Projects } from "./components/sections/Projects";
+import { Playground } from "./components/sections/Playground";
+import { Contact } from "./components/sections/Contact";
+import { Footer } from "./components/sections/Footer";
 import {
   motion,
   useReducedMotion,

@@ -2,10 +2,10 @@
 
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
-import { Magnetic } from "./Magnetic";
-import { ExperimentCard } from "./ExperimentCard";
-import { PlaygroundDemos } from "./PlaygroundDemos";
-import { useTransitionRouter } from "./PageTransition";
+import { Magnetic } from "../components/ui/Magnetic";
+import { ExperimentCard } from "../components/ui/ExperimentCard";
+import { PlaygroundDemos } from "../components/ui/PlaygroundDemos";
+import { useTransitionRouter } from "../components/layout/PageTransition";
 import { experiments } from "../data/playground";
 
 const EASE = [0.22, 1, 0.36, 1] as const;

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
 import { usePathname } from "next/navigation";
-import { Magnetic } from "./Magnetic";
+import { Magnetic } from "../ui/Magnetic";
 import { useTransitionRouter } from "./PageTransition";
 
 const navItems = [
