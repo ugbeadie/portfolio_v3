@@ -158,7 +158,10 @@ export const projects: Project[] = [
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
     live: "https://roomful.ugbeadie.com",
-    writeup: { label: "Why I built an app that can't phone home" },
+    writeup: {
+      label: "Why I built an app that can't phone home",
+      url: "https://medium.com/@ugbeadie3/why-i-built-an-app-that-cant-phone-home-15ebf6e23533",
+    },
     hero: {
       image: "/images/roomful/01-home.jpg",
       video: "/videos/roomful-preview.mp4",
