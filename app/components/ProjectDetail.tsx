@@ -285,7 +285,7 @@ export function ProjectDetail({
   next,
 }: {
   project: Project;
-  next: Project;
+  next: Project | null;
 }) {
   const { navigate } = useTransitionRouter();
 
@@ -432,23 +432,62 @@ export function ProjectDetail({
         </Reveal>
 
         <Reveal className="mt-24 md:mt-32 border-t border-border pt-12">
-          <button
-            onClick={() => navigate(`/projects/${next.slug}`, next.title)}
-            className="group w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 cursor-pointer text-left"
-          >
-            <div>
-              <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
-                Next project
-              </span>
-              <span className="block text-4xl md:text-6xl font-bold uppercase tracking-[-0.04em] group-hover:text-[#ab8bff] transition-colors duration-300">
-                {next.title}
-              </span>
+          {next ? (
+            <button
+              onClick={() => navigate(`/projects/${next.slug}`, next.title)}
+              className="group w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 cursor-pointer text-left"
+            >
+              <div>
+                <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
+                  Next project
+                </span>
+                <span className="block text-4xl md:text-6xl font-bold uppercase tracking-[-0.04em] group-hover:text-[#ab8bff] transition-colors duration-300">
+                  {next.title}
+                </span>
+              </div>
+              <ArrowUpRight
+                size={40}
+                className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 shrink-0"
+              />
+            </button>
+          ) : (
+            <div className="flex flex-col gap-10">
+              <div>
+                <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
+                  That was the last one
+                </span>
+                <p className="text-3xl md:text-5xl font-bold uppercase tracking-[-0.04em] max-w-3xl leading-[0.95]">
+                  Have a look at the playground, or say hello.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                <Magnetic>
+                  <button
+                    onClick={() => navigate("/#playground", "Playground")}
+                    className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 h-14 border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-colors uppercase text-xs tracking-widest font-bold cursor-pointer"
+                  >
+                    Playground
+                    <ArrowUpRight
+                      size={18}
+                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                    />
+                  </button>
+                </Magnetic>
+                <Magnetic>
+                  <button
+                    onClick={() => navigate("/#contact", "Get in touch")}
+                    className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 h-14 border border-border bg-foreground text-background hover:opacity-90 transition-opacity uppercase text-xs tracking-widest font-bold cursor-pointer"
+                  >
+                    Get in touch
+                    <ArrowUpRight
+                      size={18}
+                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                    />
+                  </button>
+                </Magnetic>
+              </div>
             </div>
-            <ArrowUpRight
-              size={40}
-              className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 shrink-0"
-            />
-          </button>
+          )}
         </Reveal>
       </div>
     </main>

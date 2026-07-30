@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: Params) {
   if (index === -1) notFound();
 
   const project = projects[index];
-  const next = projects[(index + 1) % projects.length];
+  const next = index < projects.length - 1 ? projects[index + 1] : null;
 
   return <ProjectDetail key={project.slug} project={project} next={next} />;
 }
