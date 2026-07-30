@@ -455,6 +455,16 @@ export function ProjectDetail({
               <div className="mt-12 pt-8 border-t border-border flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] uppercase tracking-[0.3em] text-text-secondary">
                 <span>Or step sideways</span>
                 <button
+                  onClick={() => navigate("/projects", "Projects")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  All projects
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+                <button
                   onClick={() => navigate("/playground", "Playground")}
                   className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
                 >

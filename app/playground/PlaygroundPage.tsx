@@ -42,7 +42,7 @@ export function PlaygroundPage() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.15, ease: EASE }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-[0.9] tracking-[-0.05em]"
+              className="text-xl md:text-6xl lg:text-7xl font-bold uppercase leading-[0.9] tracking-[-0.05em]"
             >
               Playground
             </motion.h1>

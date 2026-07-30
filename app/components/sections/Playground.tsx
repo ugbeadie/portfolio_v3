@@ -27,20 +27,19 @@ export function Playground() {
         className="max-w-7xl mx-auto mb-16 md:mb-20"
       >
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-          <div className="overflow-hidden">
-            <motion.h2
-              initial={{ y: "100%" }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: EASE }}
-              className="text-5xl md:text-6xl lg:text-7xl leading-none tracking-[-0.06em]"
-            >
-              The <br />
-              <span className="italic text-[#ab8bff] inline-block">
-                Playground
-              </span>
-            </motion.h2>
-          </div>
+          <motion.h2
+            initial={{ y: "100%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: EASE }}
+            className="text-5xl md:text-6xl lg:text-7xl leading-none tracking-[-0.06em]"
+          >
+            The <br />
+            <span className="italic text-[#ab8bff] inline-block">
+              Playground
+            </span>
+          </motion.h2>
+
           <p className="text-text-secondary text-base md:text-lg max-w-md leading-relaxed">
             Small things built for the pleasure of building them. Every one is
             live, so you can open it and try it yourself.

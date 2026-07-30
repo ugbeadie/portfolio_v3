@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, Variants } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Magnetic } from "../ui/Magnetic";
@@ -207,12 +208,16 @@ export function Hero() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary">
                 Recent work
               </p>
-              <a
-                href="#projects"
+              <Link
+                href="/projects"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/projects", "Projects");
+                }}
                 className="text-[10px] uppercase tracking-[0.3em] text-text-secondary hover:text-text transition-colors"
               >
                 All projects
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 border-t border-border">
