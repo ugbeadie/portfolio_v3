@@ -1,14 +1,15 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
 import { usePathname } from "next/navigation";
-import { Magnetic } from "./Magnetic";
+import { Magnetic } from "../ui/Magnetic";
 import { useTransitionRouter } from "./PageTransition";
 
 const navItems = [
   { name: "ABOUT", hash: "#about" },
   { name: "PROJECTS", hash: "#projects" },
+  { name: "PLAYGROUND", hash: "#playground" },
   { name: "CONTACT", hash: "#contact" },
 ];
 
@@ -19,7 +20,6 @@ export function Navbar() {
   const { navigate } = useTransitionRouter();
 
   const isHome = pathname === "/";
-  // Off the home page the section links have to route back to it first.
   const hrefFor = (hash: string) => (isHome ? hash : `/${hash}`);
 
   const handleNavClick = (
@@ -27,7 +27,7 @@ export function Navbar() {
     hash: string,
   ) => {
     setIsOpen(false);
-    if (isHome) return; // native smooth scroll
+    if (isHome) return;
     e.preventDefault();
     navigate(`/${hash}`);
   };
@@ -38,8 +38,6 @@ export function Navbar() {
     const handleChange = (e: MediaQueryListEvent) => {
       if (e.matches) setIsOpen(false);
     };
-
-    if (mq.matches) setIsOpen(false);
 
     mq.addEventListener("change", handleChange);
     return () => mq.removeEventListener("change", handleChange);

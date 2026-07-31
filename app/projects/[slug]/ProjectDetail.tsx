@@ -11,11 +11,11 @@ import {
   Play,
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
-import { Magnetic } from "./Magnetic";
-import { FoldingImage } from "./FoldingImage";
-import { Lightbox } from "./Lightbox";
-import { useTransitionRouter } from "./PageTransition";
-import type { Project, Section, Shot } from "../data/projects";
+import { Magnetic } from "../../components/ui/Magnetic";
+import { FoldingImage } from "../../components/ui/FoldingImage";
+import { Lightbox } from "../../components/ui/Lightbox";
+import { useTransitionRouter } from "../../components/layout/PageTransition";
+import type { Project, Section, Shot } from "../../data/projects";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -283,9 +283,13 @@ function Figure({
 export function ProjectDetail({
   project,
   next,
+  isCloser = false,
+  hasMore = false,
 }: {
   project: Project;
-  next: Project;
+  next: Project | null;
+  isCloser?: boolean;
+  hasMore?: boolean;
 }) {
   const { navigate } = useTransitionRouter();
 
@@ -432,23 +436,144 @@ export function ProjectDetail({
         </Reveal>
 
         <Reveal className="mt-24 md:mt-32 border-t border-border pt-12">
-          <button
-            onClick={() => navigate(`/projects/${next.slug}`, next.title)}
-            className="group w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 cursor-pointer text-left"
-          >
-            <div>
-              <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
-                Next project
-              </span>
-              <span className="block text-4xl md:text-6xl font-bold uppercase tracking-[-0.04em] group-hover:text-[#ab8bff] transition-colors duration-300">
-                {next.title}
-              </span>
+          {next && !isCloser ? (
+            <>
+              <button
+                onClick={() => navigate(`/projects/${next.slug}`, next.title)}
+                className="group w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 cursor-pointer text-left"
+              >
+                <div>
+                  <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
+                    Next project
+                  </span>
+                  <span className="block text-4xl md:text-6xl font-bold uppercase tracking-[-0.04em] group-hover:text-[#ab8bff] transition-colors duration-300">
+                    {next.title}
+                  </span>
+                </div>
+                <ArrowUpRight
+                  size={40}
+                  className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 shrink-0"
+                />
+              </button>
+
+              <div className="mt-12 pt-8 border-t border-border flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] uppercase tracking-[0.3em] text-text-secondary">
+                <span>Or step sideways</span>
+                <button
+                  onClick={() => navigate("/projects", "Projects")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  All projects
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+                <button
+                  onClick={() => navigate("/playground", "Playground")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  Playground
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+              </div>
+            </>
+          ) : isCloser ? (
+            <div className="flex flex-col gap-10">
+              <div>
+                <span className="block text-sm uppercase tracking-[0.3em] text-text-secondary mb-3">
+                  {hasMore
+                    ? "That's the last of the selected work"
+                    : "That was the last one"}
+                </span>
+                <p className="text-3xl md:text-5xl font-bold uppercase tracking-[-0.04em] max-w-3xl leading-[0.95]">
+                  {hasMore
+                    ? "There is more in the archive, and something livelier in the playground."
+                    : "There is something livelier in the playground."}
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                {hasMore && (
+                  <Magnetic>
+                    <button
+                      onClick={() => navigate("/projects", "Projects")}
+                      className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 h-14 border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-colors uppercase text-xs tracking-widest font-bold cursor-pointer"
+                    >
+                      All projects
+                      <ArrowUpRight
+                        size={18}
+                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                      />
+                    </button>
+                  </Magnetic>
+                )}
+                <Magnetic>
+                  <button
+                    onClick={() => navigate("/playground", "Playground")}
+                    className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 h-14 border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-colors uppercase text-xs tracking-widest font-bold cursor-pointer"
+                  >
+                    Playground
+                    <ArrowUpRight
+                      size={18}
+                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                    />
+                  </button>
+                </Magnetic>
+                <Magnetic>
+                  <button
+                    onClick={() => navigate("/#contact", "Get in touch")}
+                    className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 h-14 border border-border bg-foreground text-background hover:opacity-90 transition-opacity uppercase text-xs tracking-widest font-bold cursor-pointer"
+                  >
+                    Get in touch
+                    <ArrowUpRight
+                      size={18}
+                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                    />
+                  </button>
+                </Magnetic>
+              </div>
             </div>
-            <ArrowUpRight
-              size={40}
-              className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 shrink-0"
-            />
-          </button>
+          ) : (
+            <div className="flex flex-col gap-8">
+              <span className="block text-3xl md:text-4xl font-bold uppercase tracking-[-0.04em]">
+                End of the archive
+              </span>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] uppercase tracking-[0.3em] text-text-secondary">
+                <button
+                  onClick={() => navigate("/projects", "Projects")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  All projects
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+                <button
+                  onClick={() => navigate("/playground", "Playground")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  Playground
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+                <button
+                  onClick={() => navigate("/#contact", "Get in touch")}
+                  className="group inline-flex items-center gap-2 cursor-pointer hover:text-[#ab8bff] transition-colors"
+                >
+                  Get in touch
+                  <ArrowUpRight
+                    size={14}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  />
+                </button>
+              </div>
+            </div>
+          )}
         </Reveal>
       </div>
     </main>

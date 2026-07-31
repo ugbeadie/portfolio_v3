@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { motion, Variants } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { Magnetic } from "./Magnetic";
-import { socials } from "./SocialSidebar";
-import { projects } from "../data/projects";
-import { useTransitionRouter } from "./PageTransition";
+import { Magnetic } from "../ui/Magnetic";
+import { socials } from "../layout/SocialSidebar";
+import { projects } from "../../data/projects";
+import { useTransitionRouter } from "../layout/PageTransition";
 
 const headingContainer: Variants = {
   hidden: {},
@@ -207,12 +208,16 @@ export function Hero() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-text-secondary">
                 Recent work
               </p>
-              <a
-                href="#projects"
+              <Link
+                href="/projects"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/projects", "Projects");
+                }}
                 className="text-[10px] uppercase tracking-[0.3em] text-text-secondary hover:text-text transition-colors"
               >
                 All projects
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 border-t border-border">
@@ -243,7 +248,6 @@ export function Hero() {
               ))}
             </div>
           </motion.div>
-
         </motion.div>
       </div>
     </section>

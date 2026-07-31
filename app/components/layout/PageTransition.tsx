@@ -15,9 +15,7 @@ import { motion, AnimatePresence } from "motion/react";
 const COLUMNS = 5;
 const COLUMN_DURATION = 0.6;
 const COLUMN_STAGGER = 0.07;
-/** When the last column has finished covering the screen. */
 const COVER_MS = (COLUMN_DURATION + COLUMN_STAGGER * (COLUMNS - 1)) * 1000;
-/** Drops the curtain if a route never arrives, so it can't strand the page. */
 const FAILSAFE_MS = 6000;
 
 type TransitionContextValue = {
@@ -36,7 +34,6 @@ function CurtainLabel({ label }: { label: string }) {
   const letters = Array.from(label);
 
   return (
-    // Fades as a group on exit, so nothing static is left hanging over the new page.
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
@@ -90,9 +87,12 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     timers.current = [];
   }, []);
 
-  // The new route has rendered — pull the curtain back off the screen.
+  // The new route has rendered — pull the curtain back off the screen. The router
+  // is the external system being synchronised with here, and the curtain has to
+  // survive until it lands, so this state cannot be derived during render.
   useEffect(() => {
     clearTimers();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurtain(null);
   }, [pathname, clearTimers]);
 
@@ -130,7 +130,6 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
             className="fixed inset-0 z-200 pointer-events-auto"
             aria-hidden
           >
-            {/* Columns rise to cover, then keep going to reveal. */}
             <div className="absolute inset-0 flex">
               {Array.from({ length: COLUMNS }).map((_, i) => (
                 <motion.div

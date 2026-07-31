@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProjectDetail } from "../../components/ProjectDetail";
-import { projects } from "../../data/projects";
+import { ProjectDetail } from "./ProjectDetail";
+import { projects, FEATURED_COUNT } from "../../data/projects";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -16,8 +16,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!project) return { title: "Project not found" };
 
   return {
-    title: `${project.title} — Ugbe Adie`,
+    title: project.title,
     description: project.tagline,
+    openGraph: {
+      type: "article",
+      siteName: "Ugbe Adie",
+      title: `${project.title} — Ugbe Adie`,
+      description: project.tagline,
+      url: `/projects/${project.slug}`,
+      images: [{ url: project.image, width: 1365, height: 630 }],
+    },
   };
 }
 
@@ -28,7 +36,18 @@ export default async function ProjectPage({ params }: Params) {
   if (index === -1) notFound();
 
   const project = projects[index];
-  const next = projects[(index + 1) % projects.length];
+  const next = index < projects.length - 1 ? projects[index + 1] : null;
+  // The pitch belongs at the end of the curated set, not the end of the array,
+  // so appending weaker work never inherits it.
+  const closerIndex = Math.min(FEATURED_COUNT, projects.length) - 1;
 
-  return <ProjectDetail key={project.slug} project={project} next={next} />;
+  return (
+    <ProjectDetail
+      key={project.slug}
+      project={project}
+      next={next}
+      isCloser={index === closerIndex}
+      hasMore={projects.length > FEATURED_COUNT}
+    />
+  );
 }

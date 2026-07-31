@@ -28,7 +28,6 @@ export type Project = {
   gallery: Shot[];
   closingSections: Section[];
   closer?: string[];
-  draft?: boolean;
 };
 
 const SCREEN = "1365 / 630";
@@ -158,7 +157,10 @@ export const projects: Project[] = [
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
     live: "https://roomful.ugbeadie.com",
-    writeup: { label: "Why I built an app that can't phone home" },
+    writeup: {
+      label: "Why I built an app that can't phone home",
+      url: "https://medium.com/@ugbeadie3/why-i-built-an-app-that-cant-phone-home-15ebf6e23533",
+    },
     hero: {
       image: "/images/roomful/01-home.jpg",
       video: "/videos/roomful-preview.mp4",
@@ -339,7 +341,7 @@ export const projects: Project[] = [
       {
         label: "What's still missing",
         body: [
-          "Draft — confirm before publishing. Nothing reminds you about an interview; the date is stored but no notification is sent, so the calendar in your head is still doing the work.",
+          "Nothing reminds you about an interview; the date is stored but no notification is sent, so the calendar in your head is still doing the work.",
           "Résumé versions aren't attached per application, so which CV went where isn't recorded.",
           "And extraction quality tracks the posting. A well-structured listing fills cleanly; a PDF-flavoured wall of text does not.",
         ],
@@ -348,7 +350,6 @@ export const projects: Project[] = [
     closer: [
       "Paste a job link into the demo and watch the fields fill themselves, then change one before you save it. That editable step is the whole argument, and it's easier to believe once you've used it.",
     ],
-    draft: true,
   },
   {
     id: 4,
@@ -442,7 +443,6 @@ export const projects: Project[] = [
     closer: [
       "Try it on your own handle. There's no login and nothing is stored — it reads what anyone can already see, and the worst it can do is be right.",
     ],
-    draft: true,
   },
   {
     id: 5,
@@ -525,7 +525,7 @@ export const projects: Project[] = [
       {
         label: "What's still missing",
         body: [
-          "Draft — confirm before publishing. Everything is entered by hand; there's no bank import, so the tracking only holds while the habit does.",
+          "Everything is entered by hand; there's no bank import, so the tracking only holds while the habit does.",
           "Recurring expenses are re-entered every month rather than scheduled.",
           "And it's single-currency, which rules out anyone spending across two.",
         ],
@@ -534,7 +534,6 @@ export const projects: Project[] = [
     closer: [
       "Log a few days in the demo and the calendar starts doing the summarising for you. The session layer that made this a rewrite rather than a redesign is the first thing you'll meet in the repo.",
     ],
-    draft: true,
   },
   {
     id: 6,
@@ -599,7 +598,6 @@ export const projects: Project[] = [
     closer: [
       "The oldest thing on this site, kept as it was rather than quietly improved. The restraint in the interface is the part I'd still defend; most of the rest I'd write differently now.",
     ],
-    draft: true,
   },
 ];
 

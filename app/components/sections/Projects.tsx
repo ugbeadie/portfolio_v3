@@ -1,12 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { projects, FEATURED_COUNT, type Project } from "../data/projects";
-import { useTransitionRouter } from "./PageTransition";
-import { Magnetic } from "./Magnetic";
+import { projects, FEATURED_COUNT, type Project } from "../../data/projects";
+import { useTransitionRouter } from "../layout/PageTransition";
+import { Magnetic } from "../ui/Magnetic";
 
 function ProjectRow({ project, index }: { project: Project; index: number }) {
   const isEven = index % 2 !== 0;
@@ -103,40 +102,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 }
 
 export function Projects() {
-  const [showAll, setShowAll] = useState(false);
-  const toggleRef = useRef<HTMLDivElement>(null);
-  const anchorTop = useRef<number | null>(null);
-
+  const { navigate } = useTransitionRouter();
   const featured = projects.slice(0, FEATURED_COUNT);
-  const rest = projects.slice(FEATURED_COUNT);
-
-  const toggle = () => {
-    anchorTop.current = showAll
-      ? (toggleRef.current?.getBoundingClientRect().top ?? null)
-      : null;
-    setShowAll((prev) => !prev);
-  };
-
-  // Layout effect, not effect: this has to run after the rows are removed but
-  // before the browser paints, or the footer flashes into view first.
-  useLayoutEffect(() => {
-    const before = anchorTop.current;
-    anchorTop.current = null;
-    if (before === null || !toggleRef.current) return;
-
-    const after = toggleRef.current.getBoundingClientRect().top;
-    if (after === before) return;
-
-    // globals.css sets `scroll-behavior: smooth` on <html>, which every scroll
-    // API defers to — including behavior: "auto". Left on, the correction
-    // animates, so you watch the page travel back up from the footer. Suspend
-    // it for this one jump.
-    const html = document.documentElement;
-    const previous = html.style.scrollBehavior;
-    html.style.scrollBehavior = "auto";
-    window.scrollBy(0, after - before);
-    html.style.scrollBehavior = previous;
-  }, [showAll]);
+  const remaining = projects.length - FEATURED_COUNT;
 
   return (
     <section
@@ -174,49 +142,20 @@ export function Projects() {
         {featured.map((project, index) => (
           <ProjectRow key={project.id} project={project} index={index} />
         ))}
-
-        {showAll &&
-          rest.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 60 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.8,
-                  delay: index * 0.12,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              }}
-            >
-              <ProjectRow project={project} index={FEATURED_COUNT + index} />
-            </motion.div>
-          ))}
       </div>
 
-      {rest.length > 0 && (
-        <div
-          ref={toggleRef}
-          className="max-w-7xl mx-auto mt-20 flex justify-center relative z-10"
-        >
+      {remaining > 0 && (
+        <div className="max-w-7xl mx-auto mt-20 flex justify-center relative z-10">
           <Magnetic>
             <button
-              onClick={toggle}
+              onClick={() => navigate("/projects", "Projects")}
               className="group flex items-center gap-4 px-8 h-14 border border-border cursor-pointer uppercase text-xs tracking-[0.25em] font-bold hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all duration-500"
             >
-              {showAll ? "View less" : `View more (${rest.length})`}
-              <motion.span
-                animate={{ y: showAll ? 0 : [0, 4, 0] }}
-                transition={{
-                  duration: 1.4,
-                  repeat: showAll ? 0 : Infinity,
-                  ease: "easeInOut",
-                }}
-                className="flex"
-              >
-                {showAll ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
-              </motion.span>
+              {`View all (${projects.length})`}
+              <ArrowUpRight
+                size={16}
+                className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+              />
             </button>
           </Magnetic>
         </div>
