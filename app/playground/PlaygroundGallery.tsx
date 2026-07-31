@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { Magnetic } from "../components/ui/Magnetic";
 import { ExperimentCard } from "../components/ui/ExperimentCard";
+import { ComingSoonCard } from "../components/ui/ComingSoonCard";
 import { useTransitionRouter } from "../components/layout/PageTransition";
 import { experiments } from "../data/playground";
 
@@ -84,10 +85,11 @@ export function PlaygroundGallery() {
               note="Open one and move around in it."
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 border-t border-border pt-10">
-              {experiments.map((item) => (
-                <ExperimentCard key={item.slug} item={item} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {experiments.map((item, i) => (
+                <ExperimentCard key={item.slug} item={item} index={i} />
               ))}
+              <ComingSoonCard index={experiments.length} />
             </div>
           </section>
         )}

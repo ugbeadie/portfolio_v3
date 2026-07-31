@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { Magnetic } from "../../components/ui/Magnetic";
 import { useTransitionRouter } from "../../components/layout/PageTransition";
+import { useDimmedChrome } from "../../components/layout/useDimmedChrome";
 
 const IMAGES = Array.from(
   { length: 8 },
@@ -66,18 +67,7 @@ export function ImageTrail() {
     });
   }, []);
 
-  // The social rail sits mid-right, straight through the canvas. Dim it for the
-  // life of this route instead of unmounting it, so layout.tsx stays untouched.
-  useEffect(() => {
-    const root = document.documentElement;
-    root.style.setProperty("--chrome-dim", "0.12");
-    root.style.setProperty("--chrome-events", "none");
-
-    return () => {
-      root.style.removeProperty("--chrome-dim");
-      root.style.removeProperty("--chrome-events");
-    };
-  }, []);
+  useDimmedChrome();
 
   const push = useCallback((x: number, y: number) => {
     const i = imageIndex.current++;

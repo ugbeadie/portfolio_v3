@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Magnetic } from "../ui/Magnetic";
 import { ExperimentCard } from "../ui/ExperimentCard";
+import { ComingSoonCard } from "../ui/ComingSoonCard";
 import { PlaygroundDemos } from "../ui/PlaygroundDemos";
 import { useTransitionRouter } from "../layout/PageTransition";
 import { experiments, HOME_EXPERIMENT_COUNT } from "../../data/playground";
@@ -50,28 +51,35 @@ export function Playground() {
       <div className="max-w-7xl mx-auto">
         {featured.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((item) => (
-              <ExperimentCard key={item.slug} item={item} />
+            {featured.map((item, i) => (
+              <ExperimentCard key={item.slug} item={item} index={i} />
             ))}
+            {featured.length < HOME_EXPERIMENT_COUNT && (
+              <ComingSoonCard index={featured.length} />
+            )}
           </div>
         ) : (
           <PlaygroundDemos limit={3} />
         )}
 
-        <div className="mt-16 flex justify-center">
-          <Magnetic>
-            <button
-              onClick={() => navigate("/playground", "Playground")}
-              className="group flex items-center gap-4 px-8 h-14 border border-border cursor-pointer uppercase text-xs tracking-[0.25em] font-bold hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-colors duration-500"
-            >
-              See everything
-              <ArrowUpRight
-                size={16}
-                className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
-              />
-            </button>
-          </Magnetic>
-        </div>
+        {/* Nothing to see beyond what's already on this page until the list
+            outgrows the three slots home shows. */}
+        {experiments.length >= HOME_EXPERIMENT_COUNT && (
+          <div className="mt-16 flex justify-center">
+            <Magnetic>
+              <button
+                onClick={() => navigate("/playground", "Playground")}
+                className="group flex items-center gap-4 px-8 h-14 border border-border cursor-pointer uppercase text-xs tracking-[0.25em] font-bold hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-colors duration-500"
+              >
+                See everything
+                <ArrowUpRight
+                  size={16}
+                  className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                />
+              </button>
+            </Magnetic>
+          </div>
+        )}
       </div>
     </section>
   );

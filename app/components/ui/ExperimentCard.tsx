@@ -23,7 +23,13 @@ function useMediaQuery(query: string) {
   );
 }
 
-export function ExperimentCard({ item }: { item: Experiment }) {
+export function ExperimentCard({
+  item,
+  index,
+}: {
+  item: Experiment;
+  index: number;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const rootRef = useRef<HTMLAnchorElement>(null);
   const warmed = useRef(false);
@@ -141,10 +147,7 @@ export function ExperimentCard({ item }: { item: Experiment }) {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-x-0 bottom-0 z-20 flex flex-col gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pt-14 text-white pointer-events-none"
         >
-          <h3 className="text-lg font-bold uppercase tracking-[-0.02em]">
-            {item.title}
-          </h3>
-          <p className="text-sm text-white/75 leading-relaxed">{item.blurb}</p>
+          <p className="text-sm text-white/85 leading-relaxed">{item.blurb}</p>
           {item.tags && item.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 pt-1">
               {item.tags.map((tag) => (
@@ -158,6 +161,17 @@ export function ExperimentCard({ item }: { item: Experiment }) {
             </div>
           )}
         </motion.div>
+      </div>
+
+      {/* Numbered outside the image, so the grid stays readable without a
+          pointer. The blurb is still the hover's job. */}
+      <div className="flex items-baseline gap-4 border-t border-border px-5 py-4">
+        <span className="text-[10px] tracking-[0.25em] text-text-secondary">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <h3 className="text-base md:text-lg font-bold uppercase tracking-[-0.02em] group-hover:text-[#ab8bff] transition-colors duration-300">
+          {item.title}
+        </h3>
       </div>
     </a>
   );
