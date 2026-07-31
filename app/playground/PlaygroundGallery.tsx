@@ -4,11 +4,29 @@ import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { Magnetic } from "../components/ui/Magnetic";
 import { ExperimentCard } from "../components/ui/ExperimentCard";
-import { PlaygroundDemos } from "../components/ui/PlaygroundDemos";
 import { useTransitionRouter } from "../components/layout/PageTransition";
 import { experiments } from "../data/playground";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+function GroupHeading({ title, note }: { title: string; note: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: EASE }}
+      className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3"
+    >
+      <h2 className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-text">
+        {title}
+      </h2>
+      <p className="text-xs md:text-sm text-text-secondary max-w-sm sm:text-right">
+        {note}
+      </p>
+    </motion.div>
+  );
+}
 
 export function PlaygroundGallery() {
   const { navigate } = useTransitionRouter();
@@ -42,7 +60,7 @@ export function PlaygroundGallery() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.15, ease: EASE }}
-              className="text-xl md:text-6xl lg:text-7xl font-bold uppercase leading-[0.9] tracking-[-0.05em]"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-[0.9] tracking-[-0.05em]"
             >
               Playground
             </motion.h1>
@@ -60,34 +78,19 @@ export function PlaygroundGallery() {
         </header>
 
         {experiments.length > 0 && (
-          <section className="mt-20 md:mt-28">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <section className="mt-16 md:mt-20">
+            <GroupHeading
+              title="Animations"
+              note="Open one and move around in it."
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 border-t border-border pt-10">
               {experiments.map((item) => (
                 <ExperimentCard key={item.slug} item={item} />
               ))}
             </div>
           </section>
         )}
-
-        <section className="mt-20 md:mt-28 border-t border-border pt-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="mb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-6"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-[-0.04em]">
-              Micro-interactions
-            </h2>
-            <p className="text-text-secondary text-base max-w-md leading-relaxed">
-              Pieces pulled out of the work and left here on their own. Hover
-              them, drag them, click them.
-            </p>
-          </motion.div>
-
-          <PlaygroundDemos />
-        </section>
       </div>
     </main>
   );

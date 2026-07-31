@@ -483,7 +483,7 @@ export function ProjectDetail({
           ) : isCloser ? (
             <div className="flex flex-col gap-10">
               <div>
-                <span className="block text-[10px] uppercase tracking-[0.3em] text-text-secondary mb-3">
+                <span className="block text-sm uppercase tracking-[0.3em] text-text-secondary mb-3">
                   {hasMore
                     ? "That's the last of the selected work"
                     : "That was the last one"}

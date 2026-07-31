@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PlaygroundGallery } from "./PlaygroundGallery";
 
 const DESCRIPTION =
-  "Small live experiments and interface micro-interactions, built for the pleasure of building them.";
+  "Animation experiments built for the pleasure of building them, kept live so they can be opened and tried rather than described.";
 
 export const metadata: Metadata = {
   title: "Playground",

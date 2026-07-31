@@ -36,7 +36,14 @@ export const socials = [
 export function SocialSidebar() {
   return (
     <>
-      <div className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 flex-col items-end z-50">
+      <div
+        className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 flex-col items-end z-50 transition-opacity duration-500"
+        style={{
+          opacity: "var(--chrome-dim, 1)",
+          pointerEvents:
+            "var(--chrome-events, auto)" as React.CSSProperties["pointerEvents"],
+        }}
+      >
         {socials.map((social, index) => {
           const Icon = social.icon;
 
