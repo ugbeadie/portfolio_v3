@@ -2,12 +2,7 @@
 
 import { useEffect } from "react";
 
-/**
- * Full-screen playground pieces own the whole viewport, and the social rail
- * sits mid-right straight through it. Dimming it from the root for the life of
- * the route keeps layout.tsx free of per-route conditionals — the rail reads
- * these vars itself and fades back when the piece unmounts.
- */
+// Fades the social rail off a full-screen piece for the life of the route.
 export function useDimmedChrome() {
   useEffect(() => {
     const root = document.documentElement;

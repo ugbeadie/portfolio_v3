@@ -8,9 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeft } from "lucide-react";
-import { Magnetic } from "../../components/ui/Magnetic";
-import { useTransitionRouter } from "../../components/layout/PageTransition";
+import { PieceNav } from "../../components/ui/PieceNav";
 import { useDimmedChrome } from "../../components/layout/useDimmedChrome";
 
 const IMAGES = Array.from(
@@ -48,7 +46,6 @@ function useMediaQuery(query: string) {
 }
 
 export function ImageTrail() {
-  const { navigate } = useTransitionRouter();
   const stageRef = useRef<HTMLDivElement>(null);
 
   const [drops, setDrops] = useState<Drop[]>([]);
@@ -96,8 +93,7 @@ export function ImageTrail() {
     const point = toStage(event.clientX, event.clientY);
     if (!point) return;
 
-    // The first sample only calibrates — otherwise entering the stage anywhere
-    // far from the origin would drop an image the pointer never travelled for.
+    // The first sample only calibrates.
     if (!lastDrop.current) {
       lastDrop.current = point;
       return;
@@ -176,22 +172,7 @@ export function ImageTrail() {
         ))}
       </AnimatePresence>
 
-      <div className="absolute bottom-6 left-6 md:bottom-10 md:left-12 z-20 flex">
-        <Magnetic>
-          <button
-            onClick={() => navigate("/playground", "Playground")}
-            className="group flex h-12 cursor-pointer items-center gap-3 border border-border bg-background/70 px-5 backdrop-blur-md transition-colors hover:border-[#ab8bff] hover:bg-[#ab8bff] hover:text-white"
-          >
-            <ArrowLeft
-              size={18}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-            <span className="text-xs uppercase tracking-widest">
-              Playground
-            </span>
-          </button>
-        </Magnetic>
-      </div>
+      <PieceNav slug="image-trail" />
     </main>
   );
 }

@@ -9,14 +9,14 @@ export type Experiment = {
   tags?: string[];
 };
 
+// Order here drives the numbering on the cards and the next link on each piece.
 export const experiments: Experiment[] = [
   {
-    slug: "image-trail",
-    title: "Image Trail",
+    slug: "grid-scroll",
+    title: "Grid Scroll",
     blurb:
-      "Photographs drop along the path the pointer travels, then fade out behind it.",
-    url: "/playground/image-trail",
-    video: "/playground/image-trail.mp4",
+      "One card blooms into a grid and folds back into itself, scrubbed by how far down the page you are.",
+    url: "/playground/grid-scroll",
   },
   {
     slug: "ticker-scroller",
@@ -25,6 +25,14 @@ export const experiments: Experiment[] = [
       "Four columns wrapping endlessly in opposite directions, chasing the wheel rather than following it.",
     url: "/playground/ticker-scroller",
     video: "/playground/ticker-scroll.mp4",
+  },
+  {
+    slug: "image-trail",
+    title: "Image Trail",
+    blurb:
+      "Photographs drop along the path the pointer travels, then fade out behind it.",
+    url: "/playground/image-trail",
+    video: "/playground/image-trail.mp4",
   },
 ];
 

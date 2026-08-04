@@ -14,9 +14,7 @@ import {
   wrap,
   type MotionValue,
 } from "motion/react";
-import { ArrowLeft } from "lucide-react";
-import { Magnetic } from "../../components/ui/Magnetic";
-import { useTransitionRouter } from "../../components/layout/PageTransition";
+import { PieceNav } from "../../components/ui/PieceNav";
 import { useDimmedChrome } from "../../components/layout/useDimmedChrome";
 
 const IMAGES = Array.from(
@@ -84,7 +82,6 @@ function Column({
 }
 
 export function TickerScroller() {
-  const { navigate } = useTransitionRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
 
@@ -101,8 +98,7 @@ export function TickerScroller() {
 
   useDimmedChrome();
 
-  // One set's height is the wrap distance. Cards are sized in vh, so this has
-  // to be re-read whenever the viewport changes, not just once on mount.
+  // One set's height is the wrap distance, and cards are sized in vh.
   useEffect(() => {
     const column = measureRef.current;
     if (!column) return;
@@ -164,8 +160,7 @@ export function TickerScroller() {
     const height = setHeight.current;
     if (!height) return;
 
-    // Reduced motion still scrolls — it just lands where you left it instead of
-    // gliding past and easing back.
+    // Reduced motion snaps to position instead of easing.
     current.current += (target.current - current.current) * (calm ? 1 : LERP);
 
     const forward = wrap(-height, 0, current.current - height);
@@ -195,20 +190,7 @@ export function TickerScroller() {
         <Column y={y4} className="hidden lg:flex" />
       </div>
 
-      <div className="absolute bottom-6 left-6 z-20 flex md:bottom-10 md:left-12">
-        <Magnetic>
-          <button
-            onClick={() => navigate("/playground", "Playground")}
-            className="group flex h-12 cursor-pointer items-center gap-3 border border-border bg-background/70 px-5 backdrop-blur-md transition-colors hover:border-[#ab8bff] hover:bg-[#ab8bff] hover:text-white"
-          >
-            <ArrowLeft
-              size={18}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-            <span className="text-xs uppercase tracking-widest">Playground</span>
-          </button>
-        </Magnetic>
-      </div>
+      <PieceNav slug="ticker-scroller" />
     </main>
   );
 }
