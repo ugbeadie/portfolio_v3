@@ -37,6 +37,7 @@ export function SocialSidebar() {
   return (
     <>
       <div
+        data-chrome
         className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 flex-col items-end z-50 transition-opacity duration-500"
         style={{
           opacity: "var(--chrome-dim, 1)",

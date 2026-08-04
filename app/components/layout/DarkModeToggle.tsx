@@ -22,6 +22,7 @@ export function DarkModeToggle() {
 
   return (
     <motion.button
+      data-chrome
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="fixed bottom-6 right-6 z-50 p-3 cursor-pointer bg-secondary/80 backdrop-blur-sm border border-border text-foreground hover:bg-secondary transition-colors"

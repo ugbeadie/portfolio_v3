@@ -17,6 +17,7 @@ export const experiments: Experiment[] = [
     blurb:
       "One card blooms into a grid and folds back into itself, scrubbed by how far down the page you are.",
     url: "/playground/grid-scroll",
+    video: "/playground/grid-scroll.mp4",
   },
   {
     slug: "ticker-scroller",

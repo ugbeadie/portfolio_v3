@@ -13,11 +13,6 @@ import {
 import { PieceNav } from "../../components/ui/PieceNav";
 import { useDimmedChrome } from "../../components/layout/useDimmedChrome";
 
-// A tall track with a sticky stage. Everything is bound to scrollYProgress, so
-// scrolling up reverses the sequence exactly — there is no collapse phase.
-//   0.00 -> 0.20  hero rises from below the fold to centre
-//   0.20 -> 1.00  centre shrinks to 1x while the satellites bloom outward
-
 const COLS = 5;
 const ROWS = 3;
 const TILE_W = 134;
@@ -27,7 +22,6 @@ const GAP_Y = 75;
 
 const HERO_SCALE = 1.95;
 
-// Start positions, measured off the recording rather than derived.
 const START_X_MID = [-268, -160, 0, 160, 268];
 const START_X_OUTER = [-252, -150, 0, 150, 252];
 const START_FRAC_Y = 0.96;
@@ -43,16 +37,13 @@ const CENTER_INDEX = Math.floor((ROWS * COLS) / 2);
 
 const RISE_FROM = 0.5;
 const RISE_END = 0.2;
-// Butted against the rise and running to the very end of the track: any gap
-// on either side is scroll that moves nothing.
-const BLOOM_START = RISE_END;
+const BLOOM_START = RISE_END + 0.05;
 const BLOOM_END = 1;
 
-const landEase = cubicBezier(0.33, 1, 0.68, 1);
+const landEase = cubicBezier(0.3, 0.5, 0.6, 0.9);
 const bloomEase = cubicBezier(0.45, 0, 0.2, 1);
 const shrinkEase = cubicBezier(0.3, 0.15, 0.25, 1);
 
-// Two sizes: the hero displays at 261x351, a satellite never exceeds 134x180.
 const heroSrc = (i: number) =>
   `/playground/grid/${String(i + 1).padStart(2, "0")}.jpg`;
 const tileSrc = (i: number) =>
@@ -91,7 +82,6 @@ function TileFace({ src }: { src: string }) {
   );
 }
 
-// Each tile owns its transforms because hooks can't run in a loop in the parent.
 function Satellite({
   tile,
   bloom,
@@ -107,8 +97,7 @@ function Satellite({
   const y = useTransform(bloom, range, [tile.inY, 0]);
   const scale = useTransform(bloom, range, [tile.scale0, 1]);
 
-  // Opacity tracks RAW progress, not the eased clock — the eased curve's
-  // zero-slope start would delay the fade past the first pixels of scroll.
+  // Raw progress, not the eased clock: easing would delay the fade.
   const opacity = useTransform(
     bloomRaw,
     [0, 0.1, tile.fade1 * 0.72, tile.fade1],
@@ -147,8 +136,7 @@ function Hero({
   const y = useTransform(progress, [0, RISE_END], [STAGE_H * RISE_FROM, 0], {
     ease: landEase,
   });
-  // Laid out at full hero size and scaled DOWN, never up: browsers rasterize
-  // at layout size, so an upscaled element re-rasterizes mid-animation.
+  // Laid out at full hero size and scaled DOWN, never up — upscaling re-rasterizes.
   const scale = useTransform(
     progress,
     [BLOOM_START, BLOOM_END],
@@ -163,7 +151,6 @@ function Hero({
     <motion.div
       className={tileClass}
       style={{
-        // Centred on the tile's slot so the downscale lands exactly on it.
         left: tile.left - (heroW - TILE_W) / 2,
         top: tile.top - (heroH - TILE_H) / 2,
         width: heroW,
@@ -191,8 +178,6 @@ export function GridScroll() {
     offset: ["start start", "end end"],
   });
 
-  // Stiff on purpose: softer settings let the cards drift on after the wheel
-  // stops, and that detachment is what reads as unsmooth.
   const progress = useSpring(scrollYProgress, {
     stiffness: 260,
     damping: 36,
@@ -213,7 +198,7 @@ export function GridScroll() {
       const row = Math.floor(i / COLS);
       const dx = (col - cCol) * (TILE_W + GAP_X);
       const dy = (row - cRow) * (TILE_H + GAP_Y);
-      const cn = (col - cCol) / cCol; // -1 .. 1 across the row
+      const cn = (col - cCol) / cCol;
       const startX = (row === cRow ? START_X_MID : START_X_OUTER)[col];
 
       return {
@@ -230,12 +215,11 @@ export function GridScroll() {
     const maxR = Math.max(...list.map((t) => t.finalR));
 
     return list.map((t): Tile => {
-      const norm = t.finalR / maxR; // 0 at the centre, 1 at the corners
+      const norm = t.finalR / maxR;
       const col = t.i % COLS;
 
       return {
         ...t,
-        // Radius-ordered surge to full brightness — this is the circular reveal.
         fade1: FADE_MIN + norm * (1 - FADE_MIN),
         scale0: COL_SCALE[col],
         z: Math.round(COL_SCALE[col] * 10),
@@ -273,8 +257,6 @@ export function GridScroll() {
 
   return (
     <div className="bg-black">
-      {/* Track height sets how much scrolling the sequence takes. svh to match
-          the sticky stage — mixing units desyncs them on mobile. */}
       <section ref={trackRef} className="relative h-[400svh]">
         <div className="sticky top-0 flex h-svh items-center justify-center overflow-hidden">
           <div

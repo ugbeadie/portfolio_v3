@@ -121,6 +121,12 @@
     @apply border-border;
   }
 
+  /* Strips every fixed overlay off a playground piece so a clip can be
+     recorded clean. Set by the ?record flag, never on in normal browsing. */
+  .recording [data-chrome] {
+    display: none !important;
+  }
+
   html {
     font-size: var(--font-size);
     scroll-behavior: smooth;

@@ -53,7 +53,7 @@ export function Cursor() {
   }, [mousePosition, dotX, dotY, circleX, circleY]);
 
   return (
-    <div className="hidden md:block">
+    <div data-chrome className="hidden md:block">
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-[#20c997] rounded-full pointer-events-none z-[9999]"
         style={{

@@ -28,7 +28,10 @@ export function PieceNav({
 
   return (
     // Right padding clears the theme toggle parked in that corner.
-    <div className="fixed inset-x-0 bottom-6 z-30 flex items-end justify-between gap-4 px-6 pr-20 md:bottom-10 md:px-12 md:pr-28">
+    <div
+      data-chrome
+      className="fixed inset-x-0 bottom-6 z-30 flex items-end justify-between gap-4 px-6 pr-20 md:bottom-10 md:px-12 md:pr-28"
+    >
       <Magnetic>
         <button
           onClick={() => navigate("/playground", "Playground")}
