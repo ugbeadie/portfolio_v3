@@ -41,12 +41,10 @@ export function ExperimentCard({
   const hasHover = !useMediaQuery("(hover: none)");
   const calm = useMediaQuery("(prefers-reduced-motion: reduce)");
 
-  // Pieces that live on this site route through the curtain; anything hosted
-  // elsewhere still opens in its own tab.
+  // Internal pieces route through the curtain; external ones open in a tab.
   const isInternal = item.url.startsWith("/");
 
-  // Being on screen is enough to play. Anyone who asked for less motion has to
-  // reach for it instead — no loop starts on its own.
+  // On screen is enough to play, unless less motion was asked for.
   const playing = calm ? active : inView;
 
   // Nothing to hover with, so the copy rides the card into view instead.
@@ -65,9 +63,7 @@ export function ExperimentCard({
     return () => observer.disconnect();
   }, []);
 
-  // Buffer once the card is on screen rather than on hover. Fetching only at
-  // hover puts the whole download between the pointer arriving and the first
-  // frame; by the time anyone reaches this card, it's already ready.
+  // Buffer on approach, so hover has nothing left to wait for.
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !inView || warmed.current) return;
@@ -107,8 +103,6 @@ export function ExperimentCard({
       onBlur={() => setActive(false)}
       className="group relative block border border-border bg-card transition-colors hover:border-[#ab8bff] focus-visible:border-[#ab8bff]"
     >
-      {/* Bare white behind a clip with no still of its own, so the frames it
-          hasn't painted yet match the piece's own background. */}
       <div
         className={`relative w-full aspect-[16/10] overflow-hidden ${
           item.poster ? "bg-background" : "bg-white"
@@ -126,11 +120,18 @@ export function ExperimentCard({
             aria-hidden
             className="w-full h-full object-cover"
           />
-        ) : (
+        ) : item.poster ? (
           <div
             className="w-full h-full bg-cover bg-center"
             style={{ backgroundImage: `url(${item.poster})` }}
           />
+        ) : (
+          // Nothing recorded yet.
+          <div className="flex h-full w-full items-center justify-center bg-black px-6">
+            <span className="text-center text-[10px] uppercase tracking-[0.3em] text-white/40">
+              Preview coming
+            </span>
+          </div>
         )}
 
         <motion.span
@@ -141,7 +142,6 @@ export function ExperimentCard({
           {isInternal ? "Open" : "Try it"} <ArrowUpRight size={12} />
         </motion.span>
 
-        {/* Kept in the DOM at rest so assistive tech still reads it. */}
         <motion.div
           animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 14 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -163,8 +163,6 @@ export function ExperimentCard({
         </motion.div>
       </div>
 
-      {/* Numbered outside the image, so the grid stays readable without a
-          pointer. The blurb is still the hover's job. */}
       <div className="flex items-baseline gap-4 border-t border-border px-5 py-4">
         <span className="text-[10px] tracking-[0.25em] text-text-secondary">
           {String(index + 1).padStart(2, "0")}

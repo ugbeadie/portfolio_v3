@@ -4,11 +4,7 @@ import { motion } from "motion/react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/**
- * Holds the empty slot open so a short list reads as a run in progress rather
- * than a grid that ran out. `index` is the number the next real piece will
- * take, so the sequence stays unbroken.
- */
+// Holds the empty slot open. index is the number the next real piece takes.
 export function ComingSoonCard({ index }: { index: number }) {
   return (
     <motion.div
