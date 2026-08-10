@@ -116,6 +116,18 @@ export const projects: Project[] = [
           "A pool mid-collection. One dot per person, so where it stands reads before any number does.",
       },
       {
+        image: "/images/chip/03.png",
+        aspect: SCREEN,
+        caption:
+          "Paystack's page, not mine — which is the whole problem. The payer has been told it worked before my server has heard anything about it.",
+      },
+      {
+        image: "/images/chip/07.png",
+        aspect: SCREEN,
+        caption:
+          "Back from the checkout, before the confirmation lands. The one state that has to say clearly there's no need to pay again.",
+      },
+      {
         image: "/images/chip/04.png",
         aspect: SCREEN,
         caption:
