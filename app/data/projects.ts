@@ -21,6 +21,13 @@ export type Project = {
   repo?: string;
   live?: string;
   demoLogin?: { email: string; password: string };
+  testCard?: {
+    number: string;
+    cvv: string;
+    pin: string;
+    otp: string;
+    expiry: string;
+  };
   writeup?: { label: string; url?: string };
   hero: Shot;
   stack: string[];
@@ -37,6 +44,121 @@ export const FEATURED_COUNT = 4;
 export const projects: Project[] = [
   {
     id: 1,
+    slug: "chip",
+    title: "CHIP",
+    category: "Payments",
+    tagline:
+      "Split one thing, without the chasing. A group buys something together and everyone pays their own share from a single link.",
+    image: "/images/chip/01.png",
+    hook: "Six colleagues buy a leaving gift. One person organises it, then spends two weeks chasing the other five in a group chat.",
+    repo: "https://github.com/ugbeadie/chip",
+    live: "https://chip.ugbeadie.com",
+    testCard: {
+      number: "4084 0840 8408 4081",
+      cvv: "408",
+      pin: "0000",
+      otp: "123456",
+      expiry: "Any future date",
+    },
+    writeup: {
+      label: "Your server is the last to know",
+      url: "https://medium.com/@ugbeadie3/your-server-is-the-last-to-know-23cb546e11b7",
+    },
+    hero: {
+      image: "/images/chip/01.png",
+      video: "/videos/chip-preview.mp4",
+      speed: 2,
+      aspect: "2324 / 1080",
+      caption:
+        "A payment lands and the page confirms it on its own. Nobody touched anything.",
+    },
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Prisma",
+      "PostgreSQL",
+      "Paystack",
+    ],
+    sections: [
+      {
+        label: "What it does",
+        body: [
+          "Set a total, add the people, send one link. Everyone pays their own share by card, and the money only counts once everyone has paid.",
+          "There are no accounts anywhere. A pool is a URL: a public id in the share link, and a separate secret token in the organiser link. Holding that token is the permission to extend the deadline or cancel and refund everyone. That is the entire authorisation model.",
+          "The organiser can nudge whoever hasn't paid with a copyable message, push the deadline back, or call it off and refund everyone. If the deadline passes with people still outstanding, the pool expires and refunds itself.",
+        ],
+      },
+      {
+        label: "The hard part",
+        body: [
+          "The seconds where a payment has happened and your server has no idea.",
+          "Someone pays on Paystack's page, not yours. Their card clears, the money is real, and they get sent back to your site. For the next few seconds your database still says pending and your page still shows a Pay button next to their name.",
+          "Most payment tutorials treat that redirect as proof. It isn't. The browser can close the tab, lose signal, or simply lie. So the only thing that marks a share paid is a signed webhook arriving from Paystack's servers, out of band, retried until it's acknowledged.",
+          "That handler verifies the signature before touching anything, records the event id inside the same transaction as the state change so a retry can't double-credit, and checks the charge against its own record of both the price and the currency rather than trusting the payload.",
+        ],
+      },
+      {
+        label: "A decision I'd defend",
+        body: [
+          "One line of raw SQL, in an app otherwise entirely on the ORM.",
+          "Two people pay the last two shares within the same second. Both webhooks arrive. Each reads a pool that still shows shares outstanding, because the other hasn't committed yet. Each marks its own share paid. Neither funds the pool.",
+          "Everyone has paid and the pool never closes.",
+          '`SELECT id FROM "Pool" WHERE id = $1 FOR UPDATE`, taken before the share is updated, so the second transaction blocks until the first commits and then sees a complete picture. Prisma has no first-class row lock, so this drops below the ORM — the correct primitive for the problem rather than a workaround for a missing feature.',
+        ],
+      },
+    ],
+    gallery: [
+      {
+        image: "/images/chip/01.png",
+        aspect: SCREEN,
+        caption:
+          "A pool mid-collection. One dot per person, so where it stands reads before any number does.",
+      },
+      {
+        image: "/images/chip/04.png",
+        aspect: SCREEN,
+        caption:
+          "Every share in. The pool funds itself and says so plainly, because this is the state the whole thing exists to reach.",
+      },
+      {
+        image: "/images/chip/06.png",
+        aspect: SCREEN,
+        caption:
+          "The organiser called it off. Everyone who had paid was refunded, and the summary names the real figure and headcount rather than putting it abstractly.",
+      },
+      {
+        image: "/images/chip/05.png",
+        aspect: SCREEN,
+        caption:
+          "The deadline passed with people outstanding, so everyone who paid was refunded. The list stays visible so a payer can find their own name.",
+      },
+    ],
+    closingSections: [
+      {
+        label: "Where it stands",
+        body: [
+          "Live in Paystack test mode with the card details on the page, so you can pay a share yourself and watch it confirm.",
+          "Four demo pools stopped at different stages, including one that exists to be cancelled and restores itself a few minutes later, because the refund flow is the hardest thing here to see.",
+          "Fifty-five tests over the logic that decides things: the state machine, the money handling, and the helpers. None of them need a mock, because none of those functions touch anything.",
+        ],
+      },
+      {
+        label: "What's still missing",
+        body: [
+          "A share is marked refunded when Paystack accepts the refund, not when the money settles. Those are days apart, and the interface says the rest in words instead.",
+          "A stuck transaction is re-verified on every poll, up to about thirty calls over three and a half minutes. A checkout timestamp would let it back off.",
+          "A pool cannot exceed ₦20,000,000, because the amount is a Postgres integer. Beyond it you get a readable message rather than a driver error.",
+          "Full reasoning for all three is in the README.",
+        ],
+      },
+    ],
+    closer: [
+      "I wrote up the whole build: the races, the refund that had to happen outside a transaction, and the bug I wrote twice in two different places.",
+    ],
+  },
+  {
+    id: 2,
     slug: "warrant",
     title: "WARRANT",
     category: "Security & access",
@@ -142,7 +264,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     slug: "roomful",
     title: "ROOMFUL",
     category: "Utility",
@@ -150,9 +272,9 @@ export const projects: Project[] = [
       "Know what you own. A home inventory for insurance claims with no backend at all — everything stays saved on your device.",
     image: "/images/roomful/desktop.png",
     coverImages: [
-      "/images/roomful/01-home.jpg",
-      "/images/roomful/01-room.jpg",
-      "/images/roomful/01-capture.jpg",
+      "/images/roomful/01-home.png",
+      "/images/roomful/01-room.png",
+      "/images/roomful/01-capture.png",
     ],
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
@@ -196,11 +318,11 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: "/images/roomful/01-home.jpg",
+        image: "/images/roomful/01-home.png",
         images: [
-          "/images/roomful/01-home.jpg",
-          "/images/roomful/01-room.jpg",
-          "/images/roomful/01-capture.jpg",
+          "/images/roomful/01-home.png",
+          "/images/roomful/01-room.png",
+          "/images/roomful/01-capture.png",
         ],
         caption:
           "The phone, left to right: the house total by room, a room's items, and the capture screen whose primary button reopens the camera rather than returning to a list.",
@@ -253,7 +375,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     slug: "trackr",
     title: "TRACKR",
     category: "Productivity",
@@ -352,7 +474,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     slug: "gitburn",
     title: "GITBURN",
     category: "Entertainment",
@@ -445,7 +567,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     slug: "moneytrail",
     title: "MONEYTRAIL",
     category: "Finance",
@@ -536,7 +658,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     slug: "snapsack",
     title: "SNAPSACK",
     category: "E-commerce",
