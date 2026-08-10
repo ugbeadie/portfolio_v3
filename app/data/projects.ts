@@ -284,9 +284,9 @@ export const projects: Project[] = [
       "Know what you own. A home inventory for insurance claims with no backend at all — everything stays saved on your device.",
     image: "/images/roomful/desktop.png",
     coverImages: [
-      "/images/roomful/01-home.png",
-      "/images/roomful/01-room.png",
-      "/images/roomful/01-capture.png",
+      "/images/roomful/01-home.jpg",
+      "/images/roomful/01-room.jpg",
+      "/images/roomful/01-capture.jpg",
     ],
     hook: "If your place burned down tomorrow, could you tell your insurer what was in it? Almost nobody can.",
     repo: "https://github.com/ugbeadie/roomful",
@@ -330,11 +330,11 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        image: "/images/roomful/01-home.png",
+        image: "/images/roomful/01-home.jpg",
         images: [
-          "/images/roomful/01-home.png",
-          "/images/roomful/01-room.png",
-          "/images/roomful/01-capture.png",
+          "/images/roomful/01-home.jpg",
+          "/images/roomful/01-room.jpg",
+          "/images/roomful/01-capture.jpg",
         ],
         caption:
           "The phone, left to right: the house total by room, a room's items, and the capture screen whose primary button reopens the camera rather than returning to a list.",
