@@ -74,6 +74,32 @@ function DemoLogin({ project }: { project: Project }) {
   );
 }
 
+function TestCard({ project }: { project: Project }) {
+  if (!project.testCard) return null;
+
+  const { number, cvv, pin, otp, expiry } = project.testCard;
+  const label = "uppercase tracking-[0.2em] text-[10px]";
+
+  return (
+    <p className="mt-6 inline-flex flex-wrap items-center gap-x-3 gap-y-1 border border-border bg-card px-5 py-3 text-xs md:text-sm text-text-secondary">
+      <span className={label}>Test card</span>
+      <code className="font-mono text-text">{number}</code>
+      {[
+        ["CVV", cvv],
+        ["PIN", pin],
+        ["OTP", otp],
+        ["Expiry", expiry],
+      ].map(([name, value]) => (
+        <span key={name} className="inline-flex items-center gap-2">
+          <span aria-hidden>·</span>
+          <span className={label}>{name}</span>
+          <code className="font-mono text-text">{value}</code>
+        </span>
+      ))}
+    </p>
+  );
+}
+
 /** The write-up leads the closer; the header only ever gets demo and code. */
 function LinkRow({
   project,
@@ -355,6 +381,7 @@ export function ProjectDetail({
             <LinkRow project={project} />
 
             <DemoLogin project={project} />
+            <TestCard project={project} />
           </motion.div>
         </header>
 
@@ -432,6 +459,7 @@ export function ProjectDetail({
           <div className={project.closer?.length ? "mt-10" : undefined}>
             <LinkRow project={project} withWriteup />
             <DemoLogin project={project} />
+            <TestCard project={project} />
           </div>
         </Reveal>
 
