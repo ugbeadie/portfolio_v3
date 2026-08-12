@@ -279,10 +279,10 @@ export function About() {
                 className="text-lg md:text-xl text-text leading-relaxed"
               >
                 My journey into software development started with curiosity and
-                quickly grew into a passion for building intuitive,
+                grew into a real passion for building intuitive,
                 high-performance applications. I enjoy turning ideas into
-                polished digital experiences for users while constantly
-                improving my problem-solving and development skills.
+                polished digital experiences while constantly sharpening my
+                problem-solving and development skills.
               </motion.p>
 
               <motion.p
@@ -293,15 +293,15 @@ export function About() {
                 className="text-base"
               >
                 I started on the frontend, but a good deal of my time since has
-                gone into the backend and most of what I build now I build end
-                to end. What I&rsquo;m looking into next is DevOps: how a thing
-                gets built, deployed and kept running once the code is written.
-                I&rsquo;ve stepped back from Python for the moment, though I
-                fully intend to come back to it for data science and AI
-                engineering. Alongside that, I keep refining my mobile
-                development skills and picking up whatever the next project asks
-                for — I learn fast, and getting my hands on something I
-                haven&rsquo;t used before is the part of this work I enjoy most.
+                gone into the backend, and most of what I build now, I build end
+                to end. What I'm looking into next is DevOps — how a thing gets
+                built, deployed, and kept running once the code is written. I've
+                stepped back from Python for the moment, though I fully intend
+                to come back to it for data science and AI engineering.
+                Alongside that, I keep refining my mobile development skills and
+                picking up whatever the next project asks for. Getting my hands
+                on something I haven't used before is the part of this work I
+                enjoy most.
               </motion.p>
 
               <motion.p
@@ -311,15 +311,11 @@ export function About() {
                 transition={{ delay: 0.3 }}
                 className="text-base"
               >
-                Away from the editor, I&rsquo;m at the gym daily for strength
-                and core work, with the occasional outdoor run thrown in, and I
-                read up on tech trends and developer breakthroughs on daily.dev
-                most days. When it&rsquo;s time to properly unwind, it&rsquo;s
-                anime. Music is less optional — there&rsquo;s almost always
-                something playing, and it&rsquo;s an absolute necessity for a
-                coding session. And I&rsquo;m seriously dedicated to mastering
-                French, actively pushing toward fluency (
-                <span className="italic">petit à petit !</span>)
+                Away from the editor, I'm at the gym daily, and there's almost
+                always music playing while I code. When I want to properly
+                unwind, it's anime, and I read up on tech trends on daily.dev
+                most days. I'm also chipping away at French, pushing toward
+                fluency, (<span className="italic">petit à petit !</span>)
               </motion.p>
             </div>
 
