@@ -15,6 +15,10 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
   const open = () => navigate(href, project.title);
 
+  // Rows alternate sides, so pin the labels to whichever edge faces the
+  // copy. Single column below lg, where there is no inner edge.
+  const labelSide = isEven ? "left-6 lg:left-auto lg:right-6" : "left-6";
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
       <motion.a
@@ -53,13 +57,13 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
         <div className="absolute inset-0 bg-foreground/20 group-hover:bg-transparent transition-all duration-500" />
 
-        <div className="absolute top-6 left-6 hidden lg:block">
+        <div className={`absolute top-6 hidden lg:block ${labelSide}`}>
           <div className="px-4 py-2 border border-border bg-background/80 backdrop-blur-md text-[10px] tracking-[0.25em] uppercase text-text-secondary transition-opacity duration-500 group-hover:opacity-0">
             Hover me
           </div>
         </div>
 
-        <div className="absolute bottom-6 left-6 overflow-hidden">
+        <div className={`absolute bottom-6 overflow-hidden ${labelSide}`}>
           <div
             className="px-5 py-2 border border-border bg-background/80 backdrop-blur-md
             text-[10px] tracking-[0.25em] uppercase text-text transition-all duration-500 ease-out

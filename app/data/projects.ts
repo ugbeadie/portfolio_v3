@@ -393,7 +393,7 @@ export const projects: Project[] = [
     category: "Productivity",
     tagline:
       "Paste a job link and AI fills the card for you. Every application then lives on a drag-and-drop board.",
-    image: "/images/trackr/board.png",
+    image: "/images/trackr/landing-page.png",
     hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
     repo: "https://github.com/ugbeadie/billr",
     live: "https://trackr.ugbeadie.com/",
