@@ -20,6 +20,7 @@ export type Project = {
   hook: string;
   repo?: string;
   live?: string;
+  liveNotice?: string; // temp, see warrant
   demoLogin?: { email: string; password: string };
   testCard?: {
     number: string;
@@ -180,6 +181,9 @@ export const projects: Project[] = [
     hook: "Access gets granted once and never revoked. Someone needs admin for a one-off migration and still has it eighteen months later.",
     repo: "https://github.com/ugbeadie/warrant",
     live: "https://warrant.ugbeadie.com",
+    // TODO: drop this 1 Sept when warrant is back. Nothing else to undo.
+    liveNotice:
+      "The hosted demo is offline until 1 September while the database's compute allowance resets. A background job was keeping it permanently awake, which is now fixed. The video and write-up below are unaffected.",
     demoLogin: { email: "admin@warrant.dev", password: "admin12345" },
     writeup: {
       label: "Why I built a system that forgets",

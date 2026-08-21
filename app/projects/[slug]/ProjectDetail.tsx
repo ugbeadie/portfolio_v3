@@ -9,6 +9,7 @@ import {
   FileText,
   Maximize2,
   Play,
+  TriangleAlert, // temp
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { Magnetic } from "../../components/ui/Magnetic";
@@ -100,6 +101,19 @@ function TestCard({ project }: { project: Project }) {
   );
 }
 
+// temp: flags a dead demo before anyone clicks it. Renders nothing without
+// a liveNotice.
+function LiveNotice({ project }: { project: Project }) {
+  if (!project.liveNotice) return null;
+
+  return (
+    <p className="mb-6 flex max-w-2xl items-start gap-3 border border-amber-500/40 bg-amber-500/10 px-5 py-3 text-xs md:text-sm leading-relaxed text-text">
+      <TriangleAlert size={16} className="mt-0.5 shrink-0 text-amber-500" />
+      <span>{project.liveNotice}</span>
+    </p>
+  );
+}
+
 /** The write-up leads the closer; the header only ever gets demo and code. */
 function LinkRow({
   project,
@@ -142,15 +156,25 @@ function LinkRow({
             </span>
           </span>
         ))}
+      {/* dashed + Offline tag only while liveNotice is set */}
       {project.live && (
         <Magnetic>
           <a
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-8 h-14 border border-border hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white transition-all uppercase text-xs tracking-widest font-bold"
+            className={`flex items-center gap-3 px-8 h-14 border transition-all uppercase text-xs tracking-widest font-bold hover:bg-[#ab8bff] hover:border-[#ab8bff] hover:text-white ${
+              project.liveNotice
+                ? "border-dashed border-border text-text-secondary"
+                : "border-border"
+            }`}
           >
             Live demo <ExternalLink size={18} />
+            {project.liveNotice && (
+              <span className="text-[9px] tracking-[0.25em] border border-border px-2 py-1">
+                Offline
+              </span>
+            )}
           </a>
         </Magnetic>
       )}
@@ -378,6 +402,7 @@ export function ProjectDetail({
             transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
             className="mt-10"
           >
+            <LiveNotice project={project} />
             <LinkRow project={project} />
 
             <DemoLogin project={project} />
@@ -457,6 +482,7 @@ export function ProjectDetail({
             </div>
           )}
           <div className={project.closer?.length ? "mt-10" : undefined}>
+            <LiveNotice project={project} />
             <LinkRow project={project} withWriteup />
             <DemoLogin project={project} />
             <TestCard project={project} />
