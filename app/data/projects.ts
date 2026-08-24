@@ -45,6 +45,122 @@ export const FEATURED_COUNT = 4;
 export const projects: Project[] = [
   {
     id: 1,
+    slug: "trackr",
+    title: "TRACKR",
+    category: "Productivity",
+    tagline:
+      "Capture a job from the posting itself. A Chrome extension reads the page, or paste a link and AI fills the card — either way it lands on a drag-and-drop board.",
+    image: "/images/trackr/landing-page.png",
+    hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
+    repo: "https://github.com/ugbeadie/billr",
+    live: "https://trackr.ugbeadie.com/",
+    hero: {
+      image: "/images/trackr/board.png",
+      video: "/videos/trackr-preview.mp4",
+      speed: 2,
+      aspect: "2336 / 1080",
+      caption: "The board. Every application you have open, in one screen.",
+    },
+    stack: [
+      "Next.js",
+      "Tailwind",
+      "Framer Motion",
+      "PostgreSQL",
+      "Drizzle",
+      "OpenRouter API",
+      "Chrome MV3",
+    ],
+    sections: [
+      {
+        label: "What it does",
+        body: [
+          "Every job you apply to becomes a card on a Kanban board, and you drag it between Applied, Interviewing, Offer and Rejected as things move. Interview dates and notes live on the card, so the follow-up you promised is attached to the thing it's about rather than sitting in a separate reminder.",
+          "Adding a job is a paste. Drop in a posting link or the description text and the fields come back filled: company, role, salary, location, job type, remote or onsite, etc. Typing all of that out by hand is exactly the friction that kills a tracking habit.",
+          "The dashboard is the part you open on a bad week. Application volume over time, a status breakdown, and a GitHub-style activity graph that makes a quiet fortnight visible without you having to count anything.",
+        ],
+      },
+      {
+        label: "The extension",
+        body: [
+          "Adding a job is still typing, and typing is what kills the habit. So there's a Chrome extension: open a posting, click the icon, and the role, company, location, salary, job type and description come back read off the page. One click files it on the board, in whichever column you choose.",
+          "It reads JSON-LD JobPosting first — the structured data most boards already publish — which is why Greenhouse, Lever, Workable, Ashby, Workday and most company career pages work without anyone having hand-coded them. LinkedIn, Indeed and Glassdoor get tuned selectors on top, plus a class-agnostic backstop that finds the heading and reads the block around it, because LinkedIn rotates its class names.",
+          "The rule throughout is degrade, never dead-end. A page with nothing to read gives you an editable blank form. A selector that misses leaves a field empty rather than filling it with page furniture. A content script that never answers times out and the popup carries on. It rides your existing Trackr session cookie, so there's no second login and no token sitting in browser storage.",
+        ],
+        media: {
+          image: "/images/trackr/extension.jpg",
+          video: "/videos/trackr-extension.mp4",
+          aspect: "2128 / 1080",
+          caption:
+            "Saving a job from an Indeed posting without leaving it. Real time, start to finish: read the page, check the fields, pick a column. Nothing is written until you do.",
+        },
+      },
+      {
+        label: "The hard part",
+        body: [
+          "Turning a job posting into structured fields, when a job posting is whatever a company felt like writing that day.",
+          "There's no schema out there to lean on. Salary might be a range, a single number, an hourly rate, or absent. Location might be a city, three cities, or a sentence about hybrid arrangements. So the extraction is a language model call with a strict output shape, and every field is allowed to come back empty.",
+          "Empty is the important part. A model asked for a salary will invent one rather than admit it doesn't know, and a plausible wrong number is worse than a blank you'd have filled in yourself.",
+        ],
+      },
+      {
+        label: "A decision I'd defend",
+        body: [
+          "The AI fills the form. It never submits it.",
+          "Extraction lands in an editable draft that you look at before anything is written to the database. It costs a click on every single add, which is real friction on the most common action in the app.",
+          "The alternative is silent writes, and the failure mode there is a board quietly full of wrong salaries and mislabelled companies — data you now trust less than the spreadsheet you left. A tracker is only worth keeping if you believe what it tells you.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        image: "/images/trackr/board.png",
+        aspect: SCREEN,
+        caption:
+          "The board mid-drag. Status is a position rather than a dropdown, so moving a job forward is the same gesture as thinking about it.",
+      },
+      {
+        image: "/images/trackr/autofill.png",
+        aspect: SCREEN,
+        caption:
+          "Autofill from a pasted link. Extraction lands in a draft with every field still editable, and nothing reaches the database until you confirm it.",
+      },
+      {
+        image: "/images/trackr/job-details.png",
+        aspect: SCREEN,
+        caption:
+          "A card opened. Salary reads “Not specified” instead of a plausible invented number — every extracted field is allowed to come back empty.",
+      },
+      {
+        image: "/images/trackr/dashboard.png",
+        aspect: SCREEN,
+        caption:
+          "The dashboard. Volume, conversion rates and a status breakdown, with the application-frequency graph below — the screen you open on a bad week.",
+      },
+    ],
+    closingSections: [
+      {
+        label: "Where it stands",
+        body: [
+          "Live, with accounts, protected routes and per-user data isolation, so your board is yours.",
+          "Board, interview notes, dashboard and AI autofill are all shipped and in use.",
+        ],
+      },
+      {
+        label: "What's still missing",
+        body: [
+          "Nothing reminds you about an interview; the date is stored but no notification is sent, so the calendar in your head is still doing the work.",
+          "Résumé versions aren't attached per application, so which CV went where isn't recorded.",
+          "And extraction quality tracks the posting. A well-structured listing fills cleanly; a PDF-flavoured wall of text does not.",
+          "The extension isn't on the Chrome Web Store, so trying it means loading it unpacked from the repo — fine for a look, not for anyone's daily use.",
+        ],
+      },
+    ],
+    closer: [
+      "Paste a job link into the demo and watch the fields fill themselves, then change one before you save it. That editable step is the whole argument, and it's easier to believe once you've used it.",
+    ],
+  },
+  {
+    id: 2,
     slug: "chip",
     title: "CHIP",
     category: "Payments",
@@ -170,115 +286,7 @@ export const projects: Project[] = [
       "I wrote up the whole build: the races, the refund that had to happen outside a transaction, and the bug I wrote twice in two different places.",
     ],
   },
-  {
-    id: 2,
-    slug: "warrant",
-    title: "WARRANT",
-    category: "Security & access",
-    tagline:
-      "Borrow access, not own access. A permissions system where every grant expires by default and can explain itself.",
-    image: "/images/warrant/audit-log.png",
-    hook: "Access gets granted once and never revoked. Someone needs admin for a one-off migration and still has it eighteen months later.",
-    repo: "https://github.com/ugbeadie/warrant",
-    live: "https://warrant.ugbeadie.com",
-    // TODO: drop this 1 Sept when warrant is back. Nothing else to undo.
-    liveNotice:
-      "The hosted demo is offline until 1 September while the database's compute allowance resets. A background job was keeping it permanently awake, which is now fixed. The video and write-up below are unaffected.",
-    demoLogin: { email: "admin@warrant.dev", password: "admin12345" },
-    writeup: {
-      label: "Why I built a system that forgets",
-      url: "https://medium.com/@ugbeadie3/why-i-built-a-system-that-forgets-acab773178c1",
-    },
-    hero: {
-      image: "/images/warrant/access-trace.png",
-      video: "/videos/warrant-preview.mp4",
-      speed: 2,
-      aspect: "2324 / 1080",
-      caption: "Every access decision comes back as a sentence, not a boolean.",
-    },
-    stack: [
-      "React",
-      "TypeScript",
-      "Tailwind",
-      "Node",
-      "Express",
-      "PostgreSQL",
-      "Prisma",
-    ],
-    sections: [
-      {
-        label: "What it does",
-        body: [
-          "Borrow access, not own access. Every grant expires by default, whether it was given to a person directly or inherited through a group. If you still need it when it runs out, you ask again.",
-          "Users request a role on a resource with a reason and a duration. Owners approve manually, or set policy rules that auto-approve low-risk requests within a role ceiling. A background job sweeps expired access and flags grants nobody has used in days.",
-          "And for any user and resource, the system explains exactly why they do or don't have access: a direct grant, an inherited group grant, or nothing at all.",
-        ],
-      },
-      {
-        label: "The hard part",
-        body: [
-          "An access check that can't trust its own data.",
-          "A cron job sweeps expired grants on a schedule, which means there's always a window between a grant's real expiry and the next run. If access decisions read the cached status field, they'd wrongly grant access inside that window.",
-          "So every check re-derives validity from the timestamp, live, every time. The cron job's job is narrower than I first assumed: flip status, write the audit entry, send the notification. It's the janitor, not the source of truth.",
-          "That distinction reshaped how I thought about every background process in the system afterwards.",
-        ],
-      },
-      {
-        label: "A decision I'd defend",
-        body: [
-          "PostgreSQL over MongoDB. Access control is inherently relational. Grants reference resources, roles, users and groups, and the correctness of the whole system depends on those relationships actually being enforced.",
-          "Postgres gives real foreign keys and referential integrity, and Prisma's `include` performs actual SQL joins rather than the multiple round trips `.populate()` needs in Mongoose. For a system whose entire premise is reasoning correctly about who has access to what, that mattered more than familiarity.",
-        ],
-      },
-    ],
-    gallery: [
-      {
-        image: "/images/warrant/access-trace.png",
-        aspect: SCREEN,
-        caption:
-          "The why panel. Traces access to its source, and says what's missing when it's denied.",
-      },
-      {
-        image: "/images/warrant/approvals-queue.png",
-        aspect: SCREEN,
-        caption:
-          "Approvals queue. Owners decide requests for their own resources; admins can see every pending request platform-wide.",
-      },
-      {
-        image: "/images/warrant/audit-log.png",
-        aspect: SCREEN,
-        caption:
-          "Audit log. Distinct actions, so a policy auto-approval never looks like a human decision.",
-      },
-      {
-        image: "/images/warrant/policy-rule.png",
-        aspect: SCREEN,
-        caption:
-          "Policy rule editor. Auto-approval is capped by role tier, so “auto-approve viewer” can never become “auto-approve admin”.",
-      },
-    ],
-    closingSections: [
-      {
-        label: "Where it stands",
-        body: [
-          "Shipped and live with a public demo login, so you can see the whole system rather than a scoped-down guest view.",
-          "Distinct audit actions covering every way access can begin, change hands or end. Requests must escalate rather than duplicate, and a higher grant supersedes lower ones automatically.",
-        ],
-      },
-      {
-        label: "What's still missing",
-        body: [
-          "Auto-approval caps the role but not the cumulative duration, so someone could split one long access need into several short auto-approved requests to avoid manual review.",
-          "The group branch of the access check runs one query per group the user belongs to. It's an N+1 that hasn't mattered at this scale and would need collapsing at any other.",
-          "Surrendering a group grant writes an audit entry but notifies nobody, so members lose access without being told.",
-          "Full reasoning for all three is in the README.",
-        ],
-      },
-    ],
-    closer: [
-      "I wrote up the whole build: the design decisions, the bugs that actually taught me something, and what I'd do differently.",
-    ],
-  },
+
   {
     id: 3,
     slug: "roomful",
@@ -392,120 +400,114 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    slug: "trackr",
-    title: "TRACKR",
-    category: "Productivity",
+    slug: "warrant",
+    title: "WARRANT",
+    category: "Security & access",
     tagline:
-      "Capture a job from the posting itself. A Chrome extension reads the page, or paste a link and AI fills the card — either way it lands on a drag-and-drop board.",
-    image: "/images/trackr/landing-page.png",
-    hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
-    repo: "https://github.com/ugbeadie/billr",
-    live: "https://trackr.ugbeadie.com/",
+      "Borrow access, not own access. A permissions system where every grant expires by default and can explain itself.",
+    image: "/images/warrant/audit-log.png",
+    hook: "Access gets granted once and never revoked. Someone needs admin for a one-off migration and still has it eighteen months later.",
+    repo: "https://github.com/ugbeadie/warrant",
+    live: "https://warrant.ugbeadie.com",
+    // TODO: drop this 1 Sept when warrant is back. Nothing else to undo.
+    liveNotice:
+      "The hosted demo is offline until 1 September while the database's compute allowance resets. A background job was keeping it permanently awake, which is now fixed. The video and write-up below are unaffected.",
+    demoLogin: { email: "admin@warrant.dev", password: "admin12345" },
+    writeup: {
+      label: "Why I built a system that forgets",
+      url: "https://medium.com/@ugbeadie3/why-i-built-a-system-that-forgets-acab773178c1",
+    },
     hero: {
-      image: "/images/trackr/board.png",
-      video: "/videos/trackr-preview.mp4",
+      image: "/images/warrant/access-trace.png",
+      video: "/videos/warrant-preview.mp4",
       speed: 2,
-      aspect: "2336 / 1080",
-      caption: "The board. Every application you have open, in one screen.",
+      aspect: "2324 / 1080",
+      caption: "Every access decision comes back as a sentence, not a boolean.",
     },
     stack: [
-      "Next.js",
+      "React",
+      "TypeScript",
       "Tailwind",
-      "Framer Motion",
+      "Node",
+      "Express",
       "PostgreSQL",
-      "Drizzle",
-      "OpenRouter API",
-      "Chrome MV3",
+      "Prisma",
     ],
     sections: [
       {
         label: "What it does",
         body: [
-          "Every job you apply to becomes a card on a Kanban board, and you drag it between Applied, Interviewing, Offer and Rejected as things move. Interview dates and notes live on the card, so the follow-up you promised is attached to the thing it's about rather than sitting in a separate reminder.",
-          "Adding a job is a paste. Drop in a posting link or the description text and the fields come back filled: company, role, salary, location, job type, remote or onsite, etc. Typing all of that out by hand is exactly the friction that kills a tracking habit.",
-          "The dashboard is the part you open on a bad week. Application volume over time, a status breakdown, and a GitHub-style activity graph that makes a quiet fortnight visible without you having to count anything.",
+          "Borrow access, not own access. Every grant expires by default, whether it was given to a person directly or inherited through a group. If you still need it when it runs out, you ask again.",
+          "Users request a role on a resource with a reason and a duration. Owners approve manually, or set policy rules that auto-approve low-risk requests within a role ceiling. A background job sweeps expired access and flags grants nobody has used in days.",
+          "And for any user and resource, the system explains exactly why they do or don't have access: a direct grant, an inherited group grant, or nothing at all.",
         ],
-      },
-      {
-        label: "The extension",
-        body: [
-          "Adding a job is still typing, and typing is what kills the habit. So there's a Chrome extension: open a posting, click the icon, and the role, company, location, salary, job type and description come back read off the page. One click files it on the board, in whichever column you choose.",
-          "It reads JSON-LD JobPosting first — the structured data most boards already publish — which is why Greenhouse, Lever, Workable, Ashby, Workday and most company career pages work without anyone having hand-coded them. LinkedIn, Indeed and Glassdoor get tuned selectors on top, plus a class-agnostic backstop that finds the heading and reads the block around it, because LinkedIn rotates its class names.",
-          "The rule throughout is degrade, never dead-end. A page with nothing to read gives you an editable blank form. A selector that misses leaves a field empty rather than filling it with page furniture. A content script that never answers times out and the popup carries on. It rides your existing Trackr session cookie, so there's no second login and no token sitting in browser storage.",
-        ],
-        media: {
-          image: "/images/trackr/extension.jpg",
-          video: "/videos/trackr-extension.mp4",
-          aspect: "2128 / 1080",
-          caption:
-            "Saving a job from an Indeed posting without leaving it. Real time, start to finish: read the page, check the fields, pick a column. Nothing is written until you do.",
-        },
       },
       {
         label: "The hard part",
         body: [
-          "Turning a job posting into structured fields, when a job posting is whatever a company felt like writing that day.",
-          "There's no schema out there to lean on. Salary might be a range, a single number, an hourly rate, or absent. Location might be a city, three cities, or a sentence about hybrid arrangements. So the extraction is a language model call with a strict output shape, and every field is allowed to come back empty.",
-          "Empty is the important part. A model asked for a salary will invent one rather than admit it doesn't know, and a plausible wrong number is worse than a blank you'd have filled in yourself.",
+          "An access check that can't trust its own data.",
+          "A cron job sweeps expired grants on a schedule, which means there's always a window between a grant's real expiry and the next run. If access decisions read the cached status field, they'd wrongly grant access inside that window.",
+          "So every check re-derives validity from the timestamp, live, every time. The cron job's job is narrower than I first assumed: flip status, write the audit entry, send the notification. It's the janitor, not the source of truth.",
+          "That distinction reshaped how I thought about every background process in the system afterwards.",
         ],
       },
       {
         label: "A decision I'd defend",
         body: [
-          "The AI fills the form. It never submits it.",
-          "Extraction lands in an editable draft that you look at before anything is written to the database. It costs a click on every single add, which is real friction on the most common action in the app.",
-          "The alternative is silent writes, and the failure mode there is a board quietly full of wrong salaries and mislabelled companies — data you now trust less than the spreadsheet you left. A tracker is only worth keeping if you believe what it tells you.",
+          "PostgreSQL over MongoDB. Access control is inherently relational. Grants reference resources, roles, users and groups, and the correctness of the whole system depends on those relationships actually being enforced.",
+          "Postgres gives real foreign keys and referential integrity, and Prisma's `include` performs actual SQL joins rather than the multiple round trips `.populate()` needs in Mongoose. For a system whose entire premise is reasoning correctly about who has access to what, that mattered more than familiarity.",
         ],
       },
     ],
     gallery: [
       {
-        image: "/images/trackr/board.png",
+        image: "/images/warrant/access-trace.png",
         aspect: SCREEN,
         caption:
-          "The board mid-drag. Status is a position rather than a dropdown, so moving a job forward is the same gesture as thinking about it.",
+          "The why panel. Traces access to its source, and says what's missing when it's denied.",
       },
       {
-        image: "/images/trackr/autofill.png",
+        image: "/images/warrant/approvals-queue.png",
         aspect: SCREEN,
         caption:
-          "Autofill from a pasted link. Extraction lands in a draft with every field still editable, and nothing reaches the database until you confirm it.",
+          "Approvals queue. Owners decide requests for their own resources; admins can see every pending request platform-wide.",
       },
       {
-        image: "/images/trackr/job-details.png",
+        image: "/images/warrant/audit-log.png",
         aspect: SCREEN,
         caption:
-          "A card opened. Salary reads “Not specified” instead of a plausible invented number — every extracted field is allowed to come back empty.",
+          "Audit log. Distinct actions, so a policy auto-approval never looks like a human decision.",
       },
       {
-        image: "/images/trackr/dashboard.png",
+        image: "/images/warrant/policy-rule.png",
         aspect: SCREEN,
         caption:
-          "The dashboard. Volume, conversion rates and a status breakdown, with the application-frequency graph below — the screen you open on a bad week.",
+          "Policy rule editor. Auto-approval is capped by role tier, so “auto-approve viewer” can never become “auto-approve admin”.",
       },
     ],
     closingSections: [
       {
         label: "Where it stands",
         body: [
-          "Live, with accounts, protected routes and per-user data isolation, so your board is yours.",
-          "Board, interview notes, dashboard and AI autofill are all shipped and in use.",
+          "Shipped and live with a public demo login, so you can see the whole system rather than a scoped-down guest view.",
+          "Distinct audit actions covering every way access can begin, change hands or end. Requests must escalate rather than duplicate, and a higher grant supersedes lower ones automatically.",
         ],
       },
       {
         label: "What's still missing",
         body: [
-          "Nothing reminds you about an interview; the date is stored but no notification is sent, so the calendar in your head is still doing the work.",
-          "Résumé versions aren't attached per application, so which CV went where isn't recorded.",
-          "And extraction quality tracks the posting. A well-structured listing fills cleanly; a PDF-flavoured wall of text does not.",
-          "The extension isn't on the Chrome Web Store, so trying it means loading it unpacked from the repo — fine for a look, not for anyone's daily use.",
+          "Auto-approval caps the role but not the cumulative duration, so someone could split one long access need into several short auto-approved requests to avoid manual review.",
+          "The group branch of the access check runs one query per group the user belongs to. It's an N+1 that hasn't mattered at this scale and would need collapsing at any other.",
+          "Surrendering a group grant writes an audit entry but notifies nobody, so members lose access without being told.",
+          "Full reasoning for all three is in the README.",
         ],
       },
     ],
     closer: [
-      "Paste a job link into the demo and watch the fields fill themselves, then change one before you save it. That editable step is the whole argument, and it's easier to believe once you've used it.",
+      "I wrote up the whole build: the design decisions, the bugs that actually taught me something, and what I'd do differently.",
     ],
   },
+
   {
     id: 5,
     slug: "gitburn",
