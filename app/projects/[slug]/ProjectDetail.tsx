@@ -57,6 +57,11 @@ function SectionBlock({ section }: { section: Section }) {
             {paragraph}
           </p>
         ))}
+        {section.media && (
+          <div className="pt-2">
+            <Figure shot={section.media} />
+          </div>
+        )}
       </div>
     </Reveal>
   );

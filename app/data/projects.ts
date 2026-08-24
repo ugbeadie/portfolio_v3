@@ -7,7 +7,7 @@ export type Shot = {
   aspect?: string;
 };
 
-export type Section = { label: string; body: string[] };
+export type Section = { label: string; body: string[]; media?: Shot };
 
 export type Project = {
   id: number;
@@ -396,7 +396,7 @@ export const projects: Project[] = [
     title: "TRACKR",
     category: "Productivity",
     tagline:
-      "Paste a job link and AI fills the card for you. Every application then lives on a drag-and-drop board.",
+      "Capture a job from the posting itself. A Chrome extension reads the page, or paste a link and AI fills the card — either way it lands on a drag-and-drop board.",
     image: "/images/trackr/landing-page.png",
     hook: "Most job hunts are tracked in a spreadsheet that stops being updated somewhere around week three.",
     repo: "https://github.com/ugbeadie/billr",
@@ -415,6 +415,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Drizzle",
       "OpenRouter API",
+      "Chrome MV3",
     ],
     sections: [
       {
@@ -424,6 +425,21 @@ export const projects: Project[] = [
           "Adding a job is a paste. Drop in a posting link or the description text and the fields come back filled: company, role, salary, location, job type, remote or onsite, etc. Typing all of that out by hand is exactly the friction that kills a tracking habit.",
           "The dashboard is the part you open on a bad week. Application volume over time, a status breakdown, and a GitHub-style activity graph that makes a quiet fortnight visible without you having to count anything.",
         ],
+      },
+      {
+        label: "The extension",
+        body: [
+          "Adding a job is still typing, and typing is what kills the habit. So there's a Chrome extension: open a posting, click the icon, and the role, company, location, salary, job type and description come back read off the page. One click files it on the board, in whichever column you choose.",
+          "It reads JSON-LD JobPosting first — the structured data most boards already publish — which is why Greenhouse, Lever, Workable, Ashby, Workday and most company career pages work without anyone having hand-coded them. LinkedIn, Indeed and Glassdoor get tuned selectors on top, plus a class-agnostic backstop that finds the heading and reads the block around it, because LinkedIn rotates its class names.",
+          "The rule throughout is degrade, never dead-end. A page with nothing to read gives you an editable blank form. A selector that misses leaves a field empty rather than filling it with page furniture. A content script that never answers times out and the popup carries on. It rides your existing Trackr session cookie, so there's no second login and no token sitting in browser storage.",
+        ],
+        media: {
+          image: "/images/trackr/extension.jpg",
+          video: "/videos/trackr-extension.mp4",
+          aspect: "2128 / 1080",
+          caption:
+            "Saving a job from an Indeed posting without leaving it. Real time, start to finish: read the page, check the fields, pick a column. Nothing is written until you do.",
+        },
       },
       {
         label: "The hard part",
@@ -482,6 +498,7 @@ export const projects: Project[] = [
           "Nothing reminds you about an interview; the date is stored but no notification is sent, so the calendar in your head is still doing the work.",
           "Résumé versions aren't attached per application, so which CV went where isn't recorded.",
           "And extraction quality tracks the posting. A well-structured listing fills cleanly; a PDF-flavoured wall of text does not.",
+          "The extension isn't on the Chrome Web Store, so trying it means loading it unpacked from the repo — fine for a look, not for anyone's daily use.",
         ],
       },
     ],
