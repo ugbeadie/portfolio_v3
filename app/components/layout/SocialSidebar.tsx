@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { FaGithub, FaLinkedinIn, FaXTwitter, FaFilePdf } from "react-icons/fa6";
 
 export const RESUME_URL =
-  "https://drive.google.com/file/d/1SVBDU5ZG388vOpLqBut_ac4EsOqA6_Fk/view?usp=sharing";
+  "https://drive.google.com/file/d/1MUslg8IHslI6Ne1cVH-Djo1at6RE33ex/view?usp=sharing";
 
 export const socials = [
   {
