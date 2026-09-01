@@ -411,7 +411,7 @@ export const projects: Project[] = [
     live: "https://warrant.ugbeadie.com",
     // TODO: drop this 1 Sept when warrant is back. Nothing else to undo.
     liveNotice:
-      "The hosted demo is offline until 1 September while the database's compute allowance resets. A background job was keeping it permanently awake, which is now fixed. The video and write-up below are unaffected.",
+      "The hosted demo is offline until the database's compute allowance resets. A background job was keeping it permanently awake, which is now fixed. The video and write-up below are unaffected.",
     demoLogin: { email: "admin@warrant.dev", password: "admin12345" },
     writeup: {
       label: "Why I built a system that forgets",
