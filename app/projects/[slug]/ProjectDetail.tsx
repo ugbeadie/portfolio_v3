@@ -9,7 +9,7 @@ import {
   FileText,
   Maximize2,
   Play,
-  TriangleAlert, // temp
+  TriangleAlert,
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { Magnetic } from "../../components/ui/Magnetic";
@@ -106,8 +106,7 @@ function TestCard({ project }: { project: Project }) {
   );
 }
 
-// temp: flags a dead demo before anyone clicks it. Renders nothing without
-// a liveNotice.
+// Flags a dead demo before anyone clicks it. Renders nothing without one.
 function LiveNotice({ project }: { project: Project }) {
   if (!project.liveNotice) return null;
 
